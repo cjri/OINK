@@ -1,0 +1,67 @@
+The OINK code carries out bootstrapping calculations, simulating epidemics under a variety of model parameters.
+
+Basic idea:
+
+The code takes as input a set of data, which describe the number of cases of an outbreak detected, and the days on which they were detected, beginning with day 0 for the first detected case.  The code then runs a large number of simulations of outbreaks at different R0 values.  Each simulation involves the simulated detection of cases.  
+
+Simultations are evaluated k days after the last detected case.  Multiple values of k may be tested in a single run: The values to be tested are specified in a separate file.  Simulations which match the data in terms of the numbers of detected cases are retained.  Note that simulations which are accepted for small k may not be accepted for larger k: If a simulation matches the data, but then has an additional case detected 5 days after the last time of the input data, this simulation will be accepted at k=4, but not at k=6.
+
+For retained simulations a variety of evaluations are made.  How many individuals are infected at time k, and what is the probability the outbreak has died out by this point?  What is the distributions for the time of the initial case of infection given k and the data?  The acceptance rate for different values R0 may be used to construct a basic estimate of this statistic.
+
+Inputs:
+
+The code needs to run in a directory containing the Data subdirectory, which must contain two files.
+
+Detections.dat contains two tab-separated columns containing respectively dates, and a number of detections on each date.  Dates are scaled so that the first day on which a case was detected is day 0.  Note that the code is designed only for use with outbreaks with very small numbers of cases detected; putting in too many cases will not produce successful results.  The example data provided includes a single case, detected on day 0.
+
+Time_points.dat contains a list of times at which the user wants to evaluate the situation following an outbreak.  This file contains a single column of integers.  A single number indicates the number of days since the last detection of a case.  Outputs are prodced for each time point specified.
+
+Compiling the code:
+
+make
+
+Note that the code requires the GSL library.  The location of library files may need to be specified by altering the Makefile.
+
+Running the code:
+
+./oink <Options>
+
+Options:
+
+--detect d [Default 0.1] : Probability of detecting a case of infection
+
+--first_detect f [Default 0.1] : Probability of detecting the first case of infection.  For example, it may be known that the first detected case was not the index case, in which case this statistic can be set to zero.
+
+--replicas r [Default 1000000] : Number of outbreaks to simulate for each value of R0.
+
+--run_fast r [Default 0] : Makes the code run faster, at some expense to true randomness.  Faster running is achieved by replacing the calls to random number generators with pseudorandom permutation models based on modulo arithmetic.
+
+--no_limit n [Default 0] : Flag to remove the limit on the number of cases of infection that are simulated.  By default no more than 1000 cases of infection may be initiated in a single day of a simulation.  This makes the code faster to run e.g. in a case where R0 is high, but places a limit on what can be done with the reported numbers of cases (i.e. high numbers become unreliable).
+
+--verb v [Default 0] : Produces verbose output.  Mostly used for debugging the code.
+
+--more_stats m [Default 0] : Flag to produce output files with more detailed statistics (see below).
+
+Outputs:
+
+A variety of files are produced by the code:
+
+P_Outbreak_End.dat describes the estimated probability that the outbreak has died out by each day in Time_points.dat after the last detection of a case.
+
+Origin_statsY.dat gives the probability distribution for the day on which the first case (as opposed to detected case) was infected, in days prior to the first detection, conditional on the day Y in Time_point
+s.dat.  That is, statistics are calculated for simulations that fit the data up to day Y after the detection of the last case.
+
+Sizes_timeY.dat gives the probability distribution for the number of infected people Y days after the detection of the last case.
+
+If --more_stats 1 is specified, other outputs are generated:
+
+Acceptance_rateX.dat gives the proportion of simulations which matched the data for each day in Time_points.dat, given an R0 of X/10.
+
+End_probX.dat gives the estimated probability that the outbreak has died out for each day in Time_points.dat, given an R0 of X/10.
+
+Origin_timesX.dat gives the raw values for the time (relative to that of the first detection) on which the first case was infected, for each day in Time_points.day, given an R0 of X/10.
+
+Current_sizeX.dat gives the raw values for the size of the outbreak (number of infected people), for each day in Time_points.dat, given an R0 of X/10.
+
+
+
