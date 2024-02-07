@@ -82,7 +82,7 @@ int main(int argc, const char **argv) {
     //For each of these consider each time point.
     vector< vector<output> > results;
     ConstructResults(timepoints,results);
-    for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+    for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
         if (p.run_fast==1) {
             SetupRandomPoissonParameter (p,new_number);
         }

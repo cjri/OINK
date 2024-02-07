@@ -27,6 +27,7 @@ struct run_params {
     int resolution; //Measured in days - how accurately do we know when things happened?
     string species; //Specify virus
     int test; //Testing the code
+    double max_R0;
     int more_stats; //Additional files outputted
     int verb;
 };

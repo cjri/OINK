@@ -20,6 +20,7 @@ void GetOptions (run_params& p, int argc, const char **argv) {
     p.resolution=1; //Measured in days.  Could be changed to weekly resolution?
     p.infection_length=7;
     p.species="Flu";
+    p.max_R0=4.0;
     p.test=0;
     p.more_stats=0;
     p.verb=0;
@@ -53,6 +54,9 @@ void GetOptions (run_params& p, int argc, const char **argv) {
         } else if (p_switch.compare("--verb")==0) {
             x++;
             p.verb=atoi(argv[x]);
+        } else if (p_switch.compare("--max_R0")==0) {
+            x++;
+            p.max_R0=atof(argv[x]);
         } else if (p_switch.compare("--more_stats")==0) {
             x++;
             p.more_stats=atoi(argv[x]);
