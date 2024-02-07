@@ -23,7 +23,7 @@ void MakeIndexCase (run_params& p, int& t, vector<int>& t_detects, outbreak& o, 
     pat pt;
     pt.time_i=0;
     pt.infected_by=-1;
-    pt.time_s=pt.time_i+gsl_ran_weibull(rgen,p.incubation_b,p.incubation_a);
+    pt.time_s=pt.time_i+floor(gsl_ran_weibull(rgen,p.incubation_b,p.incubation_a)+0.5);
     o.last_time_completed=pt.time_s;
     pt.detected=gsl_ran_bernoulli(rgen,p.first_detect);
     if (pt.detected==1) {  //Could make more complicated by adding in a distribution for p.time_r?
@@ -60,8 +60,8 @@ void MakeNewCase (run_params& p, int by, vector<int>& t_detects, outbreak& o, gs
     pat pt;
     pt.infected_by=by;
     //Time of infection
-    pt.time_i=o.indiv[by].time_s+gsl_ran_weibull(rgen,p.infection_b,p.infection_a);
-    pt.time_s=pt.time_i+gsl_ran_weibull(rgen,p.incubation_b,p.incubation_a);
+    pt.time_i=o.indiv[by].time_s+floor(gsl_ran_weibull(rgen,p.infection_b,p.infection_a)+0.5);
+    pt.time_s=pt.time_i+floor(gsl_ran_weibull(rgen,p.incubation_b,p.incubation_a)+0.5);
     pt.detected=gsl_ran_bernoulli(rgen,p.detect);
     //cout << "Times " << "From " << by << " "  << o.indiv[by].time_s << " " << pt.time_i << " " << pt.time_s << " Detected ";
     if (pt.detected==1) {
@@ -265,11 +265,11 @@ void EvaluateOutbreak (run_params& p, int& exclude, int& r0val, vector<int>& t_d
             //These represent different periods of time after which no more cases have been observed
             int accept=1;
             for (unsigned int j=0;j<sim_data.size();j++) {
-                if (j>=detections.size()) { //May be more detections in the simulation than in the data
-                    accept=0;
-                    break;
-                } else if (sim_data[j].day<=timepoints[i]) {
-                    if (sim_data[j].day!=detections[j].day||sim_data[j].cases!=detections[j].cases) { //Mismatch with data
+                if (sim_data[j].day<=timepoints[i]) {
+                    if (j>=detections.size()) { //May be more detections in the simulation than in the data
+                        accept=0;
+                        break;
+                    } else if (sim_data[j].day!=detections[j].day||sim_data[j].cases!=detections[j].cases) { //Mismatch with data
                         accept=0;
                         break;
                     }

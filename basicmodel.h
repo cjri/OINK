@@ -34,8 +34,8 @@ struct run_params {
 //Time relative to first detection?  Could do this retrospectively i.e. once the outbreak is fully simulated?
 //What is an efficient way to filter out simulations with too many cases detected?
 struct pat {
-    double time_i; //Infection
-    double time_s; //Symptom onset (i.e. non-latent)
+    int time_i; //Infection
+    int time_s; //Symptom onset (i.e. non-latent)
     int infected_by;
     vector<int> infects;
     int detected;
