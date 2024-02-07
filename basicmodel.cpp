@@ -111,8 +111,8 @@ int main(int argc, const char **argv) {
     }
 
     //Output extra statistics
+    OutputAcceptanceRates (timepoints,results);
     if (p.more_stats==1) {
-        OutputAcceptanceRates (timepoints,results);
         OutputOriginTimes (timepoints,results);
         OutputPopulationSizes (timepoints,results);
         OutputProbabilityEnded (timepoints,results);

@@ -22,7 +22,7 @@ void ConstructResults(vector<int>& timepoints, vector< vector<output> >& results
 void MakeIndexCase (run_params& p, int& t, vector<int>& t_detects, outbreak& o, gsl_rng *rgen) {
     pat pt;
     pt.time_i=0;
-    pt.infected_by=-1;
+    //pt.infected_by=-1;
     pt.time_s=pt.time_i+floor(gsl_ran_weibull(rgen,p.incubation_b,p.incubation_a)+0.5);
     o.last_time_completed=pt.time_s;
     pt.detected=gsl_ran_bernoulli(rgen,p.first_detect);
@@ -39,7 +39,7 @@ void MakeIndexCase (run_params& p, int& t, vector<int>& t_detects, outbreak& o, 
 void MakeIndexCaseFaster (run_params& p, int& t, const int& N, vector<int>& t_detects, const int& pp, long long& r, const long long& r_orig, vector<int>& new_incubate, vector<int>& new_detect, outbreak& o, gsl_rng *rgen) {
     pat pt;
     pt.time_i=0;
-    pt.infected_by=-1;
+    //pt.infected_by=-1;
     int digit=GetRandomDigit(r_orig,pp,N,r);
     pt.time_s=pt.time_i+new_incubate[digit];
     o.last_time_completed=pt.time_s;
@@ -58,7 +58,6 @@ void MakeIndexCaseFaster (run_params& p, int& t, const int& N, vector<int>& t_de
 void MakeNewCase (run_params& p, int by, vector<int>& t_detects, outbreak& o, gsl_rng *rgen) {
     //Uses random numbers
     pat pt;
-    pt.infected_by=by;
     //Time of infection
     pt.time_i=o.indiv[by].time_s+floor(gsl_ran_weibull(rgen,p.infection_b,p.infection_a)+0.5);
     pt.time_s=pt.time_i+floor(gsl_ran_weibull(rgen,p.incubation_b,p.incubation_a)+0.5);
@@ -79,7 +78,6 @@ void MakeNewCase (run_params& p, int by, vector<int>& t_detects, outbreak& o, gs
 void MakeNewCaseFaster  (run_params& p, int by, vector<int>& t_detects, const int& N, const int& pp, long long& r, const long long& r_orig, vector<int>& new_infect, vector<int>& new_incubate, vector<int>& new_detect, outbreak& o) {
     //Uses pseudorandom numbers
     pat pt;
-    pt.infected_by=by;
     //Time of infection
     int digit=GetRandomDigit(r_orig,pp,N,r);
     pt.time_i=o.indiv[by].time_s+new_infect[digit];

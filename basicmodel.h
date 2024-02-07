@@ -36,10 +36,7 @@ struct run_params {
 struct pat {
     int time_i; //Infection
     int time_s; //Symptom onset (i.e. non-latent)
-    int infected_by;
-    //vector<int> infects;
     int detected;
-    int see_gp;
     int time_r; //Result reported
 };
 
