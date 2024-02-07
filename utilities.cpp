@@ -148,7 +148,7 @@ void RunSimulationTime (run_params& p, int min_time, int max_time, int& exclude,
                 }
                 //cout << "Individual " << i << " Infects " << infect << " individuals\n";
                 for (int j=0;j<infect;j++) {  //Add new cases of infection
-                    o.indiv[i].infects.push_back(o.indiv.size());  //Conceivably don't need this line.
+                    //o.indiv[i].infects.push_back(o.indiv.size());  //Conceivably don't need this line.
                     if (p.run_fast==1) {
                         MakeNewCaseFaster(p,i,t_detects,N,pp,r,r_orig,new_infect,new_incubate,new_detect,o);
                     } else {
