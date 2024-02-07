@@ -189,8 +189,9 @@ void OutputRawData (int& r0val, vector<int>& timepoints, vector< vector<output> 
     }
 }
 
-void OutputAcceptanceRates (vector<int>& timepoints, vector< vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
+void OutputAcceptanceRates (run_params& p, vector<int>& timepoints, vector< vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
         ofstream acc_file;
         ostringstream convert;
         convert << r0val;
@@ -204,8 +205,9 @@ void OutputAcceptanceRates (vector<int>& timepoints, vector< vector<output> >& r
     }
 }
 
-void OutputOriginTimes (vector<int>& timepoints, vector< vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
+void OutputOriginTimes (run_params& p, vector<int>& timepoints, vector< vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
         ofstream init_file;
         ostringstream convert;
         convert << r0val;
@@ -223,8 +225,9 @@ void OutputOriginTimes (vector<int>& timepoints, vector< vector<output> >& resul
     }
 }
 
-void OutputPopulationSizes (vector<int>& timepoints, vector< vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
+void OutputPopulationSizes (run_params& p, vector<int>& timepoints, vector< vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
         ofstream size_file;
         ostringstream convert;
         convert << r0val;
@@ -244,8 +247,9 @@ void OutputPopulationSizes (vector<int>& timepoints, vector< vector<output> >& r
     }
 }
 
-void OutputProbabilityEnded (vector<int>& timepoints, vector< vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
+void OutputProbabilityEnded (run_params& p, vector<int>& timepoints, vector< vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
         ofstream dead_file;
         ostringstream convert;
         convert << r0val;
@@ -268,7 +272,7 @@ void OutputOutbreakDeathStatistics (run_params& p, vector<int>& timepoints, vect
         vector<double> acceptance;
         CalculateAcceptance (p,i,results,acceptance);
         vector<double> pdead;
-        for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+        for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
             int r0val=floor((p.r0+0.001)*10);
             double pd=(results[i][r0val].dead+0.)/(results[i][r0val].accepted+0.);
             pdead.push_back(pd);
@@ -289,7 +293,7 @@ void OutputOutbreakTimeStatistics (run_params& p, vector<int>& timepoints, vecto
         CalculateAcceptance (p,i,results,acceptance);
         //Make a count of the origin dates for each R0, weighted by the acceptance rate for that R0
         vector< vector<double> > all_origins;
-        for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+        for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
             vector<double> origins;
             int r0val=floor((p.r0+0.001)*10);
             //cout << "R0 " << r0val << " Size " << results[i][r0val].origin_time.size() << "\n";
@@ -343,7 +347,7 @@ void OutputOutbreakPopulationStatistics (run_params& p, vector<int>& timepoints,
         CalculateAcceptance (p,i,results,acceptance);
         //Make a count of the population sizes for each R0, weighted by acceptance rate
         vector< vector<double> > all_sizes;
-        for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+        for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
             vector<double> sizes;
             int r0val=floor((p.r0+0.001)*10);
             //cout << "R0 " << r0val << " Size " << results[i][r0val].current_size.size() << "\n";

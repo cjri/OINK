@@ -111,11 +111,11 @@ int main(int argc, const char **argv) {
     }
 
     //Output extra statistics
-    OutputAcceptanceRates (timepoints,results);
+    OutputAcceptanceRates (p,timepoints,results);
     if (p.more_stats==1) {
-        OutputOriginTimes (timepoints,results);
-        OutputPopulationSizes (timepoints,results);
-        OutputProbabilityEnded (timepoints,results);
+        OutputOriginTimes (p,timepoints,results);
+        OutputPopulationSizes (p,timepoints,results);
+        OutputProbabilityEnded (p,timepoints,results);
     }
     
     //Calculate statistics
