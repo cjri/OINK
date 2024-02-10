@@ -50,9 +50,9 @@ void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_detects,
     }
     else
     {
-        pt.time_infected = o.individuals[by].time_symptom_onset + gsl_ran_weibull(rgen, p.infection_b, p.infection_a); // This is time as a double
+      pt.time_infected = o.individuals[by].time_symptom_onset + static_cast<int>(floor(gsl_ran_weibull(rgen, p.infection_b, p.infection_a)+0.5)); 
     }
-    pt.time_symptom_onset = pt.time_infected + gsl_ran_weibull(rgen, p.incubation_b, p.incubation_a);
+    pt.time_symptom_onset = pt.time_infected + static_cast<int>(floor(gsl_ran_weibull(rgen, p.incubation_b, p.incubation_a)+0.5));
     if (by == -1) // Index case
     {
         pt.detected = gsl_ran_bernoulli(rgen, p.probability_first_detect);
@@ -289,24 +289,16 @@ void EvaluateOutbreak(const run_params &p, int exclude, const int r0val, std::ve
         {
             OutputSummaryData(sim_data);
         }
-        /* Test for consistency at each observed timepoint */
-        for (unsigned int i = 0; i < timepoints.size(); i++)
-        {   
-            int accept = 1;
-            for (unsigned int j = 0; j < sim_data.size(); j++)
-            {
-                /* This looks suspect - could be a detection in the simulation after timepoint[i] */
-                /*
-                if (j >= detections.size())
-                { // May be more detections in the simulation than in the data
-                    accept = 0;
-                    break;
-                }
-                else if (sim_data[j].day <= timepoints[i])
-                {
-                    if (sim_data[j].day != detections[j].day || sim_data[j].cases != detections[j].cases)
-                    { // Mismatch with data
-                        accept = 0;
+        for (unsigned int i=0;i<timepoints.size();i++) { //Cycle through time points at which we are evaluating the simulation
+            //These represent different periods of time after which no more cases have been observed
+            int accept=1;
+            for (unsigned int j=0;j<sim_data.size();j++) {
+                if (sim_data[j].day<=timepoints[i]) {
+                    if (j>=detections.size()) { //May be more detections in the simulation than in the data
+                        accept=0;
+                        break;
+                    } else if (sim_data[j].day!=detections[j].day||sim_data[j].cases!=detections[j].cases) { //Mismatch with data
+                        accept=0;
                         break;
                     }
                 }

@@ -46,8 +46,7 @@ int main(int argc, const char **argv)
     ConstructResults(timepoints, results);
     // For each timepoint, make a list of 51? zero-initialized output objects
     // Fix this loop over R0 Values
-    for (p.r0 = 0.1; p.r0 <= 4.01; p.r0 = p.r0 + 0.1)
-    {
+    for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
         int r0val = floor((p.r0 + 0.001) * 10); // Some sort of index
         std::cout << "Generating simulations R0= " << p.r0 << " "
                   << "\n";
@@ -80,13 +79,12 @@ int main(int argc, const char **argv)
         }
     }
 
-    // Output extra statistics
-    if (p.more_stats == 1)
-    {
-        OutputAcceptanceRates(timepoints, results);
-        OutputOriginTimes(timepoints, results);
-        OutputPopulationSizes(timepoints, results);
-        OutputProbabilityEnded(timepoints, results);
+    //Output extra statistics
+    OutputAcceptanceRates (p,timepoints,results);
+    if (p.more_stats==1) {
+        OutputOriginTimes (p,timepoints,results);
+        OutputPopulationSizes (p,timepoints,results);
+        OutputProbabilityEnded (p,timepoints,results);
     }
 
     // Calculate statistics

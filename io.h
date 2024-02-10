@@ -12,10 +12,10 @@ void ImportTimePoints(int& min_time, int& max_time, std::vector<int>& timepoints
 void OutputSummaryData (std::vector<detect>& sim_data);
 void OutputPopulationDetails (run_params& p, std::vector<int>& pop_size, std::vector<int>& pop_sum, std::vector<int> t_detects, outbreak& o);
 void OutputRawData (int& r0val, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
-void OutputAcceptanceRates (std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
-void OutputOriginTimes (std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
-void OutputPopulationSizes (std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
-void OutputProbabilityEnded (std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
+void OutputAcceptanceRates (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
+void OutputOriginTimes (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
+void OutputPopulationSizes (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
+void OutputProbabilityEnded (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
 void OutputOutbreakDeathStatistics (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
 void OutputOutbreakTimeStatistics (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
 void OutputOutbreakPopulationStatistics (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results);

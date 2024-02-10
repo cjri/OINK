@@ -24,6 +24,7 @@ struct run_params {
     double probability_first_detect; // Probability for detecting first case may be different e.g. if known
     double time_symptom_onset_to_detect;
     int replicas;
+    double max_R0;
     int more_stats; //Additional files outputted
     int verb;
     int seed; // Fixed RNG seed
@@ -32,7 +33,6 @@ struct run_params {
 struct patient {
     double time_infected; //Infection
     double time_symptom_onset; //Symptom onset (i.e. non-latent)
-    int infected_by;
     unsigned int detected;
     int time_reported; //Result reported
 };

@@ -17,6 +17,8 @@ void GetOptions (run_params& p, int argc, const char **argv) {
     p.time_symptom_onset_to_detect=18;
     p.replicas=1000000;
     p.infection_length=7;
+    p.max_R0=4.0;
+    p.test=0;
     p.more_stats=0;
     p.verb=0;
     p.seed=1234;
@@ -41,6 +43,9 @@ void GetOptions (run_params& p, int argc, const char **argv) {
         } else if (p_switch.compare("--verb")==0) {
             x++;
             p.verb=atoi(argv[x]);
+        } else if (p_switch.compare("--max_R0")==0) {
+            x++;
+            p.max_R0=atof(argv[x]);
         } else if (p_switch.compare("--more_stats")==0) {
             x++;
             p.more_stats=atoi(argv[x]);
@@ -148,10 +153,11 @@ void OutputRawData (int& r0val, std::vector<int>& timepoints, std::vector< std::
     }
 }
 
-void OutputAcceptanceRates (std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
-      std::ofstream acc_file;
-      std::ostringstream convert;
+void OutputAcceptanceRates (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
+        ofstream acc_file;
+        ostringstream convert;
         convert << r0val;
 	std::string temp=convert.str();
 	std::string name = "Acceptance_rate"+temp+".dat";
@@ -163,10 +169,13 @@ void OutputAcceptanceRates (std::vector<int>& timepoints, std::vector< std::vect
     }
 }
 
-void OutputOriginTimes (std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
+void OutputOriginTimes (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
       std::ofstream init_file;
       std::ostringstream convert;
+        ofstream init_file;
+        ostringstream convert;
         convert << r0val;
 	std::string temp=convert.str();
 	std::string name = "Origin_times"+temp+".dat";
@@ -182,11 +191,12 @@ void OutputOriginTimes (std::vector<int>& timepoints, std::vector< std::vector<o
     }
 }
 
-void OutputPopulationSizes (std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
-      std::ofstream size_file;
-      std::ostringstream convert;
-        convert << r0val;
+void OutputPopulationSizes (run_params& p,std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
+
+        std::ofstream size_file;
+        std::ostringstream convert;
 	std::string temp=convert.str();
 	std::string name = "Current_size"+temp+".dat";
         size_file.open(name.c_str());
@@ -203,8 +213,9 @@ void OutputPopulationSizes (std::vector<int>& timepoints, std::vector< std::vect
     }
 }
 
-void OutputProbabilityEnded (std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
-    for (int r0val=1;r0val<=40;r0val++) {
+void OutputProbabilityEnded (run_params& p, std::vector<int>& timepoints, std::vector< std::vector<output> >& results) {
+    int top=floor((p.max_R0*10)+0.5);
+    for (int r0val=1;r0val<=top;r0val++) {
       std::ofstream dead_file;
       std::ostringstream convert;
         convert << r0val;
@@ -227,7 +238,8 @@ void OutputOutbreakDeathStatistics (run_params& p, std::vector<int>& timepoints,
         std::vector<double> acceptance;
         CalculateAcceptance (p,i,results,acceptance);
         std::vector<double> pdead;
-        for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+        vector<double> pdead;
+        for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
             int r0val=floor((p.r0+0.001)*10);
             double pd=(results[i][r0val].dead+0.)/(results[i][r0val].accepted+0.);
             pdead.push_back(pd);
@@ -248,7 +260,7 @@ void OutputOutbreakTimeStatistics (run_params& p, std::vector<int>& timepoints, 
         CalculateAcceptance (p,i,results,acceptance);
         //Make a count of the origin dates for each R0, weighted by the acceptance rate for that R0
         std::vector< std::vector<double> > all_origins;
-        for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+        for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
             std::vector<double> origins;
             int r0val=floor((p.r0+0.001)*10);
             //std::cout << "R0 " << r0val << " Size " << results[i][r0val].origin_time.size() << "\n";
@@ -302,7 +314,7 @@ void OutputOutbreakPopulationStatistics (run_params& p, std::vector<int>& timepo
         CalculateAcceptance (p,i,results,acceptance);
         //Make a count of the population sizes for each R0, weighted by acceptance rate
         std::vector< std::vector<double> > all_sizes;
-        for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+        for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
             std::vector<double> sizes;
             int r0val=floor((p.r0+0.001)*10);
             //std::cout << "R0 " << r0val << " Size " << results[i][r0val].current_size.size() << "\n";
