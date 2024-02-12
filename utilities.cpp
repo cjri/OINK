@@ -228,7 +228,6 @@ void MakeRelativeTime(const std::vector<int> &t_detects,
     {
         t_detects_relative.push_back(t_detects[i] - min);
     }
-    // Fix the time of the index infection
 }
 
 int CheckTermination(const run_params &p, 
@@ -270,7 +269,7 @@ int CheckTermination(const run_params &p,
 
     // Terminate simulation if there have been more than infection_length days with no individuals developing symptoms on that day (zeros is the number of days +1 since an individual last developed symptoms)
     // With Flu parameters this is probably OK, but it will require time to symptoms and time to infection to be almost always less than infection_length, which may not be the case for other parameter choices.
-    if (zeros > p.infection_length + 1)
+    if (zeros > p.infection_length +1 ) // This is NOT consistent with how infection_length is used 
     {
         if (p.verb == 1)
         {
@@ -313,14 +312,19 @@ int CheckTermination(const run_params &p,
     // Simulation could generate a new detected case in (t, t_detect[0]]
     // which might be valid for [t_new_detect, t_new_detect+first_evaluation_time]
     // Know that the first detection occurs after min(t, t_detect[0])
-    // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time] (check sharpness)
+    // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time] (check sharpness - maybe t->t+1)
+
+    // Could potential improve on this knowing time_symptom_onset_to_detect
+    // Simulation could generate a new detected case in (t+p.time_symptom_onset_to_detect, t_detect[0]]
+    // so set t' = min (t+p.time_symptom_onset_to_detect+1, t_detect[0])
+    // count detections in range [t', t'+first_evaluation_time] -> very little improvement in time
 
     if((o.time_first_detect != -1)) {
         // Test whether the number of detections on or before the first evaluation time-point is greater than the number of detections in the dataset - if so, this will be the case for all later ones.
         unsigned long det_early = 0;
 
         // Now assume sorted - break if time greater than detection time
-        for (unsigned long i = 0; (i < t_detects.size()) && (t_detects[i]<=(std::min(o.time_first_detect, t) + first_evaluation_time)); i++)
+        for (unsigned long i = 0; (i < t_detects.size()) && (t_detects[i]<=(std::min(o.time_first_detect/*+1+p.time_symptom_onset_to_detect*/, t) + first_evaluation_time)); i++)
         {
             // Number of detections happening on or before the first evaluation time-point
             det_early++;
@@ -394,8 +398,28 @@ void ConstructSummaryData(const std::vector<int> &t_detects, std::vector<detect>
 
 unsigned long CompareWithData( const std::vector<int> &timepoints, const std::vector<detect> &sim_data, const std::vector<detect> &detections)
 {
+/**
+ * Compares a sequence of timepoints with simulation data and actual detection data to count the number of timepoints 
+ * where the simulation data matches the detection data up to the first mismatch.
+ * 
+ * This function iterates over a list of timepoints and compares them against corresponding simulation data (`sim_data`)
+ * and actual detection data (`detections`). A timepoint is accepted if, for all simulation data up to that timepoint,
+ * the day and case count match exactly between the simulation data and the detection data. The comparison stops at the 
+ * first timepoint where a mismatch occurs, as all later timepoints by necessity do not match.
+ * 
+ * Note:
+ * - If a timepoint in `timepoints` does not have a matching day in `sim_data` or `detections`, or if the case counts do not match,
+ *   the function will stop checking further timepoints.
+ * - The function assumes `sim_data` and `detections` are sorted by the day.
+
+ * 
+ * @param timepoints Timepoints to be compared.
+ * @param sim_data A vector of `detect` structures representing simulation data
+ * @param detections A vector of `detect` structures representing actual detection data, similar to `sim_data`.
+ * @return The number of accepted timepoints where simulation data matches detection data up to the first detected mismatch.
+ */
+
     // Note that if timepoint[i] does not match, all later timepoints also do not match.
-    // So we can count the number of accepted timepoints
     unsigned long n_timepoints_accepted=0;
     unsigned long idx_sim=0;
 

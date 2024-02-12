@@ -21,7 +21,7 @@ struct run_params {
     int add_limit; //Maximum number of infections per generation.
     double probability_detect;   // P(see doctor and get tested if sick)
     double probability_first_detect; // Probability for detecting first case may be different e.g. if known
-    double time_symptom_onset_to_detect;
+    int time_symptom_onset_to_detect;
     int replicas; // Number of simulations to perform for each value of R0
     double max_R0; //
     std::vector<double> R0_vals; 
