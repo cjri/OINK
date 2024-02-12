@@ -120,6 +120,7 @@ void ImportTimePoints(const run_params& p, int& min_time, int& max_time, std::ve
         max_time = timepoints[timepoints.size()-1];
         min_time = timepoints[0];
     } else {
+        std::cout << "Empty timepoints file \n";
         min_time = 0;
         max_time = 1000;
     }
@@ -150,7 +151,7 @@ void OutputPopulationDetails (const run_params& p, const std::vector<int>& numbe
 
     std::cout << "Number of cases " << o.individuals.size() << "\n";
     std::cout << "Number of detections " << t_detects_relative.size() << "\n";
-    std::cout << "First detection " << o.time_first_detect << " of case symptomatic at time " << o.time_first_detect-p.time_symptom_onset_to_detect << "\n";
+    std::cout << "First detection at time " << o.time_first_detect << " of case symptomatic at time " << o.time_first_detect-p.time_symptom_onset_to_detect << "\n";
     std::cout << "T detects relative to first detection \n";
     for (unsigned long i=0;i<t_detects_relative.size();i++) {
         std::cout << t_detects_relative[i] << " ";

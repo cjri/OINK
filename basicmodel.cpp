@@ -75,6 +75,8 @@ int main(int argc, const char **argv)
             }
 
             EvaluateOutbreak(p, r0val, t_detects_relative, timepoints, total_active_infected, detections, o, results); // Is this consistent with the data?
+            //std::cout << "last_time_simulated " << o.last_time_simulated << " n_t_detects " << t_detects_relative.size() << "\n"; 
+
         }
     }
 

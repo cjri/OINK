@@ -274,7 +274,7 @@ int CheckTermination(const run_params &p,
     {
         if (p.verb == 1)
         {
-            std::cout << "Terminate: Outbreak has died out\n";
+            std::cout << "Terminate: Outbreak has died out at time " << t << "zeros: " << zeros <<"\n";
         }
         // cout << "Zero out\n";
         return 1;
@@ -287,7 +287,7 @@ int CheckTermination(const run_params &p,
         // Matching will not consider any cases after this time
         if (p.verb == 1)
         {
-            std::cout << "Terminate: End of time after last detection\n";
+            std::cout << "Terminate: End of time " << t << " after last detection\n";
         }
         return 1;
     }  
@@ -302,7 +302,7 @@ int CheckTermination(const run_params &p,
             // will fail, and all those before are completely simulated.
             if(p.verb==1)
             {
-                std::cout << "Terminate: End of time after last detection\n";
+                std::cout << "Terminate: Too many detections "<< t_detects.size() << " vs " << n_detections << " before time " << t <<"\n";
             }
             return 1;
         }
@@ -310,18 +310,21 @@ int CheckTermination(const run_params &p,
 
     // If we have simulated up to the first detection, are there too many cases before the first observation timepoint.
     // In this case, we know that all the matching comparisons with the data will fail.
-    // Need to have simulated up to first detection, otherwise simulation could generate a new detected case in (t, t_detect[0]]
+    // Simulation could generate a new detected case in (t, t_detect[0]]
     // which might be valid for [t_new_detect, t_new_detect+first_evaluation_time]
-    if((o.time_first_detect != -1) && (t >= o.time_first_detect)) {
+    // Know that the first detection occurs after min(t, t_detect[0])
+    // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time] (check sharpness)
+
+    if((o.time_first_detect != -1)) {
         // Test whether the number of detections on or before the first evaluation time-point is greater than the number of detections in the dataset - if so, this will be the case for all later ones.
         unsigned long det_early = 0;
+
         // Now assume sorted - break if time greater than detection time
-        for (unsigned long i = 0; (i < t_detects.size()) && (t_detects[i]<=o.time_first_detect + first_evaluation_time); i++)
+        for (unsigned long i = 0; (i < t_detects.size()) && (t_detects[i]<=(std::min(o.time_first_detect, t) + first_evaluation_time)); i++)
         {
             // Number of detections happening on or before the first evaluation time-point
             det_early++;
         }
-
         if (det_early > n_detections)
         { // This number exceeds the total number of detections: Easy flag for non-compatibility with the data
             if (p.verb == 1)
@@ -331,6 +334,7 @@ int CheckTermination(const run_params &p,
             return 1;
         }
     }
+
     return 0;
     
 }

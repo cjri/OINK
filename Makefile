@@ -2,7 +2,7 @@ CC	      = gcc
 #CC_FLAGS        = -g -O2 -Wall -D_GLIBCXX_DEBUG -pg
 #LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib  -lgsl -lgslcblas -lm -lstdc++ -pg -g
 CC_FLAGS        = -g -O3 -Wall 
-LD_FLAGS	= -lgsl -lgslcblas -lm -lstdc++  -g
+LD_FLAGS	= -lgsl -lgslcblas -lm -lstdc++  -g 
 
 BAS		= basicmodel.o io.o utilities.o 
 
