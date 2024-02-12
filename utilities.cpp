@@ -375,10 +375,13 @@ void ConstructSummaryData(const std::vector<int> &t_detects, std::vector<detect>
         }
         else
         {
-            detect d;
-            d.day = index;
-            d.cases = count;
-            sim_data.push_back(d);
+            if(count>0)
+            {
+                detect d;
+                d.day = index;
+                d.cases = count;
+                sim_data.push_back(d);
+            }
             index = t_detects[i];
             count = 1;
         }
