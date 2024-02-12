@@ -26,30 +26,29 @@ int main(int argc, const char **argv)
     int n_detections = 0;
     std::vector<detect> detections;
     // Read Data/detections.dat
-    ImportDetections(n_detections, detections); 
+    ImportDetections(p, n_detections, detections); 
     // detections is a list of detections, with day =integer day index, cases=number of cases on that day.
     // n_detections is the sum of the number of cases.
-
+    
     // We also want to know what time it is, or at least a std::vector of times at which to model what we know.
     int min_time;
     int max_time;
     std::vector<int> timepoints;
     // Read Data/Time_points.dat
-    ImportTimePoints(min_time, max_time, timepoints);
-    // min_time = minimum of 0 and timepoints
-    // max_time = maximum of 1000 and timepoints 
+    ImportTimePoints(p, min_time, max_time, timepoints);
+    // min_time = minimum of timepoints
+    // max_time = maximum of timepoints 
     // timepoints = list of integer timepoints (ordered as in file)
 
     // Generate array of output values by R0 from 0.1 to 4.0
     // For each of these consider each time point.
     std::vector<std::vector<output>> results;
-    ConstructResults(timepoints, results);
-    // For each timepoint, make a list of 51? zero-initialized output objects
-    // Fix this loop over R0 Values
-    for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
-        int r0val = floor((p.r0 + 0.001) * 10); // Some sort of index
-        std::cout << "Generating simulations R0= " << p.r0 << " "
+    ConstructResults(p, timepoints, results);
+    // For each timepoint, make a list of p.R0_vals.size() zero-initialized output objects
+    for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++) {
+        std::cout << "Generating simulations R0= " << p.R0_vals[r0val] << " "
                   << "\n";
+        double r0 = p.R0_vals[r0val];
         for (int calc = 0; calc < p.replicas; calc++)
         { // Generate a number of simulated outbreaks at given R0
             // Construct outbreak shape
@@ -57,25 +56,25 @@ int main(int argc, const char **argv)
             SetupOutbreak(o); // Initialize outbreak
 
             // Set up permutation parameters
-            int exclude = 0;            // Flag to exclude a run
-            std::vector<int> t_detects; // Detection times ?
-            std::vector<int> pop_size; // Population sizes ?
+            std::vector<int> t_detects_relative; // Detection times ?
+            std::vector<int> number_new_symptomatic; // Population sizes ?
 
-            RunSimulationTime(p, min_time, max_time, n_detections, t_detects, pop_size, o, rgen);
+            RunSimulationTime(p, r0, min_time, max_time, n_detections, t_detects_relative, number_new_symptomatic, o, rgen);
             // n_detections  = number of detected cases before (possibly early) termination 
             // t_detects = times of the detections (relative to the first detected case)
-            // pop_size = number of cases becoming symptomatic at any given timestep
+            // number_new_symptomatic = number of cases becoming symptomatic at any given timestep
             // o = outbreak structure:
             // o.individuals = list of  
 
-            // Convert pop_size into a list of infected individuals (day_symptomatic to day_symptomatic + infection_length-1, inclusive)
-            std::vector<int> pop_sum = pop_size;
-            MakePopulationSize(p, pop_size, pop_sum);
+            // Convert number_new_symptomatic into a list of infected individuals (day_symptomatic to day_symptomatic + infection_length-1, inclusive)
+            std::vector<int> total_active_infected = number_new_symptomatic;
+            MakePopulationSize(p, number_new_symptomatic, total_active_infected);
             if (p.verb == 1)
             {
-                OutputPopulationDetails(p, pop_size, pop_sum, t_detects, o);
+                OutputPopulationDetails(p, number_new_symptomatic, total_active_infected, t_detects_relative, o);
             }
-            EvaluateOutbreak(p, exclude, r0val, t_detects, timepoints, pop_sum, detections, o, results); // Is this consistent with the data?
+
+            EvaluateOutbreak(p, r0val, t_detects_relative, timepoints, total_active_infected, detections, o, results); // Is this consistent with the data?
         }
     }
 

@@ -12,37 +12,39 @@
 
 struct run_params {
     // Parameters for this simulation run
-    double r0;
     double incubation_a; // Parameter for Weibull distribution modelling 
     double incubation_b;
     double infection_a;
     double infection_b;
-    int max_infections; //Limit on how many infections to generate
-    int infection_length;
+    int max_infections; // Limit on how many infections to generate
+    int infection_length;  
     int add_limit; //Maximum number of infections per generation.
     double probability_detect;   // P(see doctor and get tested if sick)
     double probability_first_detect; // Probability for detecting first case may be different e.g. if known
     double time_symptom_onset_to_detect;
-    int replicas;
-    double max_R0;
+    int replicas; // Number of simulations to perform for each value of R0
+    double max_R0; //
+    std::vector<double> R0_vals; 
+    int max_simulation_time; // Maximum length of simulation 
     int more_stats; //Additional files outputted
-    int verb;
+    int verb; // Whether to be verbose
     int seed; // Fixed RNG seed
+    std::string output_prefix;
+    std::string input_prefix;
+
 };
 
 struct patient {
-    double time_infected; //Infection
-    double time_symptom_onset; //Symptom onset (i.e. non-latent)
-    unsigned int detected;
-    int time_reported; //Result reported
+    int time_infected; // Time of infection (relative to index case)
+    int time_symptom_onset; //Symptom onset (i.e. non-latent)
+    unsigned int detected; // Whether case was detected
+    int time_reported; // Time esult reported
 };
 
 struct outbreak {
     std::vector<patient> individuals;
-    int time_first_detect; //Time of first detection.  Update after each generation if not yet found.  Once found shift all times.
-    int origin_time;
-    int total_detections;
-    int last_time_completed; //Starts at zero.  After each generation becomes the time before which nothing else can happen. (Unclear?)
+    int time_first_detect; // Time of first detection, relative to start of simulation
+    int last_time_simulated; // Time at which simulation stopped.
 };
 
 struct detect {
@@ -50,8 +52,7 @@ struct detect {
     int cases;
 };
 
-struct output { //Specific to R0
-    run_params params;
+struct output { // Structure to combine output over simulations for each R0 and timepoint
     int tested;
     int accepted;
     int dead;

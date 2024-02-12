@@ -1,7 +1,10 @@
 CC	      = gcc
-CC_FLAGS        = -g3 -O3 -Wall -D_GLIBCXX_DEBUG -I  /opt/homebrew/Cellar/gsl/2.7.1/include/
-LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib  -lgsl -lgslcblas -lm -lstdc++ 
-BAS		= basicmodel.o io.o utilities.o pseudorandom.o
+#CC_FLAGS        = -g -O2 -Wall -D_GLIBCXX_DEBUG -pg
+#LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib  -lgsl -lgslcblas -lm -lstdc++ -pg -g
+CC_FLAGS        = -g -O3 -Wall 
+LD_FLAGS	= -lgsl -lgslcblas -lm -lstdc++  -g
+
+BAS		= basicmodel.o io.o utilities.o 
 
 basic: $(BAS)
 	$(CC) $(CC_FLAGS) $(BAS) -o oink  $(LD_FLAGS)
