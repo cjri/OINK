@@ -190,7 +190,7 @@ TEST(CalculateAcceptanceTest, UniformAcceptanceRates) {
 
     int time_point_index = 0; // Index of the time point for which acceptance rates are calculated
     // output = {tested, accepted, dead, current_size[], origin_time[]}
-    std::vector<std::vector<output>> results = {
+    std::vector<std::vector<output> > results = {
         {{100, 10, 0, {}, {}}, {200, 20, 0, {}, {}}, {300, 30, 0, {}, {}}} // Example output for 3 R0 values at a single time point
     };
 
@@ -210,7 +210,7 @@ TEST(CalculateAcceptanceTest, DiverseAcceptanceRates) {
     p.R0_vals = {2.0, 2.5, 3.0}; // Example R0 values
 
     int time_point_index = 0; // Index of the time point for which acceptance rates are calculated
-    std::vector<std::vector<output>> results = {
+    std::vector<std::vector<output> > results = {
        {{100, 10, 0, {}, {}}, {100, 50, 0, {}, {}}, {100, 40, 0, {}, {}}} // Example output with different acceptance rates
     };
 
@@ -307,7 +307,7 @@ TEST(EvaluateOutbreakTest, PerfectMatchBetweenSimulationAndDetection) {
     std::vector<int> total_active_infected = {10, 20, 30}; // Number of active infections at each time point
     std::vector<detect> detections = {{0, 1}, {2, 2}, {3, 1}}; // Actual detection data
     outbreak o{.time_first_detect=2}; // Assume this has necessary fields set
-    std::vector<std::vector<output>> results(timepoints.size(), std::vector<output>(1)); // Prepare results vector
+    std::vector<std::vector<output> > results(timepoints.size(), std::vector<output>(1)); // Prepare results vector
     //std::vector<int> expected_accepted = {1, 1, 1}; // Expected relative detection times
 
 
@@ -327,7 +327,7 @@ TEST(EvaluateOutbreakTest, NoMatchBetweenSimulationAndDetection) {
     std::vector<int> total_active_infected = {0, 0, 0}; // Number of active infections at each time point, not matching detections
     std::vector<detect> detections = {{0, 1}, {2, 2}, {3, 1}}; // Actual detection data
     outbreak o{.time_first_detect=1};
-    std::vector<std::vector<output>> results(timepoints.size(), std::vector<output>(1)); // Prepare results vector
+    std::vector<std::vector<output> > results(timepoints.size(), std::vector<output>(1)); // Prepare results vector
 
     EvaluateOutbreak(p, r0val, t_detects_relative, timepoints, total_active_infected, detections, o, results);
 
@@ -345,7 +345,7 @@ TEST(EvaluateOutbreakTest, PartialMatchBetweenSimulationAndDetection) {
     std::vector<int> total_active_infected = {10, 20, 30}; // Number of active infections at each time point
     std::vector<detect> detections = {{0, 1}, {2, 2}, {3,2}}; // Actual detection data
     outbreak o{.time_first_detect=1}; // Assume this has necessary fields set
-    std::vector<std::vector<output>> results(timepoints.size(), std::vector<output>(1)); // Prepare results vector
+    std::vector<std::vector<output> > results(timepoints.size(), std::vector<output>(1)); // Prepare results vector
     std::vector<int> expected_accepted = {1, 1, 0}; // Expected relative detection times
 
     EvaluateOutbreak(p, r0val, t_detects_relative, timepoints, total_active_infected, detections, o, results);

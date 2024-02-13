@@ -79,10 +79,11 @@ plt.figure()
 for k in data:
     o = data[k]['sizes']
     o = o[14]
-    print(o)
+#    print(o)
     sizes, probs = zip(*o)
+    print(np.sum(o[150:]))
     plt.plot(sizes, probs, label=k)
-    plt.xlim(1, 150)
+#    plt.xlim(1, 150)
 plt.legend()
 
 ## Figure 1d

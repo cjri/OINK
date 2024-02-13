@@ -19,6 +19,12 @@ function simulate()
     rng_symptom() = floor(Int64, rand(Weibull(a1, b1))+0.5)
     rng_infect() = floor(Int64,rand(Weibull(a2, b2))+0.5)
 
+    test_symptom = [rng_symptom() for i in 1:100000]
+    @show(mean(test_symptom), std(test_symptom))
+
+    test_infect = [rng_infect() for i in 1:100000]
+    @show(mean(test_infect), std(test_infect))
+
 
     function sample(R0=3.0, N=1000)
         result = []
@@ -75,7 +81,7 @@ function simulate()
     results = fill([], 40)
     Threads.@threads for i in 1:40
         R0 = R0_vals[i]
-	results[i] = sample(R0, 10000)
+	results[i] = sample(R0, 1000)
     end
 
     p1 = plot(R0_vals, [sum([!s[1] && s[5] == 1 for s in r]) for r in results], title="Detection Summary")
@@ -88,7 +94,9 @@ function simulate()
     end
 
     p_days = [r[2] for r in results_flat if !r[1] && r[5] == 1]
-    @show(counts(p_days, 0:50))
+    c = counts(p_days, 0:50)
+    c = c/sum(c)
+    @show(c)
     if !isempty(p_days)
         p3 = histogram(p_days, bins=0:50, title="Day Distribution")
     end

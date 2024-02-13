@@ -42,7 +42,7 @@ int main(int argc, const char **argv)
 
     // Generate array of output values by R0 from 0.1 to 4.0
     // For each of these consider each time point.
-    std::vector<std::vector<output>> results;
+    std::vector<std::vector<output> > results;
     ConstructResults(p, timepoints, results);
     // For each timepoint, make a list of p.R0_vals.size() zero-initialized output objects
     for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++) {

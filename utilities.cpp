@@ -6,7 +6,7 @@
 
 // Currently code assumes first infection datapoint is at time 0.
 
-void ConstructResults(const run_params &p, const std::vector<int> &timepoints, std::vector<std::vector<output>> &results)
+void ConstructResults(const run_params &p, const std::vector<int> &timepoints, std::vector<std::vector<output> > &results)
 {
 /** 
  * Initializes the results data structure for storing the outcomes of simulations across different R0 values
@@ -459,7 +459,7 @@ unsigned long CompareWithData( const std::vector<int> &timepoints, const std::ve
     return n_timepoints_accepted;
 }
 
-void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vector<int> &t_detects_relative, std::vector<int> &timepoints, std::vector<int> &total_active_infected, std::vector<detect> &detections, outbreak &o, std::vector<std::vector<output>> &results)
+void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vector<int> &t_detects_relative, std::vector<int> &timepoints, std::vector<int> &total_active_infected, std::vector<detect> &detections, outbreak &o, std::vector<std::vector<output> > &results)
 {
 /**
  * Evaluates the outcome of an outbreak simulation at specified time points against detection data.
@@ -575,7 +575,7 @@ void MakePopulationSize(const run_params &p, const std::vector<int> &number_new_
     }
 }
 
-void CalculateAcceptance(const run_params &p, const int i, const std::vector<std::vector<output>> &results, std::vector<double> &acceptance)
+void CalculateAcceptance(const run_params &p, const int i, const std::vector<std::vector<output> > &results, std::vector<double> &acceptance)
 {
 /**
  * Calculates and normalizes the acceptance rates for different R0 values at a specific time point.

@@ -69,8 +69,9 @@ void GetOptions (run_params& p, int argc, const char **argv) {
     unsigned long  top=floor((p.max_R0*10)+0.5);
     for (unsigned long r0val=1; r0val<=top ;r0val++)
     {
-        p.R0_vals.push_back(r0val*0.1);
+       p.R0_vals.push_back(r0val*0.1);
     }
+
 	if (p.probability_first_detect==-1) 
     {
         p.probability_first_detect=p.probability_detect;
