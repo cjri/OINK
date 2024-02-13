@@ -40,10 +40,14 @@ int main(int argc, const char **argv)
     // max_time = maximum of timepoints 
     // timepoints = list of integer timepoints (ordered as in file)
 
-    // Generate array of output values by R0 from 0.1 to 4.0
+    // Generate array of output values by R0 from 0.1 to p.max_R0
     // For each of these consider each time point.
     std::vector<std::vector<output> > results;
     ConstructResults(p, timepoints, results);
+    
+    //Find extreme infection time: How long before we can conclude an outbreak has died out?
+    int extreme_infection_time=floor(gsl_cdf_weibull_Pinv(0.99999,p.infection_b, p.infection_a)+1);
+    
     // For each timepoint, make a list of p.R0_vals.size() zero-initialized output objects
     for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++) {
         std::cout << "Generating simulations R0= " << p.R0_vals[r0val] << " "
@@ -59,8 +63,8 @@ int main(int argc, const char **argv)
             std::vector<int> t_detects_relative; // Detection times ?
             std::vector<int> number_new_symptomatic; // Population sizes ?
 
-            RunSimulationTime(p, r0, min_time, max_time, n_detections, t_detects_relative, number_new_symptomatic, o, rgen);
-            // n_detections  = number of detected cases before (possibly early) termination 
+            RunSimulationTime(p, r0, min_time, max_time, n_detections, extreme_infection_time, t_detects_relative, number_new_symptomatic, o, rgen);
+            // n_detections  = number of detected cases before (possibly early) termination
             // t_detects = times of the detections (relative to the first detected case)
             // number_new_symptomatic = number of cases becoming symptomatic at any given timestep
             // o = outbreak structure:
