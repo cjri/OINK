@@ -72,7 +72,8 @@ void GetOptions (run_params& p, int argc, const char **argv) {
 		x++;
 	}
     if (p.first_detect==-1) {
-        p.first_detect=p.detect;
+        //p.first_detect=p.detect;
+        p.first_detect=0;
     }
 }
 
