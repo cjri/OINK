@@ -319,7 +319,7 @@ void MakePopulationSize (run_params& p, vector<int>& pop_size, vector<int>& pop_
 
 void CalculateAcceptance (run_params& p, int i, const vector< vector<output> >& results, vector<double>& acceptance) {
     double tot=0;
-    for (p.r0=0.1;p.r0<=4.01;p.r0=p.r0+0.1) {
+    for (p.r0=0.1;p.r0<=p.max_R0+0.01;p.r0=p.r0+0.1) {
         int r0val=floor((p.r0+0.001)*10);
         double acc=(results[i][r0val].accepted+0.)/(results[i][r0val].tested+0.);
         tot=tot+acc;
