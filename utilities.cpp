@@ -100,8 +100,7 @@ void RunSimulationTime(const run_params &p,
                        const int first_evaluation_time, 
                        const int last_evaluation_time, 
                        const unsigned long n_data_detections, 
-                       const int extreme_infection_time,
-                       std::vector<int> &t_detects_relative,
+                       std::vector<int> &t_detects_relative, 
                        std::vector<int> &number_new_symptomatic, // Population size at integer time t, relative to start of the simulation
                        outbreak &o, 
                        gsl_rng *rgen)
@@ -167,7 +166,7 @@ void RunSimulationTime(const run_params &p,
 
         // Check whether to terminate the simulation (early)
         std::sort(t_detects.begin(), t_detects.end());
-        int term = CheckTermination(p, t, zeros, extreme_infection_time, first_evaluation_time, last_evaluation_time, n_data_detections, t_detects, o);
+        int term = CheckTermination(p, t, zeros, first_evaluation_time, last_evaluation_time, n_data_detections, t_detects, o);
 
         if (term == 1)
         {
@@ -234,8 +233,7 @@ void MakeRelativeTime(const std::vector<int> &t_detects,
 int CheckTermination(const run_params &p, 
                      const int t, 
                      const int zeros, 
-                     const int extreme_infection_time,
-                     const int first_evaluation_time,
+                     const int first_evaluation_time, 
                      const int last_evaluation_time,
                      const unsigned long n_detections, 
                      const std::vector<int> &t_detects, 
@@ -271,7 +269,7 @@ int CheckTermination(const run_params &p,
 
     // Terminate simulation if there have been more than infection_length days with no individuals developing symptoms on that day (zeros is the number of days +1 since an individual last developed symptoms)
     // With Flu parameters this is probably OK, but it will require time to symptoms and time to infection to be almost always less than infection_length, which may not be the case for other parameter choices.
-    if (zeros > extreme_infection_time ) // This is NOT consistent with how infection_length is used 
+    if (zeros > p.infection_length +1 ) // This is NOT consistent with how infection_length is used 
     {
         if (p.verb == 1)
         {

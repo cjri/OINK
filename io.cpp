@@ -74,8 +74,7 @@ void GetOptions (run_params& p, int argc, const char **argv) {
 
 	if (p.probability_first_detect==-1) 
     {
-        //p.probability_first_detect=p.probability_detect;
-        p.probability_first_detect=0;
+        p.probability_first_detect=p.probability_detect;
     }
 }
 
