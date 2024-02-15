@@ -279,9 +279,7 @@ void OutputOutbreakDeathStatistics (const run_params& p, const std::vector<int>&
 void OutputOutbreakTimeStatistics (const run_params& p, const std::vector<int>& timepoints, const std::vector< std::vector<output> >& results) {
     for (unsigned long i=0;i<timepoints.size();i++) { //For each of the time points
         //std::cout << "Time point " << timepoints[i] << "\n";
-        std::vector<double> acceptance;
-        CalculateAcceptance (p,i,results,acceptance);
-        //Make a count of the origin dates for each R0, weighted by the acceptance rate for that R0
+        //Make a count of the origin dates for each R0
         std::vector< std::vector<double> > all_origins;
         for (unsigned long r0val=0; r0val<p.R0_vals.size();r0val++) {
 
@@ -294,9 +292,6 @@ void OutputOutbreakTimeStatistics (const run_params& p, const std::vector<int>& 
                     }
                     origins[-results[i][r0val].origin_time[k]]++;
                 }
-            }
-            for (unsigned long j=0;j<origins.size();j++) {
-                origins[j]=origins[j]*acceptance[r0val];
             }
             all_origins.push_back(origins);
         }
@@ -335,9 +330,7 @@ void OutputOutbreakTimeStatistics (const run_params& p, const std::vector<int>& 
 void OutputOutbreakPopulationStatistics (const run_params& p, const std::vector<int>& timepoints, const std::vector< std::vector<output> >& results) {
     //Size of population conditional on not being zero
     for (unsigned long i=0;i<timepoints.size();i++) { //For each of the time points
-        std::vector<double> acceptance;
-        CalculateAcceptance (p,i,results,acceptance);
-        //Make a count of the population sizes for each R0, weighted by acceptance rate
+        //Make a count of the population sizes for each R0
         std::vector< std::vector<double> > all_sizes;
         for (unsigned long r0val=0 ;r0val<p.R0_vals.size();r0val++) {
             std::vector<double> sizes;
@@ -349,9 +342,6 @@ void OutputOutbreakPopulationStatistics (const run_params& p, const std::vector<
                 if (results[i][r0val].current_size[k]>0) {
                     sizes[results[i][r0val].current_size[k]]++;
                 }
-            }
-            for (unsigned long j=0;j<sizes.size();j++) {
-                sizes[j]=sizes[j]*acceptance[r0val];
             }
             all_sizes.push_back(sizes);
         }
