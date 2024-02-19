@@ -309,17 +309,17 @@ int CheckTermination(const run_params &p,
         }
     }
 
-    // If we have simulated up to the first detection, are there too many cases before the first observation timepoint.
+    // Are there too many cases before the first observation timepoint.
     // In this case, we know that all the matching comparisons with the data will fail.
     // Simulation could generate a new detected case in (t, t_detect[0]]
     // which might be valid for [t_new_detect, t_new_detect+first_evaluation_time]
-    // Know that the first detection occurs after min(t, t_detect[0])
-    // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time] (check sharpness - maybe t->t+1)
+    // Know that the first detection occurs after t'=min(t, t_detect[0])
+    // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time] 
 
     // Could potential improve on this knowing time_symptom_onset_to_detect
     // Simulation could generate a new detected case in (t+p.time_symptom_onset_to_detect, t_detect[0]]
-    // so set t' = min (t+p.time_symptom_onset_to_detect+1, t_detect[0])
-    // count detections in range [t', t'+first_evaluation_time] -> very little improvement in time
+    // so set t' = min (t+p.time_symptom_onset_to_detect+1, t_detect[0]) - note also sharper bound on t, as we have finished simulating all cases which became symptomatic at time t
+    // count detections in range [t', t'+first_evaluation_time] -> very little improvement in simulation time
 
     if((o.time_first_detect != -1)) {
         // Test whether the number of detections on or before the first evaluation time-point is greater than the number of detections in the dataset - if so, this will be the case for all later ones.
