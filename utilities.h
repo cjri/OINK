@@ -6,23 +6,14 @@
 #include <vector>
 
 
-void ConstructResults (vector<int>& timepoints, vector< vector<output> >& results);
-
-void MakeIndexCase (run_params& p, int& t, vector<int>& t_detects, outbreak& o, gsl_rng *rgen);
-void MakeIndexCaseFaster (run_params& p, int& t, const int& N, vector<int>& t_detects, const int& pp, long long& r, const long long& r_orig, vector<int>& new_incubate, vector<int>& new_detect, outbreak& o, gsl_rng *rgen);
-
-
-void MakeNewCase (run_params& p, int by, vector<int>& t_detects, outbreak& o, gsl_rng *rgen);
-void MakeNewCaseFaster  (run_params& p, int by, vector<int>& t_detects, const int& N, const int& pp, long long& r, const long long& r_orig, vector<int>& new_infect, vector<int>& new_incubate, vector<int>& new_detect, outbreak& o);
+void ConstructResults (const run_params& p, const std::vector<int>& timepoints, std::vector< std::vector<output> >& results);
+inline void MakeNewCase (const run_params& p, const int by, std::vector<int>& t_detects, outbreak& o, gsl_rng *rgen);
 void SetupOutbreak(outbreak& o);
-void RunSimulationTime (run_params& p, int min_time, int max_time, int& exclude, const int& n_detections, const int& N, const int& pp, long long& r, const long long& r_orig, vector<int>& new_infect, vector<int>& new_incubate, vector<int>& new_detect, vector<int>& new_number, vector<int>& t_detects, vector<int>& pop_size, outbreak& o, gsl_rng *rgen);
-void MakeRelativeTime (vector<int>& t_detects, vector<int>& t_detects_relative, outbreak& o);
-int CheckTermination (run_params& p, int& t, int& zeros, int& min_time, int& max_time, const int& n_detections, vector<int>& t_detects, outbreak& o);
-
-void ConstructSummaryData (vector<int>& t_detects, vector<detect>& sim_data);
-
-
-void MakePopulationSize (run_params& p, vector<int>& pop_size, vector<int>& pop_sum);
-void EvaluateOutbreak (run_params& p, int& exclude, int& r0val, vector<int>& t_detects, vector<int>& timepoints, vector<int>& pop_sum, vector<detect>& detections, outbreak& o, vector< vector<output> >& results);
-
-void CalculateAcceptance (run_params& p, int i, const vector< vector<output> >& results, vector<double>& acceptance);
+void RunSimulationTime (const run_params& p, double r0, const int first_evaluation_time, const int last_evaluation_time, const unsigned long n_detections, const int extreme_infection_time, std::vector<int>& t_detects, std::vector<int>& number_new_symptomatic, outbreak& o, gsl_rng *rgen);
+void MakeRelativeTime (const std::vector<int>& t_detects, std::vector<int>& t_detects_relative);
+int CheckTermination(const run_params &p, const int t, const int zeros, const int extreme_infection_time, const int first_evaluation_time, const int last_evaluation_time, const unsigned long n_detections, const std::vector<int> &t_detects, const outbreak &o);
+void ConstructSummaryData (const std::vector<int>& t_detects, std::vector<detect>& sim_data);
+void EvaluateOutbreak (const run_params& p, const unsigned long r0val, std::vector<int>& t_detects, std::vector<int>& timepoints, std::vector<int>& total_active_infected, std::vector<detect>& detections, outbreak& o, std::vector< std::vector<output> >& results);
+void MakePopulationSize (const run_params& p, const std::vector<int>& number_new_symptomatic, std::vector<int>& total_active_infected);
+void CalculateAcceptance (const run_params& p, const int i, const std::vector< std::vector<output> >& results, std::vector<double>& acceptance);
+unsigned long CompareWithData( const std::vector<int> &timepoints, const std::vector<detect> &sim_data, const std::vector<detect> &detections);

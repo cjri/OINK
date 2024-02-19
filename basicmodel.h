@@ -1,4 +1,4 @@
-using namespace std;
+
 #include <stdio.h>
 #include <iostream>
 #include <iomanip>
@@ -11,44 +11,40 @@ using namespace std;
 #include <gsl/gsl_cdf.h>
 
 struct run_params {
-    double r0;
-    double incubation_a;
+    // Parameters for this simulation run
+    double incubation_a; // Parameter for Weibull distribution modelling 
     double incubation_b;
     double infection_a;
     double infection_b;
-    int max_infections; //Limit on how many infections to generate
-    int infection_length;
+    int max_infections; // Limit on how many infections to generate
+    int infection_length;  
     int add_limit; //Maximum number of infections per generation.
-    double detect;   //P(see doctor and get tested if sick)
-    double first_detect; //Probability for detecting first case may be different e.g. if known
-    double symptom_to_detect;
-    int replicas;
-    int run_fast;
-    int resolution; //Measured in days - how accurately do we know when things happened?
-    string species; //Specify virus
-    int test; //Testing the code
-    double max_R0;
+    double probability_detect;   // P(see doctor and get tested if sick)
+    double probability_first_detect; // Probability for detecting first case may be different e.g. if known
+    int time_symptom_onset_to_detect;
+    int replicas; // Number of simulations to perform for each value of R0
+    double max_R0; //
+    std::vector<double> R0_vals; 
+    int max_simulation_time; // Maximum length of simulation 
     int more_stats; //Additional files outputted
-    int verb;
+    int verb; // Whether to be verbose
+    int seed; // Fixed RNG seed
+    std::string output_prefix;
+    std::string input_prefix;
+
 };
 
-//Time relative to first detection?  Could do this retrospectively i.e. once the outbreak is fully simulated?
-//What is an efficient way to filter out simulations with too many cases detected?
-struct pat {
-    int time_i; //Infection
-    int time_s; //Symptom onset (i.e. non-latent)
-    int detected;
-    int time_r; //Result reported
+struct patient {
+    int time_infected; // Time of infection (relative to index case)
+    int time_symptom_onset; //Symptom onset (i.e. non-latent)
+    unsigned int detected; // Whether case was detected
+    int time_reported; // Time esult reported
 };
 
 struct outbreak {
-    vector<pat> indiv;
-    int first_detect; //Time of first detection.  Update after each generation if not yet found.  Once found shift all times.
-    int origin_time;
-    int total_detections;
-    int last_time_completed; //Starts at zero.  After each generation becomes the time before which nothing else can happen.
-    //Idea here: If there are too many detections by last_time_completed, can stop the simulation
-    //Implication: Need to have data describing number of detections by what time.
+    std::vector<patient> individuals;
+    int time_first_detect; // Time of first detection, relative to start of simulation
+    int last_time_simulated; // Time at which simulation stopped.
 };
 
 struct detect {
@@ -56,10 +52,10 @@ struct detect {
     int cases;
 };
 
-struct output { //Specific to R0
+struct output { // Structure to combine output over simulations for each R0 and timepoint
     int tested;
     int accepted;
     int dead;
-    vector<int> current_size;
-    vector<int> origin_time;
+    std::vector<int> current_size;
+    std::vector<int> origin_time;
 };

@@ -1,10 +1,21 @@
-CC	      = gcc
-CC_FLAGS        = -g3 -O3 -Wall -D_GLIBCXX_DEBUG -I  /opt/homebrew/Cellar/gsl/2.7.1/include/
-LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib  -lgsl -lgslcblas -lm -lstdc++ 
-BAS		= basicmodel.o io.o utilities.o pseudorandom.o
+CC	      = g++
+CC_FLAGS        = -g3 -O3 -Wall -pthread -D_GLIBCXX_DEBUG -I /opt/homebrew/Cellar/gsl/2.7.1/include/
+LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib -lgsl -lgslcblas -lm -lstdc++  -g 
+LD_FLAGS_TEST   = -L/opt/homebrew/Cellar/gsl/2.7.1/lib -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
+BAS		= basicmodel.o io.o utilities.o 
+TEST            = Test.o utilities.o io.o
+TEST_RNG        = test_rng.o utilities.o io.o
 
 basic: $(BAS)
 	$(CC) $(CC_FLAGS) $(BAS) -o oink  $(LD_FLAGS)
+test: $(TEST)
+	$(CC) $(CC_FLAGS) $(TEST) -o test $(LD_FLAGS_TEST)
+test_rng: $(TEST_RNG)
+	$(CC) $(CC_FLAGS) $(TEST_RNG) -o test $(LD_FLAGS)
+test_rng.o: test_rng.cpp
+	$(CC) $(CC_FLAGS) -c test_rng.cpp
+Test.o: Test.cpp
+	$(CC) $(CC_FLAGS) -c Test.cpp
 basicmodel.o: basicmodel.cpp
 	$(CC) $(CC_FLAGS) -c basicmodel.cpp
 io.o: io.cpp
