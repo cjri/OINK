@@ -61,67 +61,8 @@ def calc_first_day(days, probs):
     except StopIteration:
         return None
 
-# P_Outbreak_End.dat -  OutputProbabilityEnded
-# Historical now-casting that there are no infected individuals
-plt.figure()
-for k, c in zip(data, cols):
-    
-    oe = data[k]['outbreak_end']
-    days, probs = zip(*oe)
-    day_first = calc_first_day(days, probs)
-    print(k, day_first)
-    
-    plt.plot(days, probs, label=k, c=c)
-    plt.xlim(0, 30)
-plt.legend()
 
-## Figure 1b
-
-# Origin_stats_*.dat" - OutputOutbreakTimeStatistics
-#  Retrospective (nowcasting well after the event) of outbreak origin times 
-plt.figure()
-for k, c in zip(data, cols):
-    o = data[k]['origin']
-    o = o[max(o)]
-    days, probs = zip(*o)
-    days = np.array(days)
-    probs = np.array(probs)
-    i = np.argmax(probs)
-    m = np.sum(days*probs)
-    print(k, 'peak: ', i, 'mean :', m)
-    plt.plot(days, probs, label=k, c=c)
-    plt.xlim(50, 10)
-plt.legend()
-
-plt.show()
-
-def calc_median(days, probs):
-    ## Approx
-    try:
-        return next(d for d, p in zip(days, np.cumsum(probs)) if p>=0.5)
-    except StopIteration:
-        return None
-
-
-    
-## Figure 1c
-## outbreak origin times - "Origin_stats_*.dat OutputOutbreakTimeStatistics
-## Historical nowcasting of outbreak origin times (14 days after first detection)
-
-plt.figure()
-for k, c in zip(data, cols):
-    o = data[k]['sizes']
-    o = o[14]
-#    print(o)
-    sizes, probs = zip(*o)
-
-    print(probs)
-    print(np.sum(probs))
-    print(k, calc_median(sizes, probs))
-    
-    plt.plot(sizes, probs, label=k, c=c)
-    plt.xlim(0, 150)
-plt.legend()
+## Figure S2a
 
 
 ## Figure 1d
@@ -131,15 +72,41 @@ plt.legend()
 
 
 plt.figure()
-for k,c in zip(data, cols):
-    a = data[k]['accept']
-    o = [ (i, b[-1][1]) for i, b in a.items() ]
+d = data['0.04']
+    
+a = d['accept']
+print(list(a[1]))
+
+for u in range(len(a[1][:8])):
+    
+    o = [ (i, b[u][1]) for i, b in a.items() ]
     r0val, probs = zip(*o)
     probs = np.array(probs)
     probs/=probs.sum()
     idx = np.argmax(probs)
-    print(k, r0val[idx]*0.1, np.sum(probs[0:22]), np.sum(probs[0:21]))
-    plt.plot(np.array(r0val)*0.1, probs, label=k, c=c)
+    plt.plot(np.array(r0val)*0.1, probs)
+
+plt.show()    
+
+    
+## Figure S2b
+
+# Origin_stats_*.dat" - OutputOutbreakTimeStatistics
+#  Nowcasting of outbreak origin times 
+plt.figure()
+
+oo = data['0.04']['origin']
+print(list(oo))
+for u in sorted(oo):
+    print(u)
+    o = oo[u]
+    days, probs = zip(*o)
+    days = np.array(days)
+    probs = np.array(probs)
+    i = np.argmax(probs)
+    m = np.sum(days*probs)
+    plt.plot(days, probs)
+    plt.xlim(50, 10)
 plt.legend()
           
     

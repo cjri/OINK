@@ -61,39 +61,6 @@ def calc_first_day(days, probs):
     except StopIteration:
         return None
 
-# P_Outbreak_End.dat -  OutputProbabilityEnded
-# Historical now-casting that there are no infected individuals
-plt.figure()
-for k, c in zip(data, cols):
-    
-    oe = data[k]['outbreak_end']
-    days, probs = zip(*oe)
-    day_first = calc_first_day(days, probs)
-    print(k, day_first)
-    
-    plt.plot(days, probs, label=k, c=c)
-    plt.xlim(0, 30)
-plt.legend()
-
-## Figure 1b
-
-# Origin_stats_*.dat" - OutputOutbreakTimeStatistics
-#  Retrospective (nowcasting well after the event) of outbreak origin times 
-plt.figure()
-for k, c in zip(data, cols):
-    o = data[k]['origin']
-    o = o[max(o)]
-    days, probs = zip(*o)
-    days = np.array(days)
-    probs = np.array(probs)
-    i = np.argmax(probs)
-    m = np.sum(days*probs)
-    print(k, 'peak: ', i, 'mean :', m)
-    plt.plot(days, probs, label=k, c=c)
-    plt.xlim(50, 10)
-plt.legend()
-
-plt.show()
 
 def calc_median(days, probs):
     ## Approx
@@ -111,37 +78,21 @@ def calc_median(days, probs):
 plt.figure()
 for k, c in zip(data, cols):
     o = data[k]['sizes']
-    o = o[14]
-#    print(o)
-    sizes, probs = zip(*o)
 
-    print(probs)
-    print(np.sum(probs))
-    print(k, calc_median(sizes, probs))
-    
-    plt.plot(sizes, probs, label=k, c=c)
-    plt.xlim(0, 150)
+
+    sel_keys = sorted([v for v in o.keys() if 10<=v<=30])
+
+    medians = []
+
+    for v in sel_keys:    
+        oo = o[v]
+        sizes, probs = zip(*oo)
+        sizes = np.array(sizes)
+        probs = np.array(probs)
+        print(sizes[0], probs[0])
+        medians.append(calc_median(sizes, probs))
+
+    plt.plot(sel_keys, medians, label=k, c=c)
 plt.legend()
-
-
-## Figure 1d
-## "Acceptance_rate{i}.dat" - OutputAcceptanceRates
-## The acceptance rate P(accepted at t0 | R0), taken at the last timepoint.
-## This is then normalized to give a retrospective estimate of the posterior distribution of R0
-
-
-plt.figure()
-for k,c in zip(data, cols):
-    a = data[k]['accept']
-    o = [ (i, b[-1][1]) for i, b in a.items() ]
-    r0val, probs = zip(*o)
-    probs = np.array(probs)
-    probs/=probs.sum()
-    idx = np.argmax(probs)
-    print(k, r0val[idx]*0.1, np.sum(probs[0:22]), np.sum(probs[0:21]))
-    plt.plot(np.array(r0val)*0.1, probs, label=k, c=c)
-plt.legend()
-          
-    
 plt.show()
 
