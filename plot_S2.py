@@ -77,7 +77,7 @@ d = data['0.04']
 a = d['accept']
 print(list(a[1]))
 
-for u in range(len(a[1][:8])):
+for u in range(len(a[1])):
     
     o = [ (i, b[u][1]) for i, b in a.items() ]
     r0val, probs = zip(*o)
@@ -107,7 +107,7 @@ for u in sorted(oo):
     m = np.sum(days*probs)
     plt.plot(days, probs)
     plt.xlim(50, 10)
-plt.legend()
+#plt.legend()
           
     
 plt.show()

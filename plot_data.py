@@ -2,6 +2,7 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+import weightedstats
 
 def read_data(file_path):
     data = []
@@ -46,7 +47,6 @@ def load_all_data(path):
         
 data = load_all_data(Path('output/'))
 
-print(list(data))
 
 ## Figure 1a
 
@@ -93,8 +93,6 @@ for k, c in zip(data, cols):
     plt.xlim(50, 10)
 plt.legend()
 
-plt.show()
-
 def calc_median(days, probs):
     ## Approx
     try:
@@ -102,8 +100,21 @@ def calc_median(days, probs):
     except StopIteration:
         return None
 
+def other_median(days, probs):
+    days = np.array(days, dtype=float)
+    probs = np.array(probs, dtype=float)
+    u = np.cumsum(probs)
+    print('cs', u)
+    q = np.searchsorted(u, 0.5 * u[-1])
+    return np.where(u[q]/u[-1] == 0.5, 0.5 * (days[q] + days[q+1]), days[q])
 
-    
+"""
+test_sizes = [2, 3, 4]
+test_probs = [0.25, 0.25, 0.5]
+
+print('median', calc_median(test_sizes, test_probs))
+"""
+
 ## Figure 1c
 ## outbreak origin times - "Origin_stats_*.dat OutputOutbreakTimeStatistics
 ## Historical nowcasting of outbreak origin times (14 days after first detection)
@@ -115,9 +126,8 @@ for k, c in zip(data, cols):
 #    print(o)
     sizes, probs = zip(*o)
 
-    print(probs)
-    print(np.sum(probs))
     print(k, calc_median(sizes, probs))
+    print(k, other_median(sizes, probs))
     
     plt.plot(sizes, probs, label=k, c=c)
     plt.xlim(0, 150)
