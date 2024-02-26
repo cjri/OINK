@@ -4,8 +4,6 @@
 #include <algorithm>
 #include <string>
 
-// Currently code assumes first infection datapoint is at time 0.
-
 void ConstructResults(const run_params &p, const std::vector<int> &timepoints, std::vector<std::vector<output> > &results)
 {
 
@@ -31,7 +29,7 @@ inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_d
 
     patient pt;
     // Time of infection
-    if (by == -1) // Index case
+    if (by == -1) // Flag for index case
     {
         pt.time_infected = 0;
     }
@@ -77,7 +75,7 @@ void RunSimulationTime(const run_params &p,
                        const unsigned long n_data_detections, 
                        const int extreme_infection_time,
                        std::vector<int> &t_detects_relative,
-                       std::vector<int> &number_new_symptomatic, // Population size at integer time t, relative to start of the simulation
+                       std::vector<int> &number_new_symptomatic, 
                        outbreak &o, 
                        gsl_rng *rgen)
 {
@@ -297,7 +295,6 @@ void ConstructSummaryData(const std::vector<int> &t_detects, std::vector<detect>
     // Assume t_detects is already sorted
     int index = 0;
     int count = 0;
-    //std::sort(t_detects.begin(), t_detects.end());
     for (unsigned long i = 0; i < t_detects.size(); i++)
     {
         if (t_detects[i] == index)
@@ -325,8 +322,6 @@ void ConstructSummaryData(const std::vector<int> &t_detects, std::vector<detect>
 
 unsigned long CompareWithData( const std::vector<int> &timepoints, const std::vector<detect> &sim_data, const std::vector<detect> &detections)
 {
-
-
     // Note that if timepoint[i] does not match, all later timepoints also do not match.
     unsigned long n_timepoints_accepted=0;
     unsigned long idx_sim=0;
@@ -401,11 +396,10 @@ void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vecto
         }
         results[i][r0val].accepted++;                           // Record acceptance
         results[i][r0val].origin_time.push_back(-o.time_first_detect); // Origin time of outbreak relative to first detection
-        // What do we do if first outbreak time is not 0 in data???
         if(o.time_first_detect<0) {
             std::cout << "Negative first detection time " << o.time_first_detect << " " << n_timepoints_accepted << " " << sim_data.size() << "\n";
         }
-        // Find current size
+        // Find the total number of currently infected individuals at the observation timepoint
         int time = o.time_first_detect + timepoints[i];
         if (total_active_infected.size() > time)
         { // Store current number of "active" infections at this time
@@ -414,7 +408,7 @@ void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vecto
         else
         {
             results[i][r0val].current_size.push_back(0);
-            results[i][r0val].dead++;
+            results[i][r0val].dead++; // No currently infected individuals at the observation timepoint
         }
 }
     if (p.verb == 1)
@@ -445,24 +439,3 @@ void MakePopulationSize(const run_params &p, const std::vector<int> &number_new_
         }
     }
 }
-
-
-/*
-void CalculateAcceptance(const run_params &p, const int i, const std::vector<std::vector<output> > &results, std::vector<double> &acceptance)
-{
-
-
-    double tot = 0.0;
-    acceptance.clear();
-    for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++)
-    {
-        double acc = static_cast<double>(results[i][r0val].accepted ) / results[i][r0val].tested;
-        tot = tot + acc;
-        acceptance.push_back(acc);
-    }
-    for(unsigned long j = 0; j < acceptance.size(); j++)
-    {
-        acceptance[j] = acceptance[j] / tot;
-    }
-}
-*/
