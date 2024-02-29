@@ -30,7 +30,7 @@ int main(int argc, const char **argv)
     // detections is a list of detections, with day =integer day index, cases=number of cases on that day.
     // n_detections is the sum of the number of cases.
     
-    // We also want to know what time it is, or at least a std::vector of times at which to model what we know.
+    // Import observation timepoints
     int min_time;
     int max_time;
     std::vector<int> timepoints;
@@ -45,7 +45,7 @@ int main(int argc, const char **argv)
     std::vector<std::vector<output> > results;
     ConstructResults(p, timepoints, results);
     
-    //Find extreme infection time: How long before we can conclude an outbreak has died out?
+    // Find extreme infection time: How long before we can conclude an outbreak has died out?
     int extreme_infection_time=floor(gsl_cdf_weibull_Pinv(0.99999,p.infection_b, p.infection_a)+1);
     
     // For each timepoint, make a list of p.R0_vals.size() zero-initialized output objects
@@ -60,15 +60,14 @@ int main(int argc, const char **argv)
             SetupOutbreak(o); // Initialize outbreak
 
             // Set up permutation parameters
-            std::vector<int> t_detects_relative; // Detection times ?
-            std::vector<int> number_new_symptomatic; // Population sizes ?
+            std::vector<int> t_detects_relative; // Detection times relative to first detected case
+            std::vector<int> number_new_symptomatic; // Number of individuals becoming newly symptomatic on each day (relative to index case)
 
             RunSimulationTime(p, r0, min_time, max_time, n_detections, extreme_infection_time, t_detects_relative, number_new_symptomatic, o, rgen);
             // n_detections  = number of detected cases before (possibly early) termination
             // t_detects = times of the detections (relative to the first detected case)
             // number_new_symptomatic = number of cases becoming symptomatic at any given timestep
             // o = outbreak structure:
-            // o.individuals = list of  
 
             // Convert number_new_symptomatic into a list of infected individuals (day_symptomatic to day_symptomatic + infection_length-1, inclusive)
             std::vector<int> total_active_infected = number_new_symptomatic;
@@ -79,7 +78,6 @@ int main(int argc, const char **argv)
             }
 
             EvaluateOutbreak(p, r0val, t_detects_relative, timepoints, total_active_infected, detections, o, results); // Is this consistent with the data?
-            //std::cout << "last_time_simulated " << o.last_time_simulated << " n_t_detects " << t_detects_relative.size() << "\n"; 
 
         }
     }
@@ -93,13 +91,13 @@ int main(int argc, const char **argv)
     }
 
     // Calculate statistics
-    // Probability of death
+    // Probability that the outbreak has died out on the observation day
     OutputOutbreakDeathStatistics(p, timepoints, results);
 
     // Distribution of time of initial infection
     OutputOutbreakTimeStatistics(p, timepoints, results);
 
-    // Distribution of population size if non-zero
+    // Distribution of number of actively infected individuals on the observation day
     OutputOutbreakPopulationStatistics(p, timepoints, results);
 
     return 0;

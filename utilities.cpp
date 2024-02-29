@@ -4,23 +4,9 @@
 #include <algorithm>
 #include <string>
 
-// Currently code assumes first infection datapoint is at time 0.
-
 void ConstructResults(const run_params &p, const std::vector<int> &timepoints, std::vector<std::vector<output> > &results)
 {
-/** 
- * Initializes the results data structure for storing the outcomes of simulations across different R0 values
- * and time points.
- * 
- * Creates a vector of vectors, of size [timepoints.size, p.R0_vals.size()], with each `output` object initialized to zero.
- * 
- * @param p A constant reference to a `run_params` struct containing simulation parameters.
- * @param timepoints A constant reference to a vector of integers specifying the time points at which the
- *        outbreak is evaluated.
- * @param results A reference to a 2D vector of `output` objects where the simulation results will be stored.
- *        This vector is cleared if non-empty, and for each timepoint
- *        a vector of p.R0_vals.size() `output` objects is generated.
- */
+
     results.clear();
     for (unsigned long i = 0; i < timepoints.size(); i++)
     {
@@ -39,23 +25,11 @@ void ConstructResults(const run_params &p, const std::vector<int> &timepoints, s
 
 inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_detects, outbreak &o, gsl_rng *rgen)
 {
-    /**
-     * @brief Creates a new case of infection within a given outbreak simulation.
-     *
-     * This function generates a new patient case. It calculates the time of infection and symptom onset based on Weibull distributions, with parameters stored in `p`, determines randomly whether the case is detected, and updates the outbreak data structure accordingly.
-     * The detection times of new cases (if detected) are added to the `t_detects` vector, and the outbreak's `time_first_detect` is updated if this case is detected earlier than any previously detected case.
-     * 
-     * @param p A reference to a `run_params` structure containing parameters for the infection and incubation periods, detection probabilities, and the time from symptom onset to detection.
-     * @param by A value of -1 indicates the case is a primary (index) case not infected by anyone within the simulation.
-     * @param t_detects A reference to a vector of integers storing the times (relative to the start of the simulation) at which cases were detected. If the new cases is detected the detection time is appended to this list
-     * @param o A reference to the outbreak structure where the new case will be added. 
-     * @param rgen A pointer to a GSL random number generator.
-     * 
-     */
+
 
     patient pt;
     // Time of infection
-    if (by == -1) // Index case
+    if (by == -1) // Flag for index case
     {
         pt.time_infected = 0;
     }
@@ -90,7 +64,6 @@ inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_d
 
 void SetupOutbreak(outbreak &o)
 {
-    /* Initialize an outbreak structure */
     o.time_first_detect = -1; 
     o.last_time_simulated = 0;
 }
@@ -102,30 +75,11 @@ void RunSimulationTime(const run_params &p,
                        const unsigned long n_data_detections, 
                        const int extreme_infection_time,
                        std::vector<int> &t_detects_relative,
-                       std::vector<int> &number_new_symptomatic, // Population size at integer time t, relative to start of the simulation
+                       std::vector<int> &number_new_symptomatic, 
                        outbreak &o, 
                        gsl_rng *rgen)
 {
-/**
- * Main simulation function
- * 
- * This function simulates the spread of an outbreak from an index case over a predefined period, or until certain
- * termination conditions are met. It tracks the number of new infections and symptomatic individuals at each time
- * step, applying a limit to the number of new cases generated each day to maintain computational efficiency.
- * 
- * @param p A `run_params` struct containing simulation parameters.
- * @param r0 The reproduction number
- * @param first_evaluation_time The earliest time to evaluate whether the simulations match the data (timepoints). 
- * @param last_evaluation_time The last timepoint
- * @param n_detections The total number of detections in the data.
- * @param t_detects Detection times (relative) to the first detected case ; during the function these are absolute detection times
- * @param number_new_symptomatic The number of new infections at each integer time t, time measured relative to the start of the simulation. 
- * @param o An `outbreak` object
- * @param rgen A pointer to a GSL random number generator
- * 
- * @note Detection times are adjusted to be relative to the first detection, and the simulation may terminate early if
- *   it meets certain criteria, such as a prolonged period without new cases or reaching a maximum number of detections.
- */
+
 
     int t = 0;
     std::vector<int> t_detects;
@@ -195,15 +149,7 @@ void RunSimulationTime(const run_params &p,
 void MakeRelativeTime(const std::vector<int> &t_detects, 
                       std::vector<int> &t_detects_relative)
 {
-/**
- * Transforms absolute detection times into relative times with respect to the earliest detection.
- * 
- * This function takes a vector of detection times relative to the start of the simulation (`t_detects`), and ouputs a vector
- * `t_detects_relative` of these times relative to the first detection.
- * 
- * @param t_detects The times of detections.
- * @param t_detects_relative Relative detection times,
- */
+
 
     t_detects_relative.clear();
     if(t_detects.empty()) 
@@ -241,37 +187,24 @@ int CheckTermination(const run_params &p,
                      const std::vector<int> &t_detects, 
                      const outbreak &o)
 {
-/**
- * Determines whether the simulation of an outbreak should be terminated based on specific criteria.
- * 
- * This function checks for several conditions to decide if the simulation of an outbreak should be terminated.
- * It considers the number of days with zero new symptoms, the total number of detections relative to the dataset, and
- * the timing of these detections against predefined parameters. Termination conditions include: no new symptoms for a
- * period longer than the infection length plus one, and some matching conditions TODO.
- * 
- * @param p A `run_params` struct containing simulation parameters.
- * @param t The current simulation time. (Test is at end of time t).
- * @param zeros The number + 1 of consecutive days with zero new cases becoming symptomatic.
- * @param first_evaluation_time The first time at which to evaluate consistency with the data
- * @param last_evaluation_time The time of the last evaluation time
- * @param n_detections The number of detections specified by the dataset.
- * @param t_detects The times of detections relative to the start of the simulation
- * @param o An `outbreak` object
- * 
- * @return Returns 1 if any of the termination criteria are met, indicating that the simulation should be terminated.
- *         Otherwise, returns 0, indicating that the simulation should continue.
- * 
- * @note If the simulation terminates, we know that either 
- *       - the outbreak has died out, so our data is complete for all time
- *       - we have complete data up to all timepoints that will be tested
- *       - we have complete data up to time t, which is on or after the first detected case, and know that all (later) timepoints will fail to match
- */
+    /** Each simulation proceeded up to the either 
+     * a) the outbreak had certainly died out or
+     * b) it was clear that the simulation would either be accepted or rejected at all observation times.
+     *    Note that rejection at one observation time implies rejection at all later observation times.
+     *    We also need to have completely simulated up to the last observation time that might be accepted (for other statistics).
+     * 
+     * Here, for b) we terminated simulations when either:
+     * i) The time t has reached or gone beyond the end of the day t_detect[0]+last_observation_time. (Everything is known.)
+     *    Then the first detected case must be before t, and there is no possibility of any additional detections before t.
+     * ii) There are more detected cases than in the dataset, and that t has reached the end of the day in which the
+     *     first extra case was detected. (Know any observation timepoint after t will be rejected, and any before is completely simulated)
+     * iii) There too many detected cases before the earliest time that the first observation timepoint could occur. (All rejected.)   
+     * 
+     * More optimal strategies are likely possible, especially in cases where the experimental data has more than one detected case.
+     */
 
-
-
-    // Terminate simulation if there have been more than infection_length days with no individuals developing symptoms on that day (zeros is the number of days +1 since an individual last developed symptoms)
-    // With Flu parameters this is probably OK, but it will require time to symptoms and time to infection to be almost always less than infection_length, which may not be the case for other parameter choices.
-    if (zeros > extreme_infection_time ) // This is NOT consistent with how infection_length is used 
+    // a) Terminate simulation if there have been more than extreme_infection_time days with no individuals developing symptoms on that day (zeros is the number of days +1 since an individual last developed symptoms)
+    if (zeros > extreme_infection_time ) 
     {
         if (p.verb == 1)
         {
@@ -283,7 +216,7 @@ int CheckTermination(const run_params &p,
 
     if ((o.time_first_detect != -1) && (t - o.time_first_detect >= last_evaluation_time)) 
     {
-        // This stops the simulation once the time has reached the last observation. 
+        // b) i) This stops the simulation once the time has reached the last observation. 
         // (At this point t >= time_first_detect, so first detection is known)
         // Matching will not consider any cases after this time
         if (p.verb == 1)
@@ -299,7 +232,8 @@ int CheckTermination(const run_params &p,
     {
         if ((o.time_first_detect != -1) && (t  >= t_detects[n_detections])) 
         {
-            // At this point we know that all timepoints on or after t_detects[n_detections]
+            // b) ii) At this point we know that the first detection is at t_detects[0],
+            // all timepoints on or after t_detects[n_detections]
             // will fail, and all those before are completely simulated.
             if(p.verb==1)
             {
@@ -309,17 +243,20 @@ int CheckTermination(const run_params &p,
         }
     }
 
-    // Are there too many cases before the first observation timepoint.
+    // b) iii) There too many cases before the earliest time that the first observation timepoint could occur.
     // In this case, we know that all the matching comparisons with the data will fail.
-    // Simulation could generate a new detected case in (t, t_detect[0]]
-    // which might be valid for [t_new_detect, t_new_detect+first_evaluation_time]
+    // Simulation could generate a new detected case at t_new_detect in (t, t_detect[0]]
+    // which might be match the data for [t_new_detect, t_new_detect+first_evaluation_time]
     // Know that the first detection occurs after t'=min(t, t_detect[0])
-    // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time] 
+    // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time]
+    // If there are too many, then all timepoints will be rejected 
 
-    // Could potential improve on this knowing time_symptom_onset_to_detect
+    // Could potentially improve on this knowing time_symptom_onset_to_detect, as if this is fixed
     // Simulation could generate a new detected case in (t+p.time_symptom_onset_to_detect, t_detect[0]]
     // so set t' = min (t+p.time_symptom_onset_to_detect+1, t_detect[0]) - note also sharper bound on t, as we have finished simulating all cases which became symptomatic at time t
     // count detections in range [t', t'+first_evaluation_time] -> very little improvement in simulation time
+    // This bound on the number of cases could also be tightened using the data - here it is just the total number of detections.
+
 
     if((o.time_first_detect != -1)) {
         // Test whether the number of detections on or before the first evaluation time-point is greater than the number of detections in the dataset - if so, this will be the case for all later ones.
@@ -349,21 +286,7 @@ int CheckTermination(const run_params &p,
 void ConstructSummaryData(const std::vector<int> &t_detects, std::vector<detect> &sim_data)
 {
 
-/**
- * Converts a list of detection times from a simulation into the same format as the input data.
- * 
- * This function takes a sorted vector of detection times (`t_detects`) and appends it a vector of `detect` objects (`sim_data`),
- * where each `detect` object contains the day relative to the first detected case and the number of cases detected on that day. 
- * Most of the time, it is likely that you want to pass an empty vector to this function.
- * If t_detects is empty, it creates a single detection object with day=0 and cases=0, which is important for the
- * current implementation of the matching function.
- * If t_detects.size()>0 and t_detects[0] !=0 then it also inserts this detection object; however, for all inputs currently
- * t_detects[0]=0
- * 
- * @param t_detects A sorted vector of integers representing the times (days) at which detections occurred during the simulation,
- *                  relative to the first detected case. 
- * @param sim_data A vector of `detect` objects to which the summary of detections will be appended.
- */
+
 
     if(t_detects.empty()) {
         return;
@@ -372,7 +295,6 @@ void ConstructSummaryData(const std::vector<int> &t_detects, std::vector<detect>
     // Assume t_detects is already sorted
     int index = 0;
     int count = 0;
-    //std::sort(t_detects.begin(), t_detects.end());
     for (unsigned long i = 0; i < t_detects.size(); i++)
     {
         if (t_detects[i] == index)
@@ -400,27 +322,6 @@ void ConstructSummaryData(const std::vector<int> &t_detects, std::vector<detect>
 
 unsigned long CompareWithData( const std::vector<int> &timepoints, const std::vector<detect> &sim_data, const std::vector<detect> &detections)
 {
-/**
- * Compares a sequence of timepoints with simulation data and actual detection data to count the number of timepoints 
- * where the simulation data matches the detection data up to the first mismatch.
- * 
- * This function iterates over a list of timepoints and compares them against corresponding simulation data (`sim_data`)
- * and actual detection data (`detections`). A timepoint is accepted if, for all simulation data up to that timepoint,
- * the day and case count match exactly between the simulation data and the detection data. The comparison stops at the 
- * first timepoint where a mismatch occurs, as all later timepoints by necessity do not match.
- * 
- * Note:
- * - If a timepoint in `timepoints` does not have a matching day in `sim_data` or `detections`, or if the case counts do not match,
- *   the function will stop checking further timepoints.
- * - The function assumes `sim_data` and `detections` are sorted by the day.
-
- * 
- * @param timepoints Timepoints to be compared.
- * @param sim_data A vector of `detect` structures representing simulation data
- * @param detections A vector of `detect` structures representing actual detection data, similar to `sim_data`.
- * @return The number of accepted timepoints where simulation data matches detection data up to the first detected mismatch.
- */
-
     // Note that if timepoint[i] does not match, all later timepoints also do not match.
     unsigned long n_timepoints_accepted=0;
     unsigned long idx_sim=0;
@@ -463,29 +364,7 @@ unsigned long CompareWithData( const std::vector<int> &timepoints, const std::ve
 
 void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vector<int> &t_detects_relative, std::vector<int> &timepoints, std::vector<int> &total_active_infected, std::vector<detect> &detections, outbreak &o, std::vector<std::vector<output> > &results)
 {
-/**
- * Evaluates the outcome of an outbreak simulation at specified time points against detection data.
- * 
- * This function cycles through specified time points. For each time point, it checks if the simulated data match the real detection data up to that
- * point. The evaluation considers the number of cases detected and the days on which these detections occurred.
- * The function updates results with the number of simulations tested and accepted for each R0 value and
- * time point, along with the origin time of the outbreak, the current size of the population affected, and the number of simulations for which the outbreak is over,  
- * at each accepted time point.
- * 
- * @param p A `run_params` struct containing simulation parameters.
- * @param r0val The R0 value index being evaluated, used to index into the results matrix.
- * @param t_detects_relative The times at which detections occurred in the simulation, relative to the first detected case
- * @param timepoints The time points at which the outbreak is evaluated. Sorted in increasing order.
- * @param total_active_infected The number of active infections at each time point.
- * @param detections The actual detection data for comparison.
- * @param o An `outbreak` object containing information about the outbreak being simulated.
- * @param results A reference to a vector of vectors of `output` objects of size [timepoints.size(), p.R0_vals.size()] 
- *        where the evaluation results are stored. Each element
- *        stores the number of simulations tested, accepted,
- *        the origin time of accepted outbreaks, the current size of the 
- *        outbreak at each accepted time point, and the number of simulations
- *        where the outbreak has died out
- */
+
 
     for (unsigned long i = 0; i < timepoints.size(); i++)
     {                               // Cycle through time points at which we are evaluating the simulation
@@ -517,11 +396,10 @@ void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vecto
         }
         results[i][r0val].accepted++;                           // Record acceptance
         results[i][r0val].origin_time.push_back(-o.time_first_detect); // Origin time of outbreak relative to first detection
-        // What do we do if first outbreak time is not 0 in data???
         if(o.time_first_detect<0) {
             std::cout << "Negative first detection time " << o.time_first_detect << " " << n_timepoints_accepted << " " << sim_data.size() << "\n";
         }
-        // Find current size
+        // Find the total number of currently infected individuals at the observation timepoint
         int time = o.time_first_detect + timepoints[i];
         if (total_active_infected.size() > time)
         { // Store current number of "active" infections at this time
@@ -530,7 +408,7 @@ void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vecto
         else
         {
             results[i][r0val].current_size.push_back(0);
-            results[i][r0val].dead++;
+            results[i][r0val].dead++; // No currently infected individuals at the observation timepoint
         }
 }
     if (p.verb == 1)
@@ -541,22 +419,7 @@ void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vecto
 
 void MakePopulationSize(const run_params &p, const std::vector<int> &number_new_symptomatic, std::vector<int> &total_active_infected)
 {
-/**
- * Calculates the population size affected by infections over time.
- * 
- * This function processes an input array representing the population size at each time point (number_new_symptomatic) and spreads
- * the effect of each infection over a period defined by `p.infection_length`. For each infected individual at time
- * point `i`, their impact is added to the total population size (`total_active_infected`) from time `i` to `i + p.infection_length - 1`,
- * inclusive. 
- * 
- * @param p A `run_params` struct containing simulation parameters, specifically the length
- *          of time an infection affects the population (`infection_length`).
- * @param number_new_symptomatic The number of newly symptomatic patients at each
- *          time point.
- * @param total_active_infected Output of the current population size affected by infections
 
- *  @note The function assumes total_active_infected is of the correct size.
- **/
 
     for (unsigned long i = 0; i < total_active_infected.size(); i++)
     {
@@ -574,35 +437,5 @@ void MakePopulationSize(const run_params &p, const std::vector<int> &number_new_
                 }
             }
         }
-    }
-}
-
-void CalculateAcceptance(const run_params &p, const int i, const std::vector<std::vector<output> > &results, std::vector<double> &acceptance)
-{
-/**
- * Calculates and normalizes the acceptance rates for different R0 values at a specific time point.
- * 
- * This function computes the acceptance rate for simulations at a given time point `i` across a range of R0 values.
- * The acceptance rate for each R0 value is calculated as the ratio of accepted simulations to the total number of
- * tested simulations. These raw acceptance rates are then normalized across all R0 values considered, so that the
- * sum of acceptance rates for all R0 values equals 1.
- * 
- * @param p A `run_params` struct containing simulation parameters.
- * @param i The index of the time point for which acceptance rates are being calculated.
- * @param results A 2D vector of `output` objects.
- * @param acceptance Output acceptance rates, normalized such that their sum equals 1.
- */
-
-    double tot = 0.0;
-    acceptance.clear();
-    for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++)
-    {
-        double acc = static_cast<double>(results[i][r0val].accepted ) / results[i][r0val].tested;
-        tot = tot + acc;
-        acceptance.push_back(acc);
-    }
-    for(unsigned long j = 0; j < acceptance.size(); j++)
-    {
-        acceptance[j] = acceptance[j] / tot;
     }
 }

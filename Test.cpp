@@ -173,65 +173,6 @@ TEST(MakePopulationSizeTest, SingleDayInfection) {
     EXPECT_EQ(total_active, new_symptomatic);
 }
 
-
-/*
-output make_output(int tested, int accepted, int dead=0)
-{
-    output o;
-    o.tested = tested;
-    o.accepted = accepted;
-    o.dead = dead;
-}
-*/
-
-TEST(CalculateAcceptanceTest, UniformAcceptanceRates) {
-    run_params p;
-    p.R0_vals = {2.0, 2.5, 3.0}; // Example R0 values
-
-    int time_point_index = 0; // Index of the time point for which acceptance rates are calculated
-    // output = {tested, accepted, dead, current_size[], origin_time[]}
-    std::vector<std::vector<output> > results = {
-        {{100, 10, 0, {}, {}}, {200, 20, 0, {}, {}}, {300, 30, 0, {}, {}}} // Example output for 3 R0 values at a single time point
-    };
-
-    std::vector<double> acceptance;
-
-    CalculateAcceptance(p, time_point_index, results, acceptance);
-
-    // Since all R0 values have an acceptance rate of 0.1, after normalization, each should have equal weight
-    ASSERT_EQ(acceptance.size(), 3);
-    for (const auto& rate : acceptance) {
-        EXPECT_NEAR(rate, 1.0 / 3, 0.0001);
-    }
-}
-
-TEST(CalculateAcceptanceTest, DiverseAcceptanceRates) {
-    run_params p;
-    p.R0_vals = {2.0, 2.5, 3.0}; // Example R0 values
-
-    int time_point_index = 0; // Index of the time point for which acceptance rates are calculated
-    std::vector<std::vector<output> > results = {
-       {{100, 10, 0, {}, {}}, {100, 50, 0, {}, {}}, {100, 40, 0, {}, {}}} // Example output with different acceptance rates
-    };
-
-    std::vector<double> acceptance;
-
-    CalculateAcceptance(p, time_point_index, results, acceptance);
-
-    // Calculate expected values for manual verification
-    double expectedTotal = (10.0 / 100) + (50.0 / 100) + (40.0 / 100);
-    std::vector<double> expectedRates = {
-        (10.0 / 100) / expectedTotal,
-        (50.0 / 100) / expectedTotal,
-        (40.0 / 100) / expectedTotal
-    };
-
-    ASSERT_EQ(acceptance.size(), 3);
-    for (size_t i = 0; i < acceptance.size(); ++i) {
-        EXPECT_NEAR(acceptance[i], expectedRates[i], 0.0001);
-    }
-}
-
 TEST(MakeRelativeTimeTest, BasicFunctionalitySortedInput) {
     std::vector<int> t_detects = {2, 4, 6, 9}; // Absolute detection times
     std::vector<int> t_detects_relative; // Vector to store relative detection times
@@ -241,10 +182,12 @@ TEST(MakeRelativeTimeTest, BasicFunctionalitySortedInput) {
     std::vector<int> expected_relative_times = {0, 2, 4, 7}; // Expected relative detection times
     EXPECT_EQ(t_detects_relative, expected_relative_times);
 }
+//int CheckTermination(const run_params &p, const int t, const int zeros, const int extreme_infection_time, const int first_evaluation_time, const int last_evaluation_time, const unsigned long n_detections, const std::vector<int> &t_detects, const outbreak &o);
 
 
 TEST(CheckTerminationTest, TerminationDueToExcessiveZeroSymptoms) {
-    run_params p{.infection_length = 5, .verb = 0}; 
+    run_params p{.verb = 0}; 
+    int extreme_infection_time = 5;
     int t = 10; // Current simulation time
     int zeros = 7; // Consecutive zeros exceeding infection length + 1 (so infection_length+1 days with no new symptomatic cases)
     int first_evaluation_time = 3;
@@ -252,13 +195,13 @@ TEST(CheckTerminationTest, TerminationDueToExcessiveZeroSymptoms) {
     unsigned long n_detections = 5;
     std::vector<int> t_detects = {1, 2, 4, 6, 8}; // Arbitrary detection times
     outbreak o{.time_first_detect = 1}; // Example outbreak with first detection at time 1
-
-    int result = CheckTermination(p, t, zeros, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
+    int result = CheckTermination(p, t, zeros, extreme_infection_time, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
     EXPECT_EQ(result, 1); // Expect termination
 }
 
 TEST(CheckTerminationTest, TerminationAtLastEvaluationTime) {
-    run_params p{.infection_length = 5, .verb = 0}; // Example parameters
+    run_params p{.verb = 0}; // Example parameters
+    int extreme_infection_time = 5;
     int t = 21; // Current simulation time at last evaluation time past first detection
     int zeros = 2; // Arbitrary number of zeros not triggering termination
     int first_evaluation_time = 3;
@@ -266,13 +209,13 @@ TEST(CheckTerminationTest, TerminationAtLastEvaluationTime) {
     unsigned long n_detections = 2;
     std::vector<int> t_detects = {1, 5}; // Detection times
     outbreak o{.time_first_detect = 1}; // First detection at time 1
-
-    int result = CheckTermination(p, t, zeros, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
+    int result = CheckTermination(p, t, zeros, extreme_infection_time, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
     EXPECT_EQ(result, 1); // Expect termination
 }
 
 TEST(CheckTerminationTest, ContinuationWithinEvaluationRange) {
-    run_params p{.infection_length = 5, .verb = 0}; // Example parameters
+    run_params p{.infection_length = 5,}; // Example parameters
+    int extreme_infection_time = 5;
     int t = 11; // Current simulation time within evaluation range
     int zeros = 3; // Number of zeros not exceeding infection length + 1
     int first_evaluation_time = 5;
@@ -280,13 +223,13 @@ TEST(CheckTerminationTest, ContinuationWithinEvaluationRange) {
     unsigned long n_detections = 5; // Total number of detections
     std::vector<int> t_detects = {2, 4, 6, 8, 10, 12}; // Detections within the evaluation time range
     outbreak o{.time_first_detect = 2}; // Example outbreak with first detection at time 2
-
-    int result = CheckTermination(p, t, zeros, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
+    int result = CheckTermination(p, t, zeros, extreme_infection_time, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
     EXPECT_EQ(result, 0); // Expect no termination
 }
 
 TEST(CheckTerminationTest, TerminationDueToExcessiveDetectionsBeforeTime) {
-    run_params p{.infection_length = 5, .verb = 0}; // Example parameters
+    run_params p{ .verb = 0}; // Example parameters
+    int extreme_infection_time = 5;
     int t = 2; // Current simulation time
     int zeros = 2; // Arbitrary number of zeros
     int first_evaluation_time = 3;
@@ -294,8 +237,7 @@ TEST(CheckTerminationTest, TerminationDueToExcessiveDetectionsBeforeTime) {
     unsigned long n_detections = 3; // Expected total number of detections
     std::vector<int> t_detects = {1, 2, 3, 4, 5}; // Excessive detections before the first timepoint
     outbreak o{.time_first_detect = 1}; // Example outbreak with first detection at time 1
-
-    int result = CheckTermination(p, t, zeros, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
+    int result = CheckTermination(p, t, zeros, extreme_infection_time, first_evaluation_time, last_evaluation_time, n_detections, t_detects, o);
     EXPECT_EQ(result, 1); // Expect termination due to excessive early detections
 }
 

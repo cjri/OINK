@@ -1,5 +1,5 @@
 CC	      = g++
-CC_FLAGS        = -g3 -O3 -Wall -pthread -D_GLIBCXX_DEBUG -I /opt/homebrew/Cellar/gsl/2.7.1/include/
+CC_FLAGS        = -g3 -O3 -Wall -pthread  -I /opt/homebrew/Cellar/gsl/2.7.1/include/
 LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib -lgsl -lgslcblas -lm -lstdc++  -g 
 LD_FLAGS_TEST   = -L/opt/homebrew/Cellar/gsl/2.7.1/lib -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
 BAS		= basicmodel.o io.o utilities.o 
