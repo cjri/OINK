@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    853765,      17613]
-NotebookOptionsPosition[    846486,      17501]
-NotebookOutlinePosition[    846886,      17517]
-CellTagsIndexPosition[    846843,      17514]
+NotebookDataLength[    862230,      17881]
+NotebookOptionsPosition[    854951,      17769]
+NotebookOutlinePosition[    855351,      17785]
+CellTagsIndexPosition[    855308,      17782]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -159,8 +159,7 @@ Cell[BoxData[{
    3.915770474422996*^9}, {3.916333691164226*^9, 3.916333768589105*^9}, {
    3.916333832939361*^9, 3.916333839486043*^9}, 3.916334133251519*^9, 
    3.916334234493899*^9, {3.917934438129915*^9, 3.917934463395446*^9}},
- CellLabel->
-  "In[1499]:=",ExpressionUUID->"ecff5e0a-1837-4f1b-bdac-61b30bc0c7ce"],
+ CellLabel->"In[5]:=",ExpressionUUID->"ecff5e0a-1837-4f1b-bdac-61b30bc0c7ce"],
 
 Cell[BoxData[
  StyleBox[
@@ -482,8 +481,7 @@ Cell[BoxData[{
   3.9152548262266703`*^9, 3.915254844789177*^9}, {3.9156830439857187`*^9, 
   3.915683130657995*^9}, {3.915685470082276*^9, 3.915685472254796*^9}, {
   3.916298048753395*^9, 3.916298089830102*^9}},
- CellLabel->
-  "In[1503]:=",ExpressionUUID->"2db6c3b4-b34a-4e40-9261-d61007906fe5"],
+ CellLabel->"In[9]:=",ExpressionUUID->"2db6c3b4-b34a-4e40-9261-d61007906fe5"],
 
 Cell[BoxData[
  StyleBox[
@@ -4606,7 +4604,7 @@ CzpYootn3HDvRG+xQI//nN7h1D4eMWBf0SFOHWGGMaa4xwQPfya/vQ/7rxzu
    3.91633439354819*^9}, 3.916907481663904*^9, {3.916909017581588*^9, 
    3.916909030703851*^9}, 3.9170697752920094`*^9, {3.9170699271334963`*^9, 
    3.9170699374202147`*^9}, {3.917931300828538*^9, 3.917931331309334*^9}, {
-   3.917931365176258*^9, 3.917931380020699*^9}, 3.9179407685274553`*^9, 
+   3.917931365176258*^9, 3.917931380020699*^9}, 3.9179407685274563`*^9, 
    3.917940865959907*^9},
  CellLabel->
   "Out[1595]=",ExpressionUUID->"21c4a41b-1f83-4406-97b0-2fd93ddfb298"]
@@ -9244,8 +9242,7 @@ Cell[BoxData[
      RowBox[{"x", ",", "0", ",", "1", ",", 
       RowBox[{"1", "/", "27"}]}], "}"}]}], "]"}]}]], "Input",
  CellChangeTimes->{{3.916336014571817*^9, 3.916336015042699*^9}},
- CellLabel->
-  "In[2468]:=",ExpressionUUID->"dc62dd29-6d5e-4545-921a-944f74bbb151"],
+ CellLabel->"In[47]:=",ExpressionUUID->"dc62dd29-6d5e-4545-921a-944f74bbb151"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -9361,10 +9358,9 @@ Cell[BoxData[
     "color" -> RGBColor[{-0.049183821914170554`, 0.2139263993661666, 
        0.4913095583387953}]|>,
     "RGBColorSwatchTemplate"]}], "}"}]], "Output",
- CellChangeTimes->{{3.9163360054579477`*^9, 3.916336015613929*^9}, 
-   3.9169075371756973`*^9, 3.917069994831101*^9},
- CellLabel->
-  "Out[2468]=",ExpressionUUID->"0fb52a96-76a8-4514-a125-b92a9737f266"]
+ CellChangeTimes->{{3.916336005457948*^9, 3.916336015613929*^9}, 
+   3.9169075371756973`*^9, 3.917069994831101*^9, 3.918725689449707*^9},
+ CellLabel->"Out[47]=",ExpressionUUID->"c9b8b184-8baa-47bb-b3af-2972c49cddda"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -9494,11 +9490,10 @@ Cell[BoxData[{
       RowBox[{"{", 
        RowBox[{"3.2", ",", "0.12"}], "}"}]}], "]"}], "]"}]}], "]"}]}], "Input",\
 
- CellChangeTimes->{{3.9162964727511597`*^9, 3.9162964832396107`*^9}, {
+ CellChangeTimes->{{3.9162964727511597`*^9, 3.91629648323961*^9}, {
   3.916335930511314*^9, 3.916335963289607*^9}, {3.916336020553937*^9, 
   3.91633618149118*^9}, {3.9163362152399693`*^9, 3.916336653284197*^9}},
- CellLabel->
-  "In[2469]:=",ExpressionUUID->"7cfd0399-e0a0-4155-b2bc-f9f4772c2ce1"],
+ CellLabel->"In[48]:=",ExpressionUUID->"7cfd0399-e0a0-4155-b2bc-f9f4772c2ce1"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, 
@@ -10789,8 +10784,11 @@ n+kGLw==
                 PointSize[0.006944444444444445], 
                 AbsoluteThickness[2], 
                 RGBColor[0., 0.2139263993661666, 0.4913095583387953]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -10949,8 +10947,11 @@ n+kGLw==
                PointSize[0.006944444444444445], 
                AbsoluteThickness[2], 
                RGBColor[0., 0.2139263993661666, 0.4913095583387953]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -11694,8 +11695,11 @@ n+kGLw==
             PointSize[0.006944444444444445], 
             AbsoluteThickness[2], 
             RGBColor[0., 0.2139263993661666, 0.4913095583387953]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -11877,9 +11881,8 @@ n+kGLw==
  CellChangeTimes->{{3.916336286524619*^9, 3.916336295782677*^9}, {
    3.916336351841068*^9, 3.9163363944764643`*^9}, {3.916336435191495*^9, 
    3.91633657210049*^9}, {3.916336606063909*^9, 3.916336654093999*^9}, 
-   3.916907539740801*^9, 3.917069998917057*^9},
- CellLabel->
-  "Out[2471]=",ExpressionUUID->"657fb103-353c-4ded-9969-bc2f2f8b7691"]
+   3.916907539740801*^9, 3.917069998917057*^9, 3.918725690168432*^9},
+ CellLabel->"Out[50]=",ExpressionUUID->"c962891a-c988-44fd-ad2a-661852a7b103"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -11897,7 +11900,7 @@ Cell[BoxData[
     " ", "first", " ", "infection", " ", "with", " ", "time", " ", "given", 
     " ", 
     SubscriptBox["p", "d"]}], "=", "0.04"}], "Subsection"]], "Input",
- CellChangeTimes->{{3.916304075466771*^9, 3.9163041079439373`*^9}, {
+ CellChangeTimes->{{3.916304075466771*^9, 3.916304107943938*^9}, {
   3.916907963313937*^9, 
   3.916907977107382*^9}},ExpressionUUID->"713173e1-0ac2-448b-a517-\
 83f90a0e969a"],
@@ -12096,14 +12099,14 @@ Cell[BoxData[{
      RowBox[{"\"\<\!\(\*SubscriptBox[\(t\), \(o\)]\)\>\"", ",", 
       RowBox[{"{", 
        RowBox[{
-        RowBox[{"-", "48"}], ",", "0.145"}], "}"}]}], "]"}], "]"}]}], 
+        RowBox[{"-", "46"}], ",", "0.145"}], "}"}]}], "]"}], "]"}]}], 
   "]"}]}], "Input",
  CellChangeTimes->{{3.916907650195324*^9, 3.9169077339156723`*^9}, {
-  3.9169077649438562`*^9, 3.916907888201359*^9}, {3.9169079494498568`*^9, 
+  3.916907764943856*^9, 3.916907888201359*^9}, {3.9169079494498568`*^9, 
   3.916907949851398*^9}, {3.91707001788023*^9, 3.9170700435765247`*^9}, {
-  3.9170700743263893`*^9, 3.917070211998946*^9}},
- CellLabel->
-  "In[2555]:=",ExpressionUUID->"6c5f54e8-2c7a-4eda-b280-7c26d5d625e0"],
+  3.9170700743263893`*^9, 3.917070211998946*^9}, {3.918725683815631*^9, 
+  3.918725684226781*^9}},
+ CellLabel->"In[51]:=",ExpressionUUID->"6c5f54e8-2c7a-4eda-b280-7c26d5d625e0"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, 
@@ -12202,8 +12205,11 @@ NWMw7mcspLH9jMWMdYz1jKsZI+3f9/0LJTt5Iw==
                  Rational[1, 72]], 
                 AbsoluteThickness[2], 
                 RGBColor[0., 0.2139263993661666, 0.4913095583387953]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -12225,8 +12231,11 @@ NWMw7mcspLH9jMWMdYz1jKsZI+3f9/0LJTt5Iw==
                 Rational[1, 72]], 
                AbsoluteThickness[2], 
                RGBColor[0., 0.2139263993661666, 0.4913095583387953]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -12288,8 +12297,11 @@ NWMw7mcspLH9jMWMdYz1jKsZI+3f9/0LJTt5Iw==
              Rational[1, 72]], 
             AbsoluteThickness[2], 
             RGBColor[0., 0.2139263993661666, 0.4913095583387953]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -12395,8 +12407,11 @@ xj1svpDK9jMWGWsYS4z1jMG4h7GgZfsZi4w1jCXGesbQ/vu8fwMDxG69
                 RGBColor[
                 0.03634387662362632, 0.3183259232562573, 
                  0.5779866438645533]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -12419,8 +12434,11 @@ xj1svpDK9jMWGWsYS4z1jMG4h7GgZfsZi4w1jCXGesbQ/vu8fwMDxG69
                AbsoluteThickness[2], 
                RGBColor[
                0.03634387662362632, 0.3183259232562573, 0.5779866438645533]]},
-             "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -12483,8 +12501,11 @@ xj1svpDK9jMWGWsYS4z1jMG4h7GgZfsZi4w1jCXGesbQ/vu8fwMDxG69
             AbsoluteThickness[2], 
             RGBColor[
             0.03634387662362632, 0.3183259232562573, 0.5779866438645533]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -12589,8 +12610,11 @@ w2B44N/9fwK1815I
                 RGBColor[
                 0.12160570919047721`, 0.4189906411576828, 
                  0.6585768426409192]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -12614,8 +12638,11 @@ w2B44N/9fwK1815I
                RGBColor[
                0.12160570919047721`, 0.4189906411576828, 
                 0.6585768426409192]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -12678,8 +12705,11 @@ w2B44N/9fwK1815I
             AbsoluteThickness[2], 
             RGBColor[
             0.12160570919047721`, 0.4189906411576828, 0.6585768426409192]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -12784,8 +12814,11 @@ uGzOsEDG7WWMlzP+JOPBsIphXipzfip3n4DxMoblDJ9kGAyr/t3/NysSYVE=
                 RGBColor[
                 0.20597796081687653`, 0.5147394893750344, 
                  0.7322314440302518]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -12809,8 +12842,11 @@ uGzOsEDG7WWMlzP+JOPBsIphXipzfip3n4DxMoblDJ9kGAyr/t3/NysSYVE=
                RGBColor[
                0.20597796081687653`, 0.5147394893750344, 
                 0.7322314440302518]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -12873,8 +12909,11 @@ uGzOsEDG7WWMlzP+JOPBsIphXipzfip3n4DxMoblDJ9kGAyr/t3/NysSYVE=
             AbsoluteThickness[2], 
             RGBColor[
             0.20597796081687653`, 0.5147394893750344, 0.7322314440302518]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -12977,8 +13016,11 @@ TzBkjmFdguF8MMxLNNzHJYL330uXyOxPNHxeXhJz/0lMzzAY5iUbsi3DXLLh
                 RGBColor[
                 0.28884342407523306`, 0.6044490803812398, 
                  0.7981747774837799]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -13002,8 +13044,11 @@ TzBkjmFdguF8MMxLNNzHJYL330uXyOxPNHxeXhJz/0lMzzAY5iUbsi3DXLLh
                RGBColor[
                0.28884342407523306`, 0.6044490803812398, 
                 0.7981747774837799]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -13065,8 +13110,11 @@ TzBkjmFdguF8MMxLNNzHJYL330uXyOxPNHxeXhJz/0lMzzAY5iUbsi3DXLLh
             AbsoluteThickness[2], 
             RGBColor[
             0.28884342407523306`, 0.6044490803812398, 0.7981747774837799]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -13169,8 +13217,11 @@ MgZjQ8a/7/sn6sxJbw==
                 RGBColor[
                 0.36959591413074766`, 0.6870668831279216, 
                  0.8557123812749748]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -13194,8 +13245,11 @@ MgZjQ8a/7/sn6sxJbw==
                RGBColor[
                0.36959591413074766`, 0.6870668831279216, 
                 0.8557123812749748]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -13257,8 +13311,11 @@ MgZjQ8a/7/sn6sxJbw==
             AbsoluteThickness[2], 
             RGBColor[
             0.36959591413074766`, 0.6870668831279216, 0.8557123812749748]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -13361,7 +13418,11 @@ NxRrSg4=
                 RGBColor[
                 0.44764470315883353`, 0.7616235720216362, 0.90423831600744]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -13384,8 +13445,11 @@ NxRrSg4=
                AbsoluteThickness[2], 
                RGBColor[
                0.44764470315883353`, 0.7616235720216362, 0.90423831600744]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -13447,8 +13511,11 @@ NxRrSg4=
             AbsoluteThickness[2], 
             RGBColor[
             0.44764470315883353`, 0.7616235720216362, 0.90423831600744]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -13549,8 +13616,11 @@ i8/D72Z6hsEwpxWzE8O8Vvy+WsYbGK5hGAzfYZjTMfszzDOsZdjAcA3DYPiO
                 AbsoluteThickness[2], 
                 RGBColor[
                 0.522418841690038, 0.827244399679806, 0.9432415458773894]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -13573,8 +13643,11 @@ i8/D72Z6hsEwpxWzE8O8Vvy+WsYbGK5hGAzfYZjTMfszzDOsZdjAcA3DYPiO
                AbsoluteThickness[2], 
                RGBColor[
                0.522418841690038, 0.827244399679806, 0.9432415458773894]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -13636,8 +13709,11 @@ i8/D72Z6hsEwpxWzE8O8Vvy+WsYbGK5hGAzfYZjTMfszzDOsZdjAcA3DYPiO
             AbsoluteThickness[2], 
             RGBColor[
             0.522418841690038, 0.827244399679806, 0.9432415458773894]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -13738,8 +13814,11 @@ n4G3lYLZxvHL1DOey7RmnmEjw2CYy7Kez2dZv4+R8chi9p9tvR8+m+kZBsOc
                 AbsoluteThickness[2], 
                 RGBColor[
                 0.593371335270574, 0.8831594600337951, 0.9723113204884275]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -13762,8 +13841,11 @@ n4G3lYLZxvHL1DOey7RmnmEjw2CYy7Kez2dZv4+R8chi9p9tvR8+m+kZBsOc
                AbsoluteThickness[2], 
                RGBColor[
                0.593371335270574, 0.8831594600337951, 0.9723113204884275]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -13825,8 +13907,11 @@ n4G3lYLZxvHL1DOey7RmnmEjw2CYy7Kez2dZv4+R8chi9p9tvR8+m+kZBsOc
             AbsoluteThickness[2], 
             RGBColor[
             0.593371335270574, 0.8831594600337951, 0.9723113204884275]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -13927,7 +14012,11 @@ DFsYbmIYDI/n/vs8fwHrp1ps
                 RGBColor[
                 0.6599831458849821, 0.9287127213657643, 0.9911415005417208]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -13950,8 +14039,11 @@ DFsYbmIYDI/n/vs8fwHrp1ps
                AbsoluteThickness[2], 
                RGBColor[
                0.6599831458849821, 0.9287127213657643, 0.9911415005417208]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -14012,8 +14104,11 @@ DFsYbmIYDI/n/vs8fwHrp1ps
             AbsoluteThickness[2], 
             RGBColor[
             0.6599831458849821, 0.9287127213657643, 0.9911415005417208]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -14114,7 +14209,11 @@ C+NmxmA8xlgwseczFhnnMbYwbmYMxmOmf9/nb4guPd0=
                 RGBColor[
                 0.7217669888693595, 0.9633697232978549, 0.9995337818469013]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -14137,8 +14236,11 @@ C+NmxmA8xlgwseczFhnnMbYwbmYMxmOmf9/nb4guPd0=
                AbsoluteThickness[2], 
                RGBColor[
                0.7217669888693595, 0.9633697232978549, 0.9995337818469013]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -14199,8 +14301,11 @@ C+NmxmA8xlgwseczFhnnMbYwbmYMxmOmf9/nb4guPd0=
             AbsoluteThickness[2], 
             RGBColor[
             0.7217669888693595, 0.9633697232978549, 0.9995337818469013]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -14299,8 +14404,11 @@ dYw3MtzGMBieZpjTM/szzDOsY9jIcBvDYHha/+/3/AUmLixg
                 AbsoluteThickness[2], 
                 RGBColor[
                 0.7782708975396367, 0.986723847427641, 0.9973997837010308]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -14323,8 +14431,11 @@ dYw3MtzGMBieZpjTM/szzDOsY9jIcBvDYHha/+/3/AUmLixg
                AbsoluteThickness[2], 
                RGBColor[
                0.7782708975396367, 0.986723847427641, 0.9973997837010308]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -14385,8 +14496,11 @@ dYw3MtzGMBieZpjTM/szzDOsY9jIcBvDYHha/+/3/AUmLixg
             AbsoluteThickness[2], 
             RGBColor[
             0.7782708975396367, 0.986723847427641, 0.9973997837010308]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -14485,7 +14599,11 @@ XCXTVzI9w2CYs/iyhGHe8u/7/gU3WA7i
                 RGBColor[
                 0.8290815294586145, 0.9985010880386929, 0.9847619796425122]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -14508,8 +14626,11 @@ XCXTVzI9w2CYs/iyhGHe8u/7/gU3WA7i
                AbsoluteThickness[2], 
                RGBColor[
                0.8290815294586145, 0.9985010880386929, 0.9847619796425122]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -14569,8 +14690,11 @@ XCXTVzI9w2CYs/iyhGHe8u/7/gU3WA7i
             AbsoluteThickness[2], 
             RGBColor[
             0.8290815294586145, 0.9985010880386929, 0.9847619796425122]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -14667,8 +14791,11 @@ j9jA9AZmf2aey2P2z2N6hsEwl+/KPIbF+f+u/xfEkirt
                 AbsoluteThickness[2], 
                 RGBColor[
                 0.8738271901554634, 0.9985632669131823, 0.961753460778003]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -14691,8 +14818,11 @@ j9jA9AZmf2aey2P2z2N6hsEwl+/KPIbF+f+u/xfEkirt
                AbsoluteThickness[2], 
                RGBColor[
                0.8738271901554634, 0.9985632669131823, 0.961753460778003]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -14752,8 +14882,11 @@ j9jA9AZmf2aey2P2z2N6hsEwl+/KPIbF+f+u/xfEkirt
             AbsoluteThickness[2], 
             RGBColor[
             0.8738271901554634, 0.9985632669131823, 0.961753460778003]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -14852,7 +14985,11 @@ A326LAA=
                 RGBColor[
                 0.9121805521782997, 0.9869096545282654, 0.9286165341747794]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -14875,8 +15012,11 @@ A326LAA=
                AbsoluteThickness[2], 
                RGBColor[
                0.9121805521782997, 0.9869096545282654, 0.9286165341747794]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -14936,8 +15076,11 @@ A326LAA=
             AbsoluteThickness[2], 
             RGBColor[
             0.9121805521782997, 0.9869096545282654, 0.9286165341747794]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -15036,7 +15179,11 @@ Zj2nY86vY3odsz+znsv+d96f8HEViw==
                 RGBColor[
                 0.9438610495891844, 0.9636769786153176, 0.8857001710791458]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -15059,8 +15206,11 @@ Zj2nY86vY3odsz+znsv+d96f8HEViw==
                AbsoluteThickness[2], 
                RGBColor[
                0.9438610495891844, 0.9636769786153176, 0.8857001710791458]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -15120,8 +15270,11 @@ Zj2nY86vY3odsz+znsv+d96f8HEViw==
             AbsoluteThickness[2], 
             RGBColor[
             0.9438610495891844, 0.9636769786153176, 0.8857001710791458]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -15220,7 +15373,11 @@ Mesz47nsf/fzJ1MbI7E=
                 RGBColor[
                 0.9686369303851207, 0.9291378199815968, 0.8334563318341858]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -15243,8 +15400,11 @@ Mesz47nsf/fzJ1MbI7E=
                AbsoluteThickness[2], 
                RGBColor[
                0.9686369303851207, 0.9291378199815968, 0.8334563318341858]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -15304,8 +15464,11 @@ Mesz47nsf/fzJ1MbI7E=
             AbsoluteThickness[2], 
             RGBColor[
             0.9686369303851207, 0.9291378199815968, 0.8334563318341858]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -15402,7 +15565,11 @@ ej24/y6eYUHveB7omX4j0zMsMAyGuSzm/FlMn8Xsz8xz2f+e52+UJhMK
                 RGBColor[
                 0.9863269518309961, 0.8836974144155966, 0.7724352061998417]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -15425,8 +15592,11 @@ ej24/y6eYUHveB7omX4j0zMsMAyGuSzm/FlMn8Xsz8xz2f+e52+UJhMK
                AbsoluteThickness[2], 
                RGBColor[
                0.9863269518309961, 0.8836974144155966, 0.7724352061998417]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -15485,8 +15655,11 @@ ej24/y6eYUHveB7omX4j0zMsMAyGuSzm/FlMn8Xsz8xz2f+e52+UJhMK
             AbsoluteThickness[2], 
             RGBColor[
             0.9863269518309961, 0.8836974144155966, 0.7724352061998417]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -15585,7 +15758,11 @@ hrkU5vwpTJ/C7M+s57b/e56/ABxzHuc=
                 RGBColor[
                 0.9968017063026193, 0.8278888981982057, 0.7032794192004101]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -15608,8 +15785,11 @@ hrkU5vwpTJ/C7M+s57b/e56/ABxzHuc=
                AbsoluteThickness[2], 
                RGBColor[
                0.9968017063026193, 0.8278888981982057, 0.7032794192004101]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -15669,8 +15849,11 @@ hrkU5vwpTJ/C7M+s57b/e56/ABxzHuc=
             AbsoluteThickness[2], 
             RGBColor[
             0.9968017063026193, 0.8278888981982057, 0.7032794192004101]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -15769,7 +15952,11 @@ c2bm/GamNzP7M/O5Lf+e5y9CUyCR
                 RGBColor[
                 0.9999845679409262, 0.7623670530024181, 0.6267172635187739]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -15792,8 +15979,11 @@ c2bm/GamNzP7M/O5Lf+e5y9CUyCR
                AbsoluteThickness[2], 
                RGBColor[
                0.9999845679409262, 0.7623670530024181, 0.6267172635187739]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -15853,8 +16043,11 @@ c2bm/GamNzP7M/O5Lf+e5y9CUyCR
             AbsoluteThickness[2], 
             RGBColor[
             0.9999845679409262, 0.7623670530024181, 0.6267172635187739]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -15953,7 +16146,11 @@ nP8Hn8P0Ocz3mXku99/9/AlgkA7F
                 RGBColor[
                 0.9958522531923037, 0.6879006235704856, 0.5435550297083055]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -15976,8 +16173,11 @@ nP8Hn8P0Ocz3mXku99/9/AlgkA7F
                AbsoluteThickness[2], 
                RGBColor[
                0.9958522531923037, 0.6879006235704856, 0.5435550297083055]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -16037,8 +16237,11 @@ nP8Hn8P0Ocz3mXku99/9/AlgkA7F
             AbsoluteThickness[2], 
             RGBColor[
             0.9958522531923037, 0.6879006235704856, 0.5435550297083055]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -16137,7 +16340,11 @@ wTBnEv8P3sT0JmZ9Zp7b+u9+/gRm0BIU
                 RGBColor[
                 0.9844349911345216, 0.6053632983024981, 0.4546685149944325]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -16160,8 +16367,11 @@ wTBnEv8P3sT0JmZ9Zp7b+u9+/gRm0BIU
                AbsoluteThickness[2], 
                RGBColor[
                0.9844349911345216, 0.6053632983024981, 0.4546685149944325]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -16221,8 +16431,11 @@ wTBnEv8P3sT0JmZ9Zp7b+u9+/gRm0BIU
             AbsoluteThickness[2], 
             RGBColor[
             0.9844349911345216, 0.6053632983024981, 0.4546685149944325]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -16321,7 +16534,11 @@ fwM9Bgbp
                 RGBColor[
                 0.9658163023422827, 0.5157234585779733, 0.3609938000882835]]},
               "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+              "CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -16344,8 +16561,11 @@ fwM9Bgbp
                AbsoluteThickness[2], 
                RGBColor[
                0.9658163023422827, 0.5157234585779733, 0.3609938000882835]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -16405,8 +16625,11 @@ fwM9Bgbp
             AbsoluteThickness[2], 
             RGBColor[
             0.9658163023422827, 0.5157234585779733, 0.3609938000882835]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -16504,8 +16727,11 @@ Bpq/Tf0z7qS+NJz50vB5oTR8PTDzXBm4/148w0IZ05cxfTnTMywwDIY5Z/j7
                 RGBColor[
                 0.9401323879100587, 0.42003281707805756`, 
                  0.263517391143535]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -16528,8 +16754,11 @@ Bpq/Tf0z7qS+NJz50vB5oTR8PTDzXBm4/148w0IZ05cxfTnTMywwDIY5Z/j7
                AbsoluteThickness[2], 
                RGBColor[
                0.9401323879100587, 0.42003281707805756`, 0.263517391143535]]},
-             "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -16588,8 +16817,11 @@ Bpq/Tf0z7qS+NJz50vB5oTR8PTDzXBm4/148w0IZ05cxfTnTMywwDIY5Z/j7
             AbsoluteThickness[2], 
             RGBColor[
             0.9401323879100587, 0.42003281707805756`, 0.263517391143535]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -16689,8 +16921,11 @@ z2H2Z+YFr/z7PX8BYEQdXA==
                 RGBColor[
                 0.9075711331016849, 0.31941407841089964`, 
                  0.16326583067337896`]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -16714,8 +16949,11 @@ z2H2Z+YFr/z7PX8BYEQdXA==
                RGBColor[
                0.9075711331016849, 0.31941407841089964`, 
                 0.16326583067337896`]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -16775,8 +17013,11 @@ z2H2Z+YFr/z7PX8BYEQdXA==
             AbsoluteThickness[2], 
             RGBColor[
             0.9075711331016849, 0.31941407841089964`, 0.16326583067337896`]]},
-          "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+          "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -16874,8 +17115,11 @@ GFNbRq5QXyOe5xkWapjn11DfR71VzLxVPC9YxeuBmeds4P578AwLNqa3MX0t
                 RGBColor[
                 0.8683707329153034, 0.2150477668137401, 
                  0.06129488683700954]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -16898,8 +17142,11 @@ GFNbRq5QXyOe5xkWapjn11DfR71VzLxVPC9YxeuBmeds4P578AwLNqa3MX0t
                AbsoluteThickness[2], 
                RGBColor[
                0.8683707329153034, 0.2150477668137401, 0.06129488683700954]]},
-             "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -16958,8 +17205,11 @@ GFNbRq5QXyOe5xkWapjn11DfR71VzLxVPC9YxeuBmeds4P578AwLNqa3MX0t
             AbsoluteThickness[2], 
             RGBColor[
             0.8683707329153034, 0.2150477668137401, 0.06129488683700954]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -17053,8 +17303,11 @@ zxWD++/FMywUM30x05cwPcMCw2CYM3v+D97M9GZmf2aes/z7PX8BzMUNdQ==
                  Rational[1, 72]], 
                 AbsoluteThickness[2], 
                 RGBColor[0.8228179496180482, 0.10815837547764777`, 0.]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -17076,8 +17329,11 @@ zxWD++/FMywUM30x05cwPcMCw2CYM3v+D97M9GZmf2aes/z7PX8BzMUNdQ==
                 Rational[1, 72]], 
                AbsoluteThickness[2], 
                RGBColor[0.8228179496180482, 0.10815837547764777`, 0.]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -17135,8 +17391,11 @@ zxWD++/FMywUM30x05cwPcMCw2CYM3v+D97M9GZmf2aes/z7PX8BzMUNdQ==
              Rational[1, 72]], 
             AbsoluteThickness[2], 
             RGBColor[0.8228179496180482, 0.10815837547764777`, 0.]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -17230,8 +17489,11 @@ pcz+zDz3+r/f8xcFqwHb
                  Rational[1, 72]], 
                 AbsoluteThickness[2], 
                 RGBColor[0.7712460149971067, 0., 0.]]}, 
-             "HighlightLabelingFunctions" -> <|
-              "CoordinatesToolOptions" -> Identity, 
+             "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}& ), 
                "ScalingFunctions" -> {{Identity, Identity}, {
                  Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
              False|>, 
@@ -17253,8 +17515,11 @@ pcz+zDz3+r/f8xcFqwHb
                 Rational[1, 72]], 
                AbsoluteThickness[2], 
                RGBColor[0.7712460149971067, 0., 0.]]}, 
-            "HighlightLabelingFunctions" -> <|
-             "CoordinatesToolOptions" -> Identity, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), 
               "ScalingFunctions" -> {{Identity, Identity}, {
                 Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
             False|>, 
@@ -17312,8 +17577,11 @@ pcz+zDz3+r/f8xcFqwHb
              Rational[1, 72]], 
             AbsoluteThickness[2], 
             RGBColor[0.7712460149971067, 0., 0.]]}, 
-         "HighlightLabelingFunctions" -> <|
-          "CoordinatesToolOptions" -> Identity, 
+         "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), 
            "ScalingFunctions" -> {{Identity, Identity}, {
              Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
        "Meta" -> <|
@@ -17392,7 +17660,7 @@ pcz+zDz3+r/f8xcFqwHb
    InsetBox["\<\"21\"\>", {-44, 0.121}], 
    InsetBox["\<\"28\"\>", {-44, 0.1336}], 
    InsetBox["\<\"\\!\\(\\*SubscriptBox[\\(t\\), \\(o\\)]\\)\"\>", \
-{-48, 0.145}]},
+{-46, 0.145}]},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{False, False},
   AxesLabel->{None, None},
@@ -17494,9 +17762,9 @@ pcz+zDz3+r/f8xcFqwHb
    3.916907735102324*^9, 3.916907776902871*^9, {3.916907817961927*^9, 
    3.916907888967092*^9}, 3.9169079510632277`*^9, {3.917070007122869*^9, 
    3.917070044614699*^9}, 3.9170700757533484`*^9, 3.917070108620948*^9, {
-   3.917070142542268*^9, 3.917070212670153*^9}},
- CellLabel->
-  "Out[2566]=",ExpressionUUID->"9915dc02-6f1b-4056-bf54-ba997ad8df73"]
+   3.917070142542268*^9, 3.917070212670153*^9}, {3.918725686618081*^9, 
+   3.918725692724069*^9}},
+ CellLabel->"Out[62]=",ExpressionUUID->"fff9e2aa-da15-41da-b4bd-4ec064f86ee1"]
 }, Open  ]]
 },
 WindowSize->{808, 871},
@@ -17517,103 +17785,103 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[558, 20, 184, 4, 50, "Input",ExpressionUUID->"afe36657-5a8c-421e-a0b3-c00b55041356"],
-Cell[745, 26, 5230, 136, 593, "Input",ExpressionUUID->"ecff5e0a-1837-4f1b-bdac-61b30bc0c7ce",
+Cell[745, 26, 5224, 135, 593, "Input",ExpressionUUID->"ecff5e0a-1837-4f1b-bdac-61b30bc0c7ce",
  InitializationCell->True],
-Cell[5978, 164, 209, 5, 50, "Input",ExpressionUUID->"2aa01b15-2e9f-4db6-a876-1b21f12f713a"],
-Cell[6190, 171, 11223, 314, 1165, "Input",ExpressionUUID->"2db6c3b4-b34a-4e40-9261-d61007906fe5"],
-Cell[17416, 487, 212, 5, 39, "Input",ExpressionUUID->"8b0f6bea-5ae0-4ec7-8b40-be3758fd7d59"],
+Cell[5972, 163, 209, 5, 50, "Input",ExpressionUUID->"2aa01b15-2e9f-4db6-a876-1b21f12f713a"],
+Cell[6184, 170, 11217, 313, 1165, "Input",ExpressionUUID->"2db6c3b4-b34a-4e40-9261-d61007906fe5"],
+Cell[17404, 485, 212, 5, 39, "Input",ExpressionUUID->"8b0f6bea-5ae0-4ec7-8b40-be3758fd7d59"],
 Cell[CellGroupData[{
-Cell[17653, 496, 4382, 115, 241, "Input",ExpressionUUID->"f308c1d6-ea39-4693-8b1f-8af313bbdfc0"],
-Cell[22038, 613, 20608, 460, 216, "Output",ExpressionUUID->"4867272d-3b8a-456c-bd0a-d75582af7cfa"]
+Cell[17641, 494, 4382, 115, 241, "Input",ExpressionUUID->"f308c1d6-ea39-4693-8b1f-8af313bbdfc0"],
+Cell[22026, 611, 20608, 460, 202, "Output",ExpressionUUID->"4867272d-3b8a-456c-bd0a-d75582af7cfa"]
 }, Open  ]],
-Cell[42661, 1076, 207, 5, 39, "Input",ExpressionUUID->"3257a9b3-c33f-48e8-b340-cc6f8e4b3170"],
-Cell[42871, 1083, 2326, 65, 136, "Input",ExpressionUUID->"45f6beb2-864b-455a-8cfd-3e74e45a7074"],
+Cell[42649, 1074, 207, 5, 39, "Input",ExpressionUUID->"3257a9b3-c33f-48e8-b340-cc6f8e4b3170"],
+Cell[42859, 1081, 2326, 65, 136, "Input",ExpressionUUID->"45f6beb2-864b-455a-8cfd-3e74e45a7074"],
 Cell[CellGroupData[{
-Cell[45222, 1152, 2644, 75, 178, "Input",ExpressionUUID->"932176be-68f4-4c06-9425-a5147c5ec05e"],
-Cell[47869, 1229, 13237, 311, 217, "Output",ExpressionUUID->"726ce272-2037-49ff-a326-923b2305f4fc"]
+Cell[45210, 1150, 2644, 75, 178, "Input",ExpressionUUID->"932176be-68f4-4c06-9425-a5147c5ec05e"],
+Cell[47857, 1227, 13237, 311, 203, "Output",ExpressionUUID->"726ce272-2037-49ff-a326-923b2305f4fc"]
 }, Open  ]],
-Cell[61121, 1543, 421, 9, 50, "Input",ExpressionUUID->"795fde9b-1031-4e50-b0c1-bc151f139ee1"],
+Cell[61109, 1541, 421, 9, 50, "Input",ExpressionUUID->"795fde9b-1031-4e50-b0c1-bc151f139ee1"],
 Cell[CellGroupData[{
-Cell[61567, 1556, 12669, 369, 934, "Input",ExpressionUUID->"abb62ad7-6b8d-439d-84ef-bbb92c0486b5"],
-Cell[74239, 1927, 122651, 2066, 211, "Output",ExpressionUUID->"9eb6fa15-28fe-4f65-9831-2f991331d88c"]
+Cell[61555, 1554, 12669, 369, 934, "Input",ExpressionUUID->"abb62ad7-6b8d-439d-84ef-bbb92c0486b5"],
+Cell[74227, 1925, 122651, 2066, 197, "Output",ExpressionUUID->"9eb6fa15-28fe-4f65-9831-2f991331d88c"]
 }, Open  ]],
-Cell[196905, 3996, 283, 7, 37, "Input",ExpressionUUID->"61d24f3e-3e8e-4588-aa60-5a5e187bec60"],
+Cell[196893, 3994, 283, 7, 37, "Input",ExpressionUUID->"61d24f3e-3e8e-4588-aa60-5a5e187bec60"],
 Cell[CellGroupData[{
-Cell[197213, 4007, 304, 6, 30, "Input",ExpressionUUID->"87b9a33f-696c-48b0-8f21-66e7db8e3a07"],
-Cell[197520, 4015, 413, 8, 34, "Output",ExpressionUUID->"58179428-de49-4673-b7bc-70220f24c370"]
+Cell[197201, 4005, 304, 6, 30, "Input",ExpressionUUID->"87b9a33f-696c-48b0-8f21-66e7db8e3a07"],
+Cell[197508, 4013, 413, 8, 34, "Output",ExpressionUUID->"58179428-de49-4673-b7bc-70220f24c370"]
 }, Open  ]],
-Cell[197948, 4026, 210, 5, 39, "Input",ExpressionUUID->"7e7a9fe5-0b03-4203-bc2c-c97cb3b13e6c"],
-Cell[198161, 4033, 363, 8, 37, "Input",ExpressionUUID->"1d9199c2-3d08-49e7-b809-1c367b48be85"],
+Cell[197936, 4024, 210, 5, 39, "Input",ExpressionUUID->"7e7a9fe5-0b03-4203-bc2c-c97cb3b13e6c"],
+Cell[198149, 4031, 363, 8, 37, "Input",ExpressionUUID->"1d9199c2-3d08-49e7-b809-1c367b48be85"],
 Cell[CellGroupData[{
-Cell[198549, 4045, 5803, 162, 493, "Input",ExpressionUUID->"ac4a5b7f-8659-4708-a120-025feb277ddb"],
-Cell[204355, 4209, 17010, 402, 215, "Output",ExpressionUUID->"21c4a41b-1f83-4406-97b0-2fd93ddfb298"]
+Cell[198537, 4043, 5803, 162, 493, "Input",ExpressionUUID->"ac4a5b7f-8659-4708-a120-025feb277ddb"],
+Cell[204343, 4207, 17010, 402, 201, "Output",ExpressionUUID->"21c4a41b-1f83-4406-97b0-2fd93ddfb298"]
 }, Open  ]],
-Cell[221380, 4614, 365, 8, 50, "Input",ExpressionUUID->"10430c85-4e73-415e-9fea-1d79bd5b98f6"],
+Cell[221368, 4612, 365, 8, 50, "Input",ExpressionUUID->"10430c85-4e73-415e-9fea-1d79bd5b98f6"],
 Cell[CellGroupData[{
-Cell[221770, 4626, 10641, 333, 829, "Input",ExpressionUUID->"b610ec99-3ba3-4f64-b533-b6626271b5e5"],
-Cell[232414, 4961, 121224, 2038, 197, "Output",ExpressionUUID->"64d2f7e8-1945-446e-ad61-6091b6d7c66c"]
+Cell[221758, 4624, 10641, 333, 829, "Input",ExpressionUUID->"b610ec99-3ba3-4f64-b533-b6626271b5e5"],
+Cell[232402, 4959, 121224, 2038, 197, "Output",ExpressionUUID->"64d2f7e8-1945-446e-ad61-6091b6d7c66c"]
 }, Open  ]],
-Cell[353653, 7002, 238, 6, 50, "Input",ExpressionUUID->"5d8ab6ec-f097-4330-8ad5-fc736c431c3e"],
+Cell[353641, 7000, 238, 6, 50, "Input",ExpressionUUID->"5d8ab6ec-f097-4330-8ad5-fc736c431c3e"],
 Cell[CellGroupData[{
-Cell[353916, 7012, 6471, 183, 472, "Input",ExpressionUUID->"8c4febc1-52f1-4b88-ace9-6b9a851a9327"],
-Cell[360390, 7197, 29075, 601, 199, "Output",ExpressionUUID->"1426726a-bcfe-443c-88f4-5da117623fe9"]
+Cell[353904, 7010, 6471, 183, 472, "Input",ExpressionUUID->"8c4febc1-52f1-4b88-ace9-6b9a851a9327"],
+Cell[360378, 7195, 29075, 601, 199, "Output",ExpressionUUID->"1426726a-bcfe-443c-88f4-5da117623fe9"]
 }, Open  ]],
-Cell[389480, 7801, 305, 7, 37, "Input",ExpressionUUID->"f27cd8d2-2d72-45a4-90c8-058cda4b5e16"],
+Cell[389468, 7799, 305, 7, 37, "Input",ExpressionUUID->"f27cd8d2-2d72-45a4-90c8-058cda4b5e16"],
 Cell[CellGroupData[{
-Cell[389810, 7812, 1718, 55, 94, "Input",ExpressionUUID->"bf15c967-38eb-4b88-83b8-45117fe090f6"],
-Cell[391531, 7869, 267, 5, 34, "Output",ExpressionUUID->"5abd658d-e5d2-4f5d-95ce-87dad2e7c742"],
-Cell[391801, 7876, 267, 5, 34, "Output",ExpressionUUID->"90e36c13-28ec-489e-823e-076e7eeacab1"],
-Cell[392071, 7883, 267, 5, 34, "Output",ExpressionUUID->"f7e5c1c7-6eeb-42d6-8d14-0faca02ba895"],
-Cell[392341, 7890, 269, 5, 34, "Output",ExpressionUUID->"ab9bcedb-0301-4e82-92f4-4d623b255013"]
+Cell[389798, 7810, 1718, 55, 94, "Input",ExpressionUUID->"bf15c967-38eb-4b88-83b8-45117fe090f6"],
+Cell[391519, 7867, 267, 5, 34, "Output",ExpressionUUID->"5abd658d-e5d2-4f5d-95ce-87dad2e7c742"],
+Cell[391789, 7874, 267, 5, 34, "Output",ExpressionUUID->"90e36c13-28ec-489e-823e-076e7eeacab1"],
+Cell[392059, 7881, 267, 5, 34, "Output",ExpressionUUID->"f7e5c1c7-6eeb-42d6-8d14-0faca02ba895"],
+Cell[392329, 7888, 269, 5, 34, "Output",ExpressionUUID->"ab9bcedb-0301-4e82-92f4-4d623b255013"]
 }, Open  ]],
-Cell[392625, 7898, 281, 7, 37, "Input",ExpressionUUID->"4466421c-7848-48cd-a450-3e64171710bb"],
+Cell[392613, 7896, 281, 7, 37, "Input",ExpressionUUID->"4466421c-7848-48cd-a450-3e64171710bb"],
 Cell[CellGroupData[{
-Cell[392931, 7909, 2188, 66, 94, "Input",ExpressionUUID->"41137d63-aedc-448a-94e7-f65b25404cc1"],
-Cell[395122, 7977, 280, 5, 34, "Output",ExpressionUUID->"3039075b-162a-46f4-a77c-1fdc85f89cf9"],
-Cell[395405, 7984, 280, 5, 34, "Output",ExpressionUUID->"35533d29-3abb-4afe-865d-25b0ea009fc4"],
-Cell[395688, 7991, 280, 5, 34, "Output",ExpressionUUID->"1f4a6783-c16c-4961-8961-fdd99e9994b0"],
-Cell[395971, 7998, 280, 5, 34, "Output",ExpressionUUID->"46418d75-1955-4763-9a5a-4f4760bb7f2b"]
+Cell[392919, 7907, 2188, 66, 94, "Input",ExpressionUUID->"41137d63-aedc-448a-94e7-f65b25404cc1"],
+Cell[395110, 7975, 280, 5, 34, "Output",ExpressionUUID->"3039075b-162a-46f4-a77c-1fdc85f89cf9"],
+Cell[395393, 7982, 280, 5, 34, "Output",ExpressionUUID->"35533d29-3abb-4afe-865d-25b0ea009fc4"],
+Cell[395676, 7989, 280, 5, 34, "Output",ExpressionUUID->"1f4a6783-c16c-4961-8961-fdd99e9994b0"],
+Cell[395959, 7996, 280, 5, 34, "Output",ExpressionUUID->"46418d75-1955-4763-9a5a-4f4760bb7f2b"]
 }, Open  ]],
-Cell[396266, 8006, 241, 6, 50, "Input",ExpressionUUID->"3335012a-4a42-4fee-9e4b-88944f813abc"],
+Cell[396254, 8004, 241, 6, 50, "Input",ExpressionUUID->"3335012a-4a42-4fee-9e4b-88944f813abc"],
 Cell[CellGroupData[{
-Cell[396532, 8016, 11623, 358, 1039, "Input",ExpressionUUID->"05866769-d706-4280-85d2-c08d1036ba36"],
-Cell[408158, 8376, 22293, 495, 197, "Output",ExpressionUUID->"f01dfa25-f4e4-4726-b0e2-c82a71264de4"]
+Cell[396520, 8014, 11623, 358, 1039, "Input",ExpressionUUID->"05866769-d706-4280-85d2-c08d1036ba36"],
+Cell[408146, 8374, 22293, 495, 183, "Output",ExpressionUUID->"f01dfa25-f4e4-4726-b0e2-c82a71264de4"]
 }, Open  ]],
-Cell[430466, 8874, 343, 8, 39, "Input",ExpressionUUID->"11793cd8-034b-4830-ba16-884e4771addf"],
+Cell[430454, 8872, 343, 8, 39, "Input",ExpressionUUID->"11793cd8-034b-4830-ba16-884e4771addf"],
 Cell[CellGroupData[{
-Cell[430834, 8886, 1458, 47, 94, "Input",ExpressionUUID->"be8643a6-8b64-4a50-810a-fbd7fae1e856"],
-Cell[432295, 8935, 231, 4, 34, "Output",ExpressionUUID->"d7ebfc24-7d6d-4089-b6bf-bfcde8d82e73"],
-Cell[432529, 8941, 227, 4, 34, "Output",ExpressionUUID->"38703d46-23bf-4c0a-b3cd-15511bcfb02d"],
-Cell[432759, 8947, 231, 4, 34, "Output",ExpressionUUID->"de224bc9-18e8-4e1b-b45f-e52ffc4af08d"],
-Cell[432993, 8953, 229, 4, 34, "Output",ExpressionUUID->"1fb15edb-cdeb-47b4-9c27-f5c1db581200"]
+Cell[430822, 8884, 1458, 47, 94, "Input",ExpressionUUID->"be8643a6-8b64-4a50-810a-fbd7fae1e856"],
+Cell[432283, 8933, 231, 4, 34, "Output",ExpressionUUID->"d7ebfc24-7d6d-4089-b6bf-bfcde8d82e73"],
+Cell[432517, 8939, 227, 4, 34, "Output",ExpressionUUID->"38703d46-23bf-4c0a-b3cd-15511bcfb02d"],
+Cell[432747, 8945, 231, 4, 34, "Output",ExpressionUUID->"de224bc9-18e8-4e1b-b45f-e52ffc4af08d"],
+Cell[432981, 8951, 229, 4, 34, "Output",ExpressionUUID->"1fb15edb-cdeb-47b4-9c27-f5c1db581200"]
 }, Open  ]],
-Cell[433237, 8960, 337, 9, 39, "Input",ExpressionUUID->"48516915-5555-4fbc-bca5-f8001aacf70e"],
+Cell[433225, 8958, 337, 9, 39, "Input",ExpressionUUID->"48516915-5555-4fbc-bca5-f8001aacf70e"],
 Cell[CellGroupData[{
-Cell[433599, 8973, 181, 3, 30, "Input",ExpressionUUID->"debb67db-4a2d-4557-93b8-a5003039b001"],
-Cell[433783, 8978, 3601, 85, 196, "Output",ExpressionUUID->"e203d1f3-be93-4242-9792-53c604ab0753"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[437421, 9068, 2449, 87, 94, "Input",ExpressionUUID->"9fa530f5-9734-4484-b5fd-8aa2d9742534"],
-Cell[439873, 9157, 417, 10, 34, "Output",ExpressionUUID->"c38f8184-90c3-49a1-89ee-47862a0d9395"],
-Cell[440293, 9169, 416, 10, 34, "Output",ExpressionUUID->"9ab51eae-20c1-4941-b3bb-7c0bb28c9073"],
-Cell[440712, 9181, 415, 10, 34, "Output",ExpressionUUID->"0202886f-0832-41fd-bc7a-fdb028462f45"],
-Cell[441130, 9193, 415, 10, 34, "Output",ExpressionUUID->"042a252d-2452-4b23-977e-ee8ebcb3005a"]
-}, Open  ]],
-Cell[441560, 9206, 209, 5, 39, "Input",ExpressionUUID->"47c1d7ba-5b10-4b4d-9e60-ce870db1dccb"],
-Cell[441772, 9213, 417, 10, 39, "Input",ExpressionUUID->"9fe77bd5-5c1e-4ee9-9bb3-8836a38485eb"],
-Cell[CellGroupData[{
-Cell[442214, 9227, 712, 20, 52, "Input",ExpressionUUID->"dc62dd29-6d5e-4545-921a-944f74bbb151"],
-Cell[442929, 9249, 4508, 117, 34, "Output",ExpressionUUID->"0fb52a96-76a8-4514-a125-b92a9737f266"]
+Cell[433587, 8971, 181, 3, 30, "Input",ExpressionUUID->"debb67db-4a2d-4557-93b8-a5003039b001"],
+Cell[433771, 8976, 3601, 85, 182, "Output",ExpressionUUID->"e203d1f3-be93-4242-9792-53c604ab0753"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[447474, 9371, 4574, 129, 304, "Input",ExpressionUUID->"7cfd0399-e0a0-4155-b2bc-f9f4772c2ce1"],
-Cell[452051, 9502, 114837, 2379, 183, "Output",ExpressionUUID->"657fb103-353c-4ded-9969-bc2f2f8b7691"]
+Cell[437409, 9066, 2449, 87, 94, "Input",ExpressionUUID->"9fa530f5-9734-4484-b5fd-8aa2d9742534"],
+Cell[439861, 9155, 417, 10, 34, "Output",ExpressionUUID->"c38f8184-90c3-49a1-89ee-47862a0d9395"],
+Cell[440281, 9167, 416, 10, 34, "Output",ExpressionUUID->"9ab51eae-20c1-4941-b3bb-7c0bb28c9073"],
+Cell[440700, 9179, 415, 10, 34, "Output",ExpressionUUID->"0202886f-0832-41fd-bc7a-fdb028462f45"],
+Cell[441118, 9191, 415, 10, 34, "Output",ExpressionUUID->"042a252d-2452-4b23-977e-ee8ebcb3005a"]
 }, Open  ]],
-Cell[566903, 11884, 208, 5, 39, "Input",ExpressionUUID->"1d6a5932-46be-41a0-93ba-a81fdaef7243"],
-Cell[567114, 11891, 460, 11, 39, "Input",ExpressionUUID->"713173e1-0ac2-448b-a517-83f90a0e969a"],
+Cell[441548, 9204, 209, 5, 39, "Input",ExpressionUUID->"47c1d7ba-5b10-4b4d-9e60-ce870db1dccb"],
+Cell[441760, 9211, 417, 10, 39, "Input",ExpressionUUID->"9fe77bd5-5c1e-4ee9-9bb3-8836a38485eb"],
 Cell[CellGroupData[{
-Cell[567599, 11906, 6903, 199, 514, "Input",ExpressionUUID->"6c5f54e8-2c7a-4eda-b280-7c26d5d625e0"],
-Cell[574505, 12107, 271965, 5391, 199, "Output",ExpressionUUID->"9915dc02-6f1b-4056-bf54-ba997ad8df73"]
+Cell[442202, 9225, 707, 19, 52, "Input",ExpressionUUID->"dc62dd29-6d5e-4545-921a-944f74bbb151"],
+Cell[442912, 9246, 4523, 116, 34, "Output",ExpressionUUID->"c9b8b184-8baa-47bb-b3af-2972c49cddda"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[447472, 9367, 4566, 128, 304, "Input",ExpressionUUID->"7cfd0399-e0a0-4155-b2bc-f9f4772c2ce1"],
+Cell[452041, 9497, 115136, 2387, 183, "Output",ExpressionUUID->"c962891a-c988-44fd-ad2a-661852a7b103"]
+}, Open  ]],
+Cell[567192, 11887, 208, 5, 39, "Input",ExpressionUUID->"1d6a5932-46be-41a0-93ba-a81fdaef7243"],
+Cell[567403, 11894, 458, 11, 39, "Input",ExpressionUUID->"713173e1-0ac2-448b-a517-83f90a0e969a"],
+Cell[CellGroupData[{
+Cell[567886, 11909, 6945, 199, 514, "Input",ExpressionUUID->"6c5f54e8-2c7a-4eda-b280-7c26d5d625e0"],
+Cell[574834, 12110, 280101, 5656, 199, "Output",ExpressionUUID->"fff9e2aa-da15-41da-b4bd-4ec064f86ee1"]
 }, Open  ]]
 }
 ]
