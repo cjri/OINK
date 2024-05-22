@@ -23,7 +23,7 @@ void ConstructResults(const run_params &p, const std::vector<int> &timepoints, s
     }
 }
 
-inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_detects, outbreak &o, gsl_rng *rgen)
+inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_detects, std::vector<int> &t_detects_after, outbreak &o, gsl_rng *rgen)
 {
 
 
@@ -38,22 +38,54 @@ inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_d
       pt.time_infected = o.individuals[by].time_symptom_onset + static_cast<int>(floor(gsl_ran_weibull(rgen, p.infection_b, p.infection_a)+0.5)); 
     }
     pt.time_symptom_onset = pt.time_infected + static_cast<int>(floor(gsl_ran_weibull(rgen, p.incubation_b, p.incubation_a)+0.5));
+    pt.infection_length = gsl_rng_uniform_int(rgen, p.infection_length_max - p.infection_length_min + 1) + p.infection_length_min;
+
     if (by == -1) // Index case
     {
         pt.detected = gsl_ran_bernoulli(rgen, p.probability_first_detect);
     }
     else
     {
-        pt.detected = gsl_ran_bernoulli(rgen, p.probability_detect);
+        // replace sample
+        double r = gsl_rng_uniform(rgen);
+        pt.detected = (r<=p.probability_detect);
+        pt.detected_after = (r<= p.probability_detect_after_first); // Below code assumes probability_detected <= probability_detected_after
     }
-    if (pt.detected == 1)
+    if ((pt.detected == 1) || (pt.detected_after==1))
     {
-        pt.time_reported = pt.time_symptom_onset + p.time_symptom_onset_to_detect; 
-        if (o.time_first_detect == -1 || pt.time_reported < o.time_first_detect)
-        {
-            o.time_first_detect = pt.time_reported;
+        if (pt.detected==1) {
+	  int time_symptom_onset_to_detect = gsl_rng_uniform_int(rgen, p.time_symptom_onset_to_detect_max - p.time_symptom_onset_to_detect_min + 1) + p.time_symptom_onset_to_detect_min;
+	  pt.time_reported = pt.time_symptom_onset + time_symptom_onset_to_detect; 
+            if (o.time_first_detect == -1 || pt.time_reported < o.time_first_detect)
+            {
+                o.time_first_detect = pt.time_reported;
+		/*
+                for(int t : t_detects_after) {
+                    if(t>=o.time_first_detect) {
+                        t_detects.push_back(t);
+                    }
+                } 
+		*/
+                auto should_remove = [o](int t) { return t>=o.time_first_detect; }; 
+
+                auto new_end = std::remove_if(t_detects_after.begin(), t_detects_after.end(), should_remove);
+
+		t_detects.insert(t_detects.end(), new_end, t_detects_after.end());
+                t_detects_after.erase(new_end, t_detects_after.end());
+            }
+            t_detects.push_back(pt.time_reported);
+        } else {
+	  int time_symptom_onset_to_detect = gsl_rng_uniform_int(rgen, p.time_symptom_onset_to_detect_max - p.time_symptom_onset_to_detect_min + 1) + p.time_symptom_onset_to_detect_min;
+
+	    pt.time_reported = pt.time_symptom_onset + time_symptom_onset_to_detect; 
+            if (o.time_first_detect != -1 && pt.time_reported >= o.time_first_detect)
+            {
+                t_detects.push_back(pt.time_reported);
+
+            } else {
+                t_detects_after.push_back(pt.time_reported);
+            }
         }
-        t_detects.push_back(pt.time_reported);
     }
     else
     {
@@ -83,7 +115,8 @@ void RunSimulationTime(const run_params &p,
 
     int t = 0;
     std::vector<int> t_detects;
-    MakeNewCase(p, -1, t_detects, o, rgen); // Make index case
+    std::vector<int> t_detects_after;
+    MakeNewCase(p, -1, t_detects, t_detects_after, o, rgen); // Make index case
     int index = -1; // 
     int zeros = 0; // Count of the number of timesteps with no new cases
     while (t < p.max_simulation_time)
@@ -112,7 +145,7 @@ void RunSimulationTime(const run_params &p,
                 }
                 for (int j=0;j<infect;j++) {  
                     //Add infect new cases of infection
-                    MakeNewCase (p,i,t_detects,o,rgen); /* These should all be infected at new time >=t */
+		  MakeNewCase (p,i,t_detects,t_detects_after, o,rgen); /* These should all be infected at new time >=t */
                 }
             }
         }
@@ -417,7 +450,7 @@ void EvaluateOutbreak(const run_params &p, const unsigned long r0val, std::vecto
     }
 }
 
-void MakePopulationSize(const run_params &p, const std::vector<int> &number_new_symptomatic, std::vector<int> &total_active_infected)
+void MakePopulationSize(const run_params &p, const outbreak &o, std::vector<int> &total_active_infected)
 {
 
 
@@ -425,17 +458,11 @@ void MakePopulationSize(const run_params &p, const std::vector<int> &number_new_
     {
         total_active_infected[i] = 0;
     }
-    for (unsigned long i = 0; i < total_active_infected.size() && i < number_new_symptomatic.size(); i++)
-    {
-        if (number_new_symptomatic[i] > 0)
-        {
-            for (int j = 0; j < p.infection_length; j++)
-            {
-                if (i + j < total_active_infected.size())
-                {
-                    total_active_infected[i + j] = total_active_infected[i + j] + number_new_symptomatic[i];
-                }
-            }
-        }
-    }
+    for(unsigned long i = 0; i < o.individuals.size(); i++)
+      {
+	for (unsigned long j=o.individuals[i].time_symptom_onset; j < o.individuals[i].time_symptom_onset + o.individuals[i].infection_length && j < total_active_infected.size(); j++)
+	  {
+	    total_active_infected[j]++;
+	  }
+      }
 }

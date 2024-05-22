@@ -29,11 +29,12 @@ void ConstructResults (const run_params& p, const std::vector<int>& timepoints, 
  * @param p A `run_params` structure containing parameters for the infection and incubation periods, detection probabilities, and the time from symptom onset to detection.
  * @param by A value of -1 indicates the case is a primary (index) case not infected by anyone within the simulation.
  * @param t_detects A reference to a vector of integers storing the times (relative to the start of the simulation) at which cases were detected. If the new cases is detected the detection time is appended to this list
+ * @param t_detects_after A reference to a vector of integers storing the times (relative to the start of the simulation) at which cases were detected (with increased surveillance)
  * @param o A reference to the outbreak structure where the new case will be added. 
  * @param rgen A pointer to a GSL random number generator.
  * 
  */
-inline void MakeNewCase (const run_params& p, const int by, std::vector<int>& t_detects, outbreak& o, gsl_rng *rgen);
+inline void MakeNewCase (const run_params& p, const int by, std::vector<int>& t_detects, std::vector<int>& t_detects_after , outbreak& o, gsl_rng *rgen);
 
     
 /* Initialize an empty outbreak structure 
@@ -58,7 +59,7 @@ void SetupOutbreak(outbreak& o);
  * @param o An `outbreak` object
  * @param rgen A pointer to a GSL random number generator
  **/
-void RunSimulationTime (const run_params& p, double r0, const int first_evaluation_time, const int last_evaluation_time, const unsigned long n_detections, const int extreme_infection_time, std::vector<int>& t_detects_relative, std::vector<int>& number_new_symptomatic, outbreak& o, gsl_rng *rgen);
+void RunSimulationTime (const run_params& p, const double r0, const int first_evaluation_time, const int last_evaluation_time, const unsigned long n_detections, const int extreme_infection_time, std::vector<int>& t_detects_relative, std::vector<int>& number_new_symptomatic, outbreak& o, gsl_rng *rgen);
 
 /**
  * Transforms absolute detection times into relative times with respect to the earliest detection.
@@ -163,17 +164,16 @@ void EvaluateOutbreak (const run_params& p, const unsigned long r0val, std::vect
 /**
  * Calculates the population size affected by infections over time.
  * 
- * This function processes an input array representing the population size at each time point (number_new_symptomatic) and spreads
- * the effect of each infection over a period defined by `p.infection_length`. For each infected individual at time
- * point `i`, their impact is added to the total population size (`total_active_infected`) from time `i` to `i + p.infection_length - 1`,
- * inclusive. 
+ * This function processes the outbreak data structure which contains (in its individuals field)
+ * details about all infected individuals. For each infected individual (i) at 
+ * their impact is added to the total population size (`total_active_infected`) from time `i.time_symptom_onset` to 
+ * `i.time_symptom_onset + i.infection_length - 1`, inclusive. 
  * 
  * @param p A `run_params` struct containing simulation parameters, specifically the length
  *          of time an infection affects the population (`infection_length`).
- * @param number_new_symptomatic The number of newly symptomatic patients at each
- *          time point.
+ * @param o An `outbreak` object containing information about the outbreak being simulated.
  * @param total_active_infected Output of the current population size affected by infections
 
  *  @note The function assumes total_active_infected is of the correct size.
  **/
-void MakePopulationSize (const run_params& p, const std::vector<int>& number_new_symptomatic, std::vector<int>& total_active_infected);
+void MakePopulationSize (const run_params& p, const outbreak& o, std::vector<int>& total_active_infected);

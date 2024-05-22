@@ -9,19 +9,28 @@
 #include "basicmodel.h"
 #include "io.h"
 #include "utilities.h"
+#include <omp.h>
+
 
 int main(int argc, const char **argv)
 {
 
+    static gsl_rng *rgen;
+    #pragma omp threadprivate(rgen)
+  
     run_params p;
     GetOptions(p, argc, argv); // Fills run_params structure p with the options for this run
 
     // Initialize RNG to a fixed seed
     int seed = p.seed;
     gsl_rng_env_setup();
-    gsl_rng *rgen = gsl_rng_alloc(gsl_rng_taus);
-    gsl_rng_set(rgen, seed);
-
+    
+    #pragma omp parallel
+    {
+    rgen = gsl_rng_alloc(gsl_rng_taus);
+    gsl_rng_set(rgen, seed + omp_get_thread_num());
+    }
+    
     // Import detected infection file
     int n_detections = 0;
     std::vector<detect> detections;
@@ -49,6 +58,10 @@ int main(int argc, const char **argv)
     int extreme_infection_time=floor(gsl_cdf_weibull_Pinv(0.99999,p.infection_b, p.infection_a)+1);
     
     // For each timepoint, make a list of p.R0_vals.size() zero-initialized output objects
+    // Each thread has a local copy of rgen, and writes only to it's own
+    // entry in the common vector results. Other variables written to are local to
+    // the loop
+    #pragma omp parallel for 
     for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++) {
         std::cout << "Generating simulations R0= " << p.R0_vals[r0val] << " "
                   << "\n";
@@ -71,16 +84,17 @@ int main(int argc, const char **argv)
 
             // Convert number_new_symptomatic into a list of infected individuals (day_symptomatic to day_symptomatic + infection_length-1, inclusive)
             std::vector<int> total_active_infected = number_new_symptomatic;
-            MakePopulationSize(p, number_new_symptomatic, total_active_infected);
+            MakePopulationSize(p, o, total_active_infected);
             if (p.verb == 1)
             {
+	      // Note that all this output will be interleaved in parallel version
                 OutputPopulationDetails(p, number_new_symptomatic, total_active_infected, t_detects_relative, o);
             }
 
             EvaluateOutbreak(p, r0val, t_detects_relative, timepoints, total_active_infected, detections, o, results); // Is this consistent with the data?
 
         }
-    }
+    } // End of parallel block
 
     //Output extra statistics
     OutputAcceptanceRates (p,timepoints,results);

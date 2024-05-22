@@ -3,6 +3,7 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import weightedstats
+import sys
 
 def read_data(file_path):
     data = []
@@ -44,8 +45,11 @@ def load_all_data(path):
     for subdir in sorted(path.glob('*/')):
         data[subdir.name] = load_dir_data(subdir)
     return data
-        
-data = load_all_data(Path('output/'))
+
+if len(sys.argv)>1:
+    data = load_all_data(Path(sys.argv[1]))
+else:
+    data = load_all_data(Path('output/'))
 
 
 ## Figure 1a
@@ -140,6 +144,20 @@ plt.legend()
 ## This is then normalized to give a retrospective estimate of the posterior distribution of R0
 
 
+def find_95_range(data):
+    c = np.cumsum(data)
+    c = c/c[-1]
+    idx1 = np.argmax(c>=0.025)
+    idx2 = np.argmax(c>=0.975)
+    """
+    print('c', c[idx1-1], c[idx1], c[idx2-1], c[idx2])
+    print(idx1, idx2, np.sum(data[:idx1])/np.sum(data), np.sum(data[idx1:idx2+1])/np.sum(data), np.sum(data[idx2+1:])/np.sum(data))
+    print(np.sum(data[idx1:idx2])/np.sum(data))
+    print(np.sum(data[idx1+1:idx2])/np.sum(data))
+    print(c[idx1], c[idx2])
+    """
+    return (idx1, idx2)
+
 plt.figure()
 for k,c in zip(data, cols):
     a = data[k]['accept']
@@ -148,7 +166,8 @@ for k,c in zip(data, cols):
     probs = np.array(probs)
     probs/=probs.sum()
     idx = np.argmax(probs)
-    print(k, r0val[idx]*0.1, np.sum(probs[0:22]), np.sum(probs[0:21]))
+    r = find_95_range(probs)
+    print(k, r0val[idx]*0.1, r0val[r[0]], r0val[r[1]])
     plt.plot(np.array(r0val)*0.1, probs, label=k, c=c)
 plt.legend()
           

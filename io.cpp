@@ -16,10 +16,13 @@ void GetOptions(run_params &p, const int argc, const char **argv)
     p.infection_b = 1.0025194828961315;
     p.add_limit = 1000;
     p.probability_detect = 0.1;
+    p.probability_detect_after_first = 0.1;
     p.probability_first_detect = -1; 
-    p.time_symptom_onset_to_detect = 18;
+    p.time_symptom_onset_to_detect_min = 18;
+    p.time_symptom_onset_to_detect_max = 18;
     p.replicas = 1000000;
-    p.infection_length = 7;
+    p.infection_length_min = 7;
+    p.infection_length_max = 7;
     p.max_R0 = 4.0;
     p.more_stats = 0;
     p.verb = 0;
@@ -39,6 +42,11 @@ void GetOptions(run_params &p, const int argc, const char **argv)
             x++;
             p.probability_detect = atof(argv[x]);
         }
+        else if (p_switch.compare("--detect_after_first") == 0)
+        {
+            x++;
+            p.probability_detect_after_first = atof(argv[x]);
+        }
         else if (p_switch.compare("--first_detect") == 0)
         {
             x++;
@@ -53,6 +61,16 @@ void GetOptions(run_params &p, const int argc, const char **argv)
         {
             x++;
             p.max_R0 = atof(argv[x]);
+        }
+        else if (p_switch.compare("--infection_length_min") == 0)
+        {
+            x++;
+            p.infection_length_min = atoi(argv[x]);
+        }
+        else if (p_switch.compare("--infection_length_max") == 0)
+        {
+            x++;
+            p.infection_length_max = atoi(argv[x]);
         }
         else if (p_switch.compare("--more_stats") == 0)
         {
@@ -181,7 +199,7 @@ void OutputPopulationDetails(const run_params &p, const std::vector<int> &number
 
     std::cout << "Number of cases " << o.individuals.size() << "\n";
     std::cout << "Number of detections " << t_detects_relative.size() << "\n";
-    std::cout << "First detection at time " << o.time_first_detect << " of case symptomatic at time " << o.time_first_detect - p.time_symptom_onset_to_detect << "\n";
+    std::cout << "First detection at time " << o.time_first_detect << " of case symptomatic at time " << o.time_first_detect_symptom_onset << "\n"; // FIXME
     std::cout << "T detects relative to first detection \n";
     for (unsigned long i = 0; i < t_detects_relative.size(); i++)
     {

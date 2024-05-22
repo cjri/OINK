@@ -111,11 +111,16 @@ TEST(ConstructSummaryDataTest, NonConsecutiveDetectionDays) {
 
 TEST(MakePopulationSizeTest, NoNewInfections) {
     run_params p; // Assuming infection length is 5 days
-    p.infection_length=5;
+    p.infection_length_min=5;
+    p.infection_length_max=5;
     std::vector<int> new_symptomatic(10, 0); // 10 time points, no new infections
     std::vector<int> total_active(10, 0); // Pre-initialized vector
 
-    MakePopulationSize(p, new_symptomatic, total_active);
+    outbreak o;
+    // Construct outbreak - empty
+    SetupOutbreak(o);
+
+    MakePopulationSize(p, o, total_active);
 
     for (const auto& active_cases : total_active) {
         EXPECT_EQ(active_cases, 0);
@@ -124,24 +129,46 @@ TEST(MakePopulationSizeTest, NoNewInfections) {
 
 TEST(MakePopulationSizeTest, ConstantNewInfections) {
     run_params p; // Infection lasts for 3 days
-    p.infection_length=3;
+    /*
+    p.infection_length_min=3;
+    p.infection_length_max=3;
     std::vector<int> new_symptomatic(5, 2); // 2 new infections at each of 5 time points
+    */
     std::vector<int> total_active(5, 0);
 
-    MakePopulationSize(p, new_symptomatic, total_active);
+    outbreak o;
+    // Construct outbreak - empty
+    SetupOutbreak(o);
+    for(unsigned long i =0; i<5; i++)
+    {
+        o.individuals.push_back( patient{.time_symptom_onset = static_cast<int>(i), .infection_length=3});
+        o.individuals.push_back( patient{.time_symptom_onset = static_cast<int>(i), .infection_length=3});
+    }
+
+    MakePopulationSize(p, o, total_active);
 
     // Expected total_active should be: [2, 4, 6, 6, 6]
     std::vector<int> expected = {2, 4, 6, 6, 6};
     EXPECT_EQ(total_active, expected);
 }
-
 TEST(MakePopulationSizeTest, VariableNewInfections) {
     run_params p; // Infection lasts for 2 days
-    p.infection_length=2;
+
+    unsigned long infection_length=2;
+
     std::vector<int> new_symptomatic = {1, 3, 0, 2}; // Variable new infections
     std::vector<int> total_active(4, 0);
 
-    MakePopulationSize(p, new_symptomatic, total_active);
+    outbreak o;
+    // Construct outbreak - empty
+    SetupOutbreak(o);
+    for(unsigned long i =0; i<new_symptomatic.size(); i++)
+    {
+        for(int j=0; j< new_symptomatic[i]; j++)
+        o.individuals.push_back( patient{.time_symptom_onset = static_cast<int>(i), .infection_length=static_cast<int>(infection_length)});
+    }
+
+    MakePopulationSize(p, o, total_active);
 
     // Expected total_active should be: [1, 4, 3, 2]
     std::vector<int> expected = {1, 4, 3, 2};
@@ -150,28 +177,47 @@ TEST(MakePopulationSizeTest, VariableNewInfections) {
 
 TEST(MakePopulationSizeTest, LongerInfectionPeriod) {
     run_params p; // Infection lasts for 6 days, longer than the simulation length
-    p.infection_length=6;
+    unsigned long infection_length=6;
     std::vector<int> new_symptomatic = {5, 0, 0}; // New infections only at the first time point
     std::vector<int> total_active(3, 0);
+    outbreak o;
+    // Construct outbreak - empty
+    SetupOutbreak(o);
+    for(unsigned long i =0; i<new_symptomatic.size(); i++)
+    {
+        for(int j=0; j< new_symptomatic[i]; j++)
+        o.individuals.push_back( patient{.time_symptom_onset = static_cast<int>(i), .infection_length=static_cast<int>(infection_length)});
+    }
 
-    MakePopulationSize(p, new_symptomatic, total_active);
+    MakePopulationSize(p, o, total_active);
 
     // Expected total_active should be: [5, 5, 5], as the infection affects all remaining days
     std::vector<int> expected = {5, 5, 5};
     EXPECT_EQ(total_active, expected);
 }
 
+
 TEST(MakePopulationSizeTest, SingleDayInfection) {
     run_params p; // Infection affects for 1 day only
-    p.infection_length=1;
+    unsigned long infection_length=1;
+
     std::vector<int> new_symptomatic = {1, 2, 3}; // New infections each day
     std::vector<int> total_active(3, 0);
+    outbreak o;
+    // Construct outbreak - empty
+    SetupOutbreak(o);
+    for(unsigned long i =0; i<new_symptomatic.size(); i++)
+    {
+        for(int j=0; j< new_symptomatic[i]; j++)
+        o.individuals.push_back( patient{.time_symptom_onset = static_cast<int>(i), .infection_length=static_cast<int>(infection_length)});
+    }
 
-    MakePopulationSize(p, new_symptomatic, total_active);
+    MakePopulationSize(p, o, total_active);
 
     // Expected total_active should directly mirror new_symptomatic
     EXPECT_EQ(total_active, new_symptomatic);
 }
+
 
 TEST(MakeRelativeTimeTest, BasicFunctionalitySortedInput) {
     std::vector<int> t_detects = {2, 4, 6, 9}; // Absolute detection times
@@ -214,7 +260,7 @@ TEST(CheckTerminationTest, TerminationAtLastEvaluationTime) {
 }
 
 TEST(CheckTerminationTest, ContinuationWithinEvaluationRange) {
-    run_params p{.infection_length = 5,}; // Example parameters
+    run_params p{.infection_length_min = 5, .infection_length_max=5}; // Example parameters
     int extreme_infection_time = 5;
     int t = 11; // Current simulation time within evaluation range
     int zeros = 3; // Number of zeros not exceeding infection length + 1
@@ -242,7 +288,7 @@ TEST(CheckTerminationTest, TerminationDueToExcessiveDetectionsBeforeTime) {
 }
 
 TEST(EvaluateOutbreakTest, PerfectMatchBetweenSimulationAndDetection) {
-    run_params p{.infection_length = 5, .verb = 0}; // Assume this has necessary fields set
+    run_params p{.infection_length_min = 5, .infection_length_max=5, .verb = 0}; // Assume this has necessary fields set
     unsigned long r0val = 0; // Index of R0 being evaluated
     std::vector<int> t_detects_relative = {0, 2, 2, 3}; // Relative detection times from the simulation
     std::vector<int> timepoints = {1, 2, 4}; // Time points at which the outbreak is evaluated
@@ -262,7 +308,7 @@ TEST(EvaluateOutbreakTest, PerfectMatchBetweenSimulationAndDetection) {
 }
 
 TEST(EvaluateOutbreakTest, NoMatchBetweenSimulationAndDetection) {
-    run_params p{.infection_length = 5, .verb = 0}; 
+    run_params p{.infection_length_min = 5, .infection_length_max = 5, .verb = 0}; 
     unsigned long r0val = 0; // Index of R0 being evaluated
     std::vector<int> t_detects_relative = {0, 0, 2, 4}; // Relative detection times from the simulation, not matching detections
     std::vector<int> timepoints = {1, 2, 3}; // Time points at which the outbreak is evaluated
@@ -280,7 +326,7 @@ TEST(EvaluateOutbreakTest, NoMatchBetweenSimulationAndDetection) {
 }
 
 TEST(EvaluateOutbreakTest, PartialMatchBetweenSimulationAndDetection) {
-    run_params p{.infection_length = 5, .verb = 0}; 
+    run_params p{.infection_length_min = 5, .infection_length_max=5, .verb = 0}; 
     unsigned long r0val = 0; // Index of R0 being evaluated
     std::vector<int> t_detects_relative = {0, 2, 2, 3}; // Relative detection times from the simulation
     std::vector<int> timepoints = {1, 2, 4}; // Time points at which the outbreak is evaluated
@@ -297,7 +343,6 @@ TEST(EvaluateOutbreakTest, PartialMatchBetweenSimulationAndDetection) {
         EXPECT_EQ(results[i][r0val].accepted, expected_accepted[i]); // Each time point should be accepted
     }
 }
-
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
