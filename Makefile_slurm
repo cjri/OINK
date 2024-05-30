@@ -1,7 +1,7 @@
 CC	      = g++
-CC_FLAGS        = -g3 -O3 -Wall -pthread  -g
-LD_FLAGS	= -lgsl -lgslcblas -lm -lstdc++  -g 
-LD_FLAGS_TEST   = -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
+CC_FLAGS        = -g3 -O3 -Wall -pthread -fopenmp -I ${GSLINCLUDE}
+LD_FLAGS	= -L ${GSLLIB} -lgsl -lgslcblas -lm -lstdc++  -g 
+LD_FLAGS_TEST   = -L ${GSLIB} -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
 BAS		= basicmodel.o io.o utilities.o 
 TEST            = Test.o utilities.o io.o
 TEST_RNG        = test_rng.o utilities.o io.o

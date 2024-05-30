@@ -42,14 +42,17 @@ inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_d
 
     if (by == -1) // Index case
     {
-        pt.detected = gsl_ran_bernoulli(rgen, p.probability_first_detect);
+        double r= gsl_rng_uniform(rgen);
+        pt.detected = (r<=p.probability_first_detect);
+        pt.detected_after = (r<= p.probability_detect_enhanced); // For some parameters, it is possible (but unlikely)
+	                                                         // for another case to be detected before this one could be detected.
     }
     else
     {
         // replace sample
         double r = gsl_rng_uniform(rgen);
         pt.detected = (r<=p.probability_detect);
-        pt.detected_after = (r<= p.probability_detect_after_first); // Below code assumes probability_detected <= probability_detected_after
+        pt.detected_after = (r<= p.probability_detect_enhanced); // Below code assumes probability_detected <= probability_detected_after
     }
     if ((pt.detected == 1) || (pt.detected_after==1))
     {
@@ -284,9 +287,9 @@ int CheckTermination(const run_params &p,
     // so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time]
     // If there are too many, then all timepoints will be rejected 
 
-    // Could potentially improve on this knowing time_symptom_onset_to_detect, as if this is fixed
-    // Simulation could generate a new detected case in (t+p.time_symptom_onset_to_detect, t_detect[0]]
-    // so set t' = min (t+p.time_symptom_onset_to_detect+1, t_detect[0]) - note also sharper bound on t, as we have finished simulating all cases which became symptomatic at time t
+    // Could potentially improve on this knowing time_symptom_onset_to_detect_min, 
+    // Simulation could generate a new detected case in (t+p.time_symptom_onset_to_detect_min, t_detect[0]]
+    // so set t' = min (t+p.time_symptom_onset_to_detect_min+1, t_detect[0]) - note also sharper bound on t, as we have finished simulating all cases which became symptomatic at time t
     // count detections in range [t', t'+first_evaluation_time] -> very little improvement in simulation time
     // This bound on the number of cases could also be tightened using the data - here it is just the total number of detections.
 

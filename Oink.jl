@@ -3,13 +3,28 @@ using Distributed
 using Plots
 using Statistics
 using StatsBase
+using Random
+
+function write_file(filename, A, B)
+    open(filename, "w") do file
+        # Iterate over the elements of A and B
+        for i in 1:length(A)
+            # Write A[i] and B[i] to the file, formatted as "A[i] B[i]\n"
+            write(file, string(A[i], " ", B[i], "\n"))
+        end
+    end
+    
+    
+end
+
+Random.seed!(1)
 
 function simulate()
     T_sim = 10000
-    a1 = 7.4026
-    b1 = 1.7375
-    a2 = 1.0314
-    b2 = 1.0025
+    a1 = 7.402580682098853
+    b1 = 1.7375081458523993
+    a2 = 1.03138989929643
+    b2 = 1.0025194828961315
     time_to_detection = 18
 
     p_detect = 0.1
@@ -76,15 +91,18 @@ function simulate()
     end
 
     R0_vals = LinRange(0.1, 4.0, 40)
-    #R0_vals = LinRange(0.8, 0.9, 40)
     @show(R0_vals)
     results = fill([], 40)
     Threads.@threads for i in 1:40
         R0 = R0_vals[i]
-	results[i] = sample(R0, 1000)
+	results[i] = sample(R0, 100000)
     end
 
     p1 = plot(R0_vals, [sum([!s[1] && s[5] == 1 for s in r]) for r in results], title="Detection Summary")
+
+    acc = [sum([(!s[1] && s[5]==1) for s in r]) for r in results]
+    
+    write_file("julia_R0_acceptance_rates.dat", R0_vals, acc)
 
     results_flat = reduce(vcat, results)
 
@@ -96,6 +114,9 @@ function simulate()
     p_days = [r[2] for r in results_flat if !r[1] && r[5] == 1]
     c = counts(p_days, 0:50)
     c = c/sum(c)
+
+
+
     @show(c)
     if !isempty(p_days)
         p3 = histogram(p_days, bins=0:50, title="Day Distribution")

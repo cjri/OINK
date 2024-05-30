@@ -2,6 +2,7 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 def read_data(file_path):
     data = []
@@ -43,8 +44,14 @@ def load_all_data(path):
     for subdir in sorted(path.glob('*/')):
         data[subdir.name] = load_dir_data(subdir)
     return data
-        
-data = load_all_data(Path('output/'))
+
+
+if len(sys.argv)>1:
+    path = sys.argv[1]
+else:
+    path = 'output/'
+  
+data = load_all_data(Path(path))
 
 print(list(data))
 

@@ -21,9 +21,10 @@ struct run_params {
   
     int add_limit; //Maximum number of infections per generation.
     double probability_detect;   // P(see doctor and get tested if sick)
-    double probability_detect_after_first; // P(see doctor and get tested if sick) after first case detected (must be bigger than probability_detect)
+    double probability_detect_enhanced; // P(see doctor and get tested if sick) after first case detected (must be bigger than probability_detect)
     double probability_first_detect; // Probability for detecting first case. By default zero
-  
+
+    int time_before_enhanced_detection; // Number of days, after the first detected case is reported, for which detection rate increased
     int time_symptom_onset_to_detect_min; // Number of days from symptom onset to detection. Modelled as uniform on [min, max]
     int time_symptom_onset_to_detect_max; // Number of days from symptom onset to detection. Modelled as uniform on [min, max]
     int replicas; // Number of simulations to perform for each value of R0

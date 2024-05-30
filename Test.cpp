@@ -3,6 +3,9 @@
 #include <vector>
 #include "basicmodel.h"
 #include "utilities.h"
+#include <gsl/gsl_randist.h>
+#include <gsl/gsl_rng.h>
+#include <gsl/gsl_cdf.h>
 
 TEST(CompareWithDataTest, DifferentAfterLastTimepoint) {
     // Assume CompareWithData is part of a namespace or adjust accordingly
@@ -127,13 +130,11 @@ TEST(MakePopulationSizeTest, NoNewInfections) {
     }
 }
 
+
+
 TEST(MakePopulationSizeTest, ConstantNewInfections) {
     run_params p; // Infection lasts for 3 days
-    /*
-    p.infection_length_min=3;
-    p.infection_length_max=3;
-    std::vector<int> new_symptomatic(5, 2); // 2 new infections at each of 5 time points
-    */
+
     std::vector<int> total_active(5, 0);
 
     outbreak o;
@@ -218,6 +219,66 @@ TEST(MakePopulationSizeTest, SingleDayInfection) {
     EXPECT_EQ(total_active, new_symptomatic);
 }
 
+TEST(NewCaseTest, BoundDetectionTime) {
+  static gsl_rng *rgen;
+    run_params p;
+    
+    p.time_symptom_onset_to_detect_min=3;
+    p.time_symptom_onset_to_detect_max=5;
+    p.infection_a = 1;
+    p.infection_b = 1;
+    p.incubation_a = 7;
+    p.incubation_b = 1.7;
+    p.probability_first_detect = 1.0;
+    p.probability_detect = 1.0;
+    p.infection_length_min=5;
+    p.infection_length_max=5;
+    std::vector<int> t_detects;
+    std::vector<int> t_detects_after;
+    outbreak o;
+    gsl_rng_env_setup();
+    rgen = gsl_rng_alloc(gsl_rng_taus);
+    gsl_rng_set(rgen, 1);
+    SetupOutbreak(o);
+    MakeNewCase(p, -1, t_detects, t_detects_after, o, rgen);
+    MakeNewCase(p, 0, t_detects, t_detects_after, o, rgen);
+    EXPECT_EQ(t_detects.size(), 2);
+    EXPECT_EQ(t_detects_after.size(), 0);
+    int t = t_detects[0] - o.individuals[0].time_symptom_onset;
+    EXPECT_LE(t, 5);
+    EXPECT_GE(t, 3);
+    t = t_detects[1] - o.individuals[1].time_symptom_onset;
+    EXPECT_LE(t, 5);
+    EXPECT_GE(t, 3);
+}
+TEST(NewCaseTest, NoDetection) {
+  static gsl_rng *rgen;
+    run_params p;
+    
+    p.time_symptom_onset_to_detect_min=3;
+    p.time_symptom_onset_to_detect_max=5;
+    p.infection_a = 1;
+    p.infection_b = 1;
+    p.incubation_a = 7;
+    p.incubation_b = 1.7;
+    p.probability_first_detect = 0.0;
+    p.probability_detect = 0.0;
+    p.probability_detect_after = 1.0
+    p.infection_length_min=5;
+    p.infection_length_max=5;
+    std::vector<int> t_detects;
+    std::vector<int> t_detects_after;
+    outbreak o;
+    gsl_rng_env_setup();
+    rgen = gsl_rng_alloc(gsl_rng_taus);
+    gsl_rng_set(rgen, 1);
+    SetupOutbreak(o);
+    MakeNewCase(p, -1, t_detects, t_detects_after, o, rgen);
+    MakeNewCase(p, 0, t_detects, t_detects_after, o, rgen);
+    EXPECT_EQ(t_detects.size(), 0);
+    EXPECT_EQ(t_detects_after.size(), 2);
+}
+    
 
 TEST(MakeRelativeTimeTest, BasicFunctionalitySortedInput) {
     std::vector<int> t_detects = {2, 4, 6, 9}; // Absolute detection times

@@ -33,7 +33,9 @@ function simulate()
     
     p_detect = 0.04
     max_detected = 1
-    
+    p_detect_enhanced = 0.2
+    detection_increase_delay = 18
+
     rng_symptom() = floor(Int64, rand(Weibull(a1, b1))+0.5)
     rng_infect() = floor(Int64,rand(Weibull(a2, b2))+0.5)
     
@@ -46,7 +48,8 @@ function simulate()
             first_detection_time = nothing
             
             detections = []
-            population = [(0, rng_symptom(), false)]
+	    enhanced_detections = []
+            population = [(0, rng_symptom(), false, false)]
             old_population = []
             p = popfirst!(population)
             time = p[2]
@@ -67,32 +70,35 @@ function simulate()
                     n_cases += 1
                     t_infect = p[2] + rng_infect()
                     t_symptom = t_infect + rng_symptom()
-                    detected = rand() < p_detect
-                    push!(population, (t_infect, t_symptom, detected))
-                    if detected
-                        t_detect = t_symptom + time_to_detection
+		    r = rand()
+                    detected = r < p_detect
+		    enhanced_detected = r < p_detect_enhanced
+                    push!(population, (t_infect, t_symptom, detected, enhanced_detected))
+		    t_detect = t_symptom + time_to_detection
+
+		    if detected
                         n_detected += 1
                         push!(detections, t_detect)
                         if isnothing(first_detection_time) 
                             first_detection_time = t_detect
-                            bad_detection = false
+			    # Add enhanced detections
+			    append!(detections, [ e_t for e_t in enhanced_detections if e_t >= first_detection_time + detection_increase_delay ])
+			    filter!(u-> u>first_detection_time + detection_increase_delay, enhanced_detections)
                         else
                             if (t_detect <= first_detection_time)
-                                if first_detection_time - t_detect <= t_measure
-                                    #@show("Bad at creation")
-                                    bad_detection = true
-                                else                              
-                                    bad_detection = false
-                                end
                                 first_detection_time = t_detect
-                            else
-                                if t_detect - first_detection_time  <= t_measure
-                                    #@show("Bad after")
-                                    bad_detection=true
-                                end
-                            end
+			    	append!(detections, [ e_t for e_t in enhanced_detections if e_t >= first_detection_time + detection_increase_delay ])
+				filter!(u-> u>first_detection_time + detection_increase_delay, enhanced_detections)
+				
+			    end
                         end
-                    end
+                    elseif enhanced_detected
+		        if !isnothing(first_detection_time) && t_detect>=first_detection_time + detection_increase_delay
+			   push!(detections, t_detect)
+			else
+			   push!(enhanced_detections, t_detect)
+			end
+		    end
                 end	
                 if isempty(population)
                     
@@ -149,7 +155,7 @@ function parse_commandline()
     
     @add_arg_table! s begin 
     "-o"
-    default="julia_output"
+    default="julia_output_enhanced"
     help="base filename"
     
     "-e"

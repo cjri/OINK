@@ -16,10 +16,11 @@ void GetOptions(run_params &p, const int argc, const char **argv)
     p.infection_b = 1.0025194828961315;
     p.add_limit = 1000;
     p.probability_detect = 0.1;
-    p.probability_detect_after_first = 0.1;
+    p.probability_detect_enhanced = -1;
     p.probability_first_detect = -1; 
     p.time_symptom_onset_to_detect_min = 18;
     p.time_symptom_onset_to_detect_max = 18;
+    p.time_before_enhanced_detection = 18;
     p.replicas = 1000000;
     p.infection_length_min = 7;
     p.infection_length_max = 7;
@@ -42,10 +43,10 @@ void GetOptions(run_params &p, const int argc, const char **argv)
             x++;
             p.probability_detect = atof(argv[x]);
         }
-        else if (p_switch.compare("--detect_after_first") == 0)
+        else if (p_switch.compare("--detect_enhanced") == 0)
         {
             x++;
-            p.probability_detect_after_first = atof(argv[x]);
+            p.probability_detect_enhanced = atof(argv[x]);
         }
         else if (p_switch.compare("--first_detect") == 0)
         {
@@ -72,6 +73,17 @@ void GetOptions(run_params &p, const int argc, const char **argv)
             x++;
             p.infection_length_max = atoi(argv[x]);
         }
+        else if (p_switch.compare("--detect_min") == 0)
+        {
+            x++;
+            p.time_symptom_onset_to_detect_min = atoi(argv[x]);
+        }
+        else if (p_switch.compare("--detect_max") == 0)
+        {
+            x++;
+            p.time_symptom_onset_to_detect_max = atoi(argv[x]);
+        }
+
         else if (p_switch.compare("--more_stats") == 0)
         {
             x++;
@@ -110,6 +122,11 @@ void GetOptions(run_params &p, const int argc, const char **argv)
     if (p.probability_first_detect == -1)
     {
         p.probability_first_detect = 0;
+    }
+    
+    if (p.probability_detect_enhanced == -1)
+    {
+        p.probability_detect_enhanced = p.probability_detect;
     }
 }
 

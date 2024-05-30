@@ -2,6 +2,7 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 def read_data(file_path):
     data = []
@@ -29,8 +30,16 @@ def load_dir_data(path):
 
         
 
-end4 = load_dir_data(Path('output/0.04'))
-end2 = load_dir_data(Path('output2/0.04'))
+if len(sys.argv)>2:
+    path = Path(sys.argv[1])
+    path2 = Path(sys.argv[2])
+else:
+    path = Path('output/')
+    path2 = Path('output2/')
+  
+
+end4 = load_dir_data(path / '0.04')
+end2 = load_dir_data(path2/ '0.04')
 
 ## Figure 1a
 
