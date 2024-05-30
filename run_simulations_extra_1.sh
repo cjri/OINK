@@ -3,7 +3,7 @@
 rm -r output_variable_symptom_onset/
 mkdir output_variable_symptom_onset/
 
-NS=10000
+NS=1000000
 
 ## Variation between symptom onset and detection
 
