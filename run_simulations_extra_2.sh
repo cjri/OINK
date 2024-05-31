@@ -1,8 +1,5 @@
 
 
-rm -r output_variable_symptom_onset/
-mkdir output_variable_symptom_onset/
-
 NS=1000000
 
 rm -r output_variable_infected/

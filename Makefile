@@ -1,5 +1,5 @@
 CC	      = g++
-CC_FLAGS        = -g3 -O3 -Wall -pthread  -g
+CC_FLAGS        = -g3 -O3 -Wall -pthread  -g -fopenmp
 LD_FLAGS	= -lgsl -lgslcblas -lm -lstdc++  -g 
 LD_FLAGS_TEST   = -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
 BAS		= basicmodel.o io.o utilities.o 

@@ -1,7 +1,7 @@
 
 
-rm -r output_variable_symptom_onset/
-mkdir output_variable_symptom_onset/
+rm -r output_enhanced_detection/
+mkdir output_enhanced_detection/
 
 NS=1000000
 

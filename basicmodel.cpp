@@ -28,7 +28,7 @@ int main(int argc, const char **argv)
     #pragma omp parallel
     {
     rgen = gsl_rng_alloc(gsl_rng_taus);
-    gsl_rng_set(rgen, seed); // + omp_get_thread_num());
+    gsl_rng_set(rgen, seed + omp_get_thread_num());
     }
     
     // Import detected infection file
@@ -61,9 +61,9 @@ int main(int argc, const char **argv)
     // Each thread has a local copy of rgen, and writes only to it's own
     // entry in the common vector results. Other variables written to are local to
     // the loop
-    #pragma omp parallel for 
+#pragma omp parallel for shared(results) //firstprivate(p, extreme_infection_time, n_detections, max_time, min_time, detections, timepoints) default(none)
     for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++) {
-        std::cout << "Generating simulations R0= " << p.R0_vals[r0val] << " "
+              std::cout << "Generating simulations R0= " << p.R0_vals[r0val] << " "
                   << "\n";
         double r0 = p.R0_vals[r0val];
         for (int calc = 0; calc < p.replicas; calc++)
