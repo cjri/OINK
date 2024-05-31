@@ -25,7 +25,7 @@ int main(int argc, const char **argv)
     int seed = p.seed;
     gsl_rng_env_setup();
     
-    //  #pragma omp parallel
+    #pragma omp parallel
     {
     rgen = gsl_rng_alloc(gsl_rng_taus);
     gsl_rng_set(rgen, seed); // + omp_get_thread_num());
@@ -61,7 +61,7 @@ int main(int argc, const char **argv)
     // Each thread has a local copy of rgen, and writes only to it's own
     // entry in the common vector results. Other variables written to are local to
     // the loop
-    //#pragma omp parallel for 
+    #pragma omp parallel for 
     for (unsigned long r0val=0; r0val<p.R0_vals.size(); r0val++) {
         std::cout << "Generating simulations R0= " << p.R0_vals[r0val] << " "
                   << "\n";
