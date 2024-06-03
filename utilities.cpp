@@ -81,7 +81,7 @@ inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_d
 	  int time_symptom_onset_to_detect = gsl_rng_uniform_int(rgen, p.time_symptom_onset_to_detect_max - p.time_symptom_onset_to_detect_min + 1) + p.time_symptom_onset_to_detect_min;
 
 	    pt.time_reported = pt.time_symptom_onset + time_symptom_onset_to_detect; 
-            if (o.time_first_detect != -1 && pt.time_reported >= o.time_first_detect + time_before_enhanced_detection)
+            if (o.time_first_detect != -1 && pt.time_reported >= o.time_first_detect + p.time_before_enhanced_detection)
             {
                 t_detects.push_back(pt.time_reported);
 
