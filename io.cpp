@@ -48,6 +48,11 @@ void GetOptions(run_params &p, const int argc, const char **argv)
             x++;
             p.probability_detect_enhanced = atof(argv[x]);
         }
+        else if (p_switch.compare("--time_before_enhanced") == 0)
+        {
+            x++;
+            p.time_before_enhanced_detection = atoi(argv[x]);
+        }
         else if (p_switch.compare("--first_detect") == 0)
         {
             x++;
