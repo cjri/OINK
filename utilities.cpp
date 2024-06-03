@@ -69,7 +69,7 @@ inline void MakeNewCase(const run_params &p, const int by, std::vector<int> &t_d
                     }
                 } 
 		*/
-                auto should_remove = [o](int t) { return t>=o.time_first_detect+p.time_before_enhanced_detection; }; 
+                auto should_remove = [o,p](int t) { return t>=o.time_first_detect+p.time_before_enhanced_detection; }; 
 
                 auto new_end = std::remove_if(t_detects_after.begin(), t_detects_after.end(), should_remove);
 
