@@ -230,7 +230,7 @@ void OutputPopulationDetails(const run_params &p, const std::vector<int> &number
     std::cout << "\n";
 }
 
-void OutputRawData(const int &r0val, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputRawData(const int &r0val, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
 
     for (unsigned long i = 0; i < timepoints.size(); i++)
@@ -252,7 +252,7 @@ void OutputRawData(const int &r0val, const std::vector<int> &timepoints, const s
     }
 }
 
-void OutputAcceptanceRates(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputAcceptanceRates(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
 
     for (unsigned long r0val = 0; r0val < p.R0_vals.size(); r0val++)
@@ -272,7 +272,7 @@ void OutputAcceptanceRates(const run_params &p, const std::vector<int> &timepoin
 }
 
 
-void OutputOriginTimes(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputOriginTimes(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
 
     for (unsigned long r0val = 0; r0val < p.R0_vals.size(); r0val++)
@@ -297,7 +297,7 @@ void OutputOriginTimes(const run_params &p, const std::vector<int> &timepoints, 
 }
 
 
-void OutputPopulationSizes(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputPopulationSizes(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
 
     for (unsigned long r0val = 0; r0val < p.R0_vals.size(); r0val++)
@@ -326,7 +326,7 @@ void OutputPopulationSizes(const run_params &p, const std::vector<int> &timepoin
 }
 
 
-void OutputProbabilityEnded(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputProbabilityEnded(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
 
     for (unsigned long r0val = 0; r0val < p.R0_vals.size(); r0val++)
@@ -348,7 +348,7 @@ void OutputProbabilityEnded(const run_params &p, const std::vector<int> &timepoi
 }
 
 
-void OutputOutbreakDeathStatistics(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputOutbreakDeathStatistics(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
     std::ofstream pd_file;
     pd_file.open(p.output_prefix + "P_Outbreak_End.dat");
@@ -369,7 +369,7 @@ void OutputOutbreakDeathStatistics(const run_params &p, const std::vector<int> &
 
 
 
-void OutputOutbreakTimeStatistics(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputOutbreakTimeStatistics(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
     for (unsigned long i = 0; i < timepoints.size(); i++)
     {
@@ -432,7 +432,7 @@ void OutputOutbreakTimeStatistics(const run_params &p, const std::vector<int> &t
 
 
 
-void OutputOutbreakPopulationStatistics(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output>> &results)
+void OutputOutbreakPopulationStatistics(const run_params &p, const std::vector<int> &timepoints, const std::vector<std::vector<output> > &results)
 {
     // Size of population conditional on not being zero
     for (unsigned long i = 0; i < timepoints.size(); i++)
