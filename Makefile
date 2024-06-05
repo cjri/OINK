@@ -1,6 +1,6 @@
 CC	      = g++
-CC_FLAGS        = -g3 -O3 -Wall -pthread  -g $(if $(PARALLEL),-fopenmp)
-LD_FLAGS	= -lgsl -lgslcblas -lm -lstdc++  -g 
+CC_FLAGS        = -g3 -O3 -Wall -pthread  -g $(if $(PARALLEL),-fopenmp) -I /opt/homebrew/Cellar/gsl/2.7.1/include/
+LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib -lgsl -lgslcblas -lm -lstdc++  -g 
 LD_FLAGS_TEST   = -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
 BAS		= basicmodel.o io.o utilities.o 
 TEST            = Test.o utilities.o io.o
