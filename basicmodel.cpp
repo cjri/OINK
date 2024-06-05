@@ -9,7 +9,7 @@
 #include "basicmodel.h"
 #include "io.h"
 #include "utilities.h"
-#include <omp.h>
+
 
 
 int main(int argc, const char **argv)
