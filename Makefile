@@ -1,25 +1,26 @@
-CC	      = g++
+BUILD_DIR	?= build/
+SRC_DIR		?= src/
+
+
+CC		= g++
 CC_FLAGS        = -g3 -O3 -Wall -std=c++11 -pthread  -g $(if $(PARALLEL),-fopenmp) -I /opt/homebrew/Cellar/gsl/2.7.1/include/
 LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib -lgsl -lgslcblas -lm -g 
 LD_FLAGS_TEST   = -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
-BAS		= basicmodel.o io.o utilities.o 
-TEST            = Test.o utilities.o io.o
-TEST_RNG        = test_rng.o utilities.o io.o
+BAS		= $(BUILD_DIR)/basicmodel.o $(BUILD_DIR)/io.o $(BUILD_DIR)/utilities.o 
+TEST            = $(BUILD_DIR)/Test.o $(BUILD_DIR)/utilities.o $(BUILD_DIR)/io.o
 
 basic: $(BAS)
 	$(CC) $(CC_FLAGS) $(BAS) -o oink  $(LD_FLAGS)
-test: $(TEST)
-	$(CC) $(CC_FLAGS) $(TEST) -o test $(LD_FLAGS_TEST)
-test_rng: $(TEST_RNG)
-	$(CC) $(CC_FLAGS) $(TEST_RNG) -o test $(LD_FLAGS)
-test_rng.o: test_rng.cpp
-	$(CC) $(CC_FLAGS) -c test_rng.cpp
-Test.o: Test.cpp
-	$(CC) $(CC_FLAGS) -c Test.cpp
-basicmodel.o: basicmodel.cpp
-	$(CC) $(CC_FLAGS) -c basicmodel.cpp
-io.o: io.cpp
-	$(CC) $(CC_FLAGS) -c io.cpp
-utilities.o: utilities.cpp
-	$(CC) $(CC_FLAGS) -c utilities.cpp
+test: $(TEST) 
+	$(CC) $(CC_FLAGS) $(TEST) -o $(SRC_DIR)/test $(LD_FLAGS_TEST)
+$(BUILD_DIR)/Test.o: ${SRC_DIR}/Test.cpp | $(BUILD_DIR)
+	$(CC) $(CC_FLAGS) -c $(SRC_DIR)/Test.cpp -o $(BUILD_DIR)/Test.o
+$(BUILD_DIR)/basicmodel.o: $(SRC_DIR)/basicmodel.cpp | $(BUILD_DIR)
+	$(CC) $(CC_FLAGS) -c $(SRC_DIR)/basicmodel.cpp -o $(BUILD_DIR)/basicmodel.o  
+$(BUILD_DIR)/io.o: $(SRC_DIR)/io.cpp | $(BUILD_DIR)
+	$(CC) $(CC_FLAGS) -c $(SRC_DIR)/io.cpp -o $(BUILD_DIR)/io.o
+$(BUILD_DIR)/utilities.o: $(SRC_DIR)/utilities.cpp | $(BUILD_DIR)
+	$(CC) $(CC_FLAGS) -c $(SRC_DIR)/utilities.cpp -o $(BUILD_DIR)/utilities.o
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
