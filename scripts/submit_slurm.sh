@@ -20,4 +20,4 @@ module load libs/gsl/2.7/gcc-4.8.5
 ############# MY CODE #############
 export OMP_NUM_THREADS=16
 echo "Hello from $SLURM_JOB_NODELIST"
-bash run_simulations_slurm.sh
+bash scripts/run_simulations_slurm.sh
