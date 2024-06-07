@@ -101,7 +101,7 @@ for fn in Path(path).glob('*_time.dat'):
 times_julia = dict((k,times[k]) for k in sorted(times))
 print(list(times_julia))
 
-prob_no_end = np.array(read_data("julia_R0_acceptance_rates.dat", type_first=float))[:,1]
+prob_no_end = np.array(read_data(path + "julia_R0_acceptance_rates.dat", type_first=float))[:,1]
 prob_no_end = prob_no_end/np.sum(prob_no_end)
 
 print(prob_no_end)
@@ -118,7 +118,7 @@ for tp in [1, 2, 28]:
     plt.plot(sim_times[tp])
     plt.plot(times_julia[tp])
 
-times_no_end = np.array(read_data("julia_output_time.dat", type_first=float))[:,1]
+times_no_end = np.array(read_data(path + "julia_output_time.dat", type_first=float))[:,1]
 times_no_end = times_no_end/np.sum(times_no_end)
 
 plt.figure()

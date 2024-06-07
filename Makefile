@@ -3,9 +3,9 @@ SRC_DIR		?= src/
 
 
 CC		= g++
-CC_FLAGS        = -g3 -O3 -Wall -std=c++11 -pthread  -g $(if $(PARALLEL), -fopenmp) -I /opt/homebrew/Cellar/gsl/2.7.1/include/ $(if $(GSL_INCLUDE), -I $(GSL_INCLUDE))
-LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib $(if $(GSL_LIB), -L $(GSL_LIB)) -lgsl -lgslcblas -lm -g 
-LD_FLAGS_TEST   = $(if $(GSL_LIB), -L $(GSL_LIB)) -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
+CC_FLAGS        = -g3 -O3 -Wall -std=c++11 -pthread  -g $(if $(PARALLEL), -fopenmp) -I /opt/homebrew/Cellar/gsl/2.7.1/include/ $(if ${GSLINCLUDE}, -I ${GSLINCLUDE})
+LD_FLAGS	= -L/opt/homebrew/Cellar/gsl/2.7.1/lib $(if ${GSLLIB}, -L ${GSLLIB}) -lgsl -lgslcblas -lm -g 
+LD_FLAGS_TEST   = $(if ${GSLLIB}, -L ${GSLLIB}) -lgtest -lgtest_main -pthread -lgsl -lgslcblas -g
 BAS		= $(BUILD_DIR)/basicmodel.o $(BUILD_DIR)/io.o $(BUILD_DIR)/utilities.o 
 TEST            = $(BUILD_DIR)/Test.o $(BUILD_DIR)/utilities.o $(BUILD_DIR)/io.o
 

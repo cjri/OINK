@@ -146,6 +146,7 @@ function simulate()
     c = counts(p_days, 0:50)
     c = c/sum(c)
 
+    write_file(args["o"] * "/julia_output_time.dat", 0:50, c)
 
 
     @show(c)
