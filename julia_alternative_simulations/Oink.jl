@@ -4,6 +4,13 @@ using Plots
 using Statistics
 using StatsBase
 using Random
+using ArgParse
+
+
+#=
+Simplest possible simulation - just calculating the possibility (for each R0) that there is only one detected case
+This is approximately the same as those simulations accpeted at 90 days after the first detected case
+=#
 
 function write_file(filename, A, B)
     open(filename, "w") do file
@@ -19,7 +26,31 @@ end
 
 Random.seed!(1)
 
+function parse_commandline()
+    
+    # Parse command line options and parameters
+    
+    s = ArgParseSettings()
+    
+    @add_arg_table! s begin 
+    "-o"
+    default="julia_output"
+    help="base filename"
+    
+    "-n"
+    arg_type=Int64
+    default=100000
+    help="number of samples per R0"
+end
+return parse_args(s)
+end
+
+
 function simulate()
+
+    args = parse_commandline()
+
+
     T_sim = 10000
     a1 = 7.402580682098853
     b1 = 1.7375081458523993
@@ -95,14 +126,14 @@ function simulate()
     results = fill([], 40)
     Threads.@threads for i in 1:40
         R0 = R0_vals[i]
-	results[i] = sample(R0, 100000)
+	results[i] = sample(R0, args["n"])
     end
 
     p1 = plot(R0_vals, [sum([!s[1] && s[5] == 1 for s in r]) for r in results], title="Detection Summary")
 
     acc = [sum([(!s[1] && s[5]==1) for s in r]) for r in results]
     
-    write_file("julia_R0_acceptance_rates.dat", R0_vals, acc)
+    write_file(args["o"] * "/julia_R0_acceptance_rates.dat", R0_vals, acc)
 
     results_flat = reduce(vcat, results)
 
@@ -123,9 +154,8 @@ function simulate()
     end
 
     plot(p1, p2, p3, layout=(1, 3), size=(1200,400))
-    savefig("output.png")
+    savefig(args["o"] * "/output.png")
 
-    results_flat
 end
 
 simulate()

@@ -263,7 +263,7 @@ TEST(NewCaseTest, NoDetection) {
     p.incubation_b = 1.7;
     p.probability_first_detect = 0.0;
     p.probability_detect = 0.0;
-    p.probability_detect_after = 1.0
+    p.probability_detect_enhanced = 1.0;
     p.infection_length_min=5;
     p.infection_length_max=5;
     std::vector<int> t_detects;

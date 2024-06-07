@@ -18,7 +18,7 @@ def read_data(file_path, type_first=int):
             pass
     return data
 
-prob_no_end = np.array(read_data("julia_R0_acceptance_rates.dat", type_first=float))[:,1]
+prob_no_end = np.array(read_data("output_julia/julia_R0_acceptance_rates.dat", type_first=float))[:,1]
 prob_no_end = prob_no_end/np.sum(prob_no_end)
 
 

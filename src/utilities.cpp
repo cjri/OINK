@@ -3,6 +3,7 @@
 #include "utilities.h"
 #include <algorithm>
 #include <string>
+#include <limits>
 
 void ConstructResults(const run_params &p, const std::vector<int> &timepoints, std::vector<std::vector<output> > &results)
 {

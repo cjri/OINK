@@ -6,6 +6,10 @@ using Statistics
 using StatsBase
 using Random
 
+#=
+This is intended to be an equivalent (but simpler) version of the basic version of the simulations of the main figure of the manuscript
+=#
+
 function write_file(filename, A, B)
     open(filename, "w") do file
         # Iterate over the elements of A and B
