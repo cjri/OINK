@@ -21,7 +21,7 @@ void GetOptions(run_params &p, const int argc, const char **argv)
     p.time_symptom_onset_to_detect_min = 18;
     p.time_symptom_onset_to_detect_max = 18;
     p.time_before_enhanced_detection = 18;
-    p.replicas = 1000000;
+    p.replicas = 10000;
     p.infection_length_min = 7;
     p.infection_length_max = 7;
     p.max_R0 = 4.0;
@@ -108,6 +108,11 @@ void GetOptions(run_params &p, const int argc, const char **argv)
         {
             x++;
             p.input_prefix = argv[x];
+        }
+        else if (p_switch.compare("--seed") == 0)
+        {
+            x++;
+            p.seed = atoi(argv[x]);
         }
         else
         {

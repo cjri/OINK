@@ -111,7 +111,7 @@ void RunSimulationTime(const run_params &p,
                        const unsigned long n_data_detections, 
                        const int extreme_infection_time,
                        std::vector<int> &t_detects_relative,
-                       std::vector<int> &number_new_symptomatic, 
+                       std::vector<int> &number_new_infected, 
                        outbreak &o, 
                        gsl_rng *rgen)
 {
@@ -127,12 +127,12 @@ void RunSimulationTime(const run_params &p,
     {
         index++;
         int added = 0;
-        number_new_symptomatic.push_back(0); // Count of the number of people infected at exactly time t
+        number_new_infected.push_back(0); // Count of the number of people infected at exactly time t
         for (unsigned long i = 0; i < o.individuals.size(); i++)
         { 
             if (int(o.individuals[i].time_infected) == t) 
             {   
-                number_new_symptomatic[index]++; 
+                number_new_infected[index]++; 
             }
             if (int(o.individuals[i].time_symptom_onset) == t) 
             { // Generate infections for cases which become symptomatic on this day
@@ -464,7 +464,7 @@ void MakePopulationSize(const run_params &p, const outbreak &o, std::vector<int>
     }
     for(unsigned long i = 0; i < o.individuals.size(); i++)
       {
-	for (unsigned long j=o.individuals[i].time_symptom_onset; j < o.individuals[i].time_symptom_onset + o.individuals[i].infection_length && j < total_active_infected.size(); j++)
+	for (unsigned long j=o.individuals[i].time_infected; j < o.individuals[i].time_infected + o.individuals[i].infection_length && j < total_active_infected.size(); j++)
 	  {
 	    total_active_infected[j]++;
 	  }

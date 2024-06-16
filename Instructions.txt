@@ -22,25 +22,49 @@ make
 
 Note that the code requires the GSL library.  The location of library files may need to be specified by altering the Makefile.
 
+If multiple cores and the OpenMP library are available, then
+
+make PARALLEL=1
+
+will generate a parallelized version of the code, with threads processing different R0 values simulataneously. Control the number of threads with the OMP_NUM_THREADS environment variable
+
 Running the code:
 
 ./oink <Options>
 
+(or to run in parallel: OMP_NUM_THREADS=1 ./oink <Options> )
+
 Options:
+
+--replicas r [Default 10000] : Number of outbreaks to simulate for each value of R0.
 
 --detect d [Default 0.1] : Probability of detecting a case of infection
 
---first_detect f [Default 0.1] : Probability of detecting the first case of infection.  For example, it may be known that the first detected case was not the index case, in which case this statistic can be set to zero.
+--detect_enhanced d [Default same as detect] : Probability of detecting a case of infection under enhanced surveillance. Assumed >= detect
 
---replicas r [Default 1000000] : Number of outbreaks to simulate for each value of R0.
+--first_detect f [Default same as detect] : Probability of detecting the first case of infection.  For example, it may be known that the first detected case was not the index case, in which case this statistic can be set to zero.
 
---run_fast r [Default 0] : Makes the code run faster, at some expense to true randomness.  Faster running is achieved by replacing the calls to random number generators with pseudorandom permutation models based on modulo arithmetic.
+--time_before_enhanced [Default 18] : Number of days after which cases are detected with probability detect_enhanced as a result of enhanced surveillance
 
---no_limit n [Default 0] : Flag to remove the limit on the number of cases of infection that are simulated.  By default no more than 1000 cases of infection may be initiated in a single day of a simulation.  This makes the code faster to run e.g. in a case where R0 is high, but places a limit on what can be done with the reported numbers of cases (i.e. high numbers become unreliable).
 
 --verb v [Default 0] : Produces verbose output.  Mostly used for debugging the code.
 
+--max_R0 [Default 4.0] : Perform simulations up to this value of R0.
+
+--infection_length_min [Default 7] : Lower bound on length of infection (only used to calculate number of infected individuals). Randomly generated for each case on [infection_length_min, infection_length_max]
+--infection_length_max [Default 7] : Upper bound on length of infection
+
+--detect_min [Default 18] : Minimum length of time between symptom onset and reporting of a detected case. Randomly generated for each case on [detect_min, detect_max]
+--detect_max [Default 18] : Maximum length of time between symptom onset and reporting of a detected case
+
+
 --more_stats m [Default 0] : Flag to produce output files with more detailed statistics (see below).
+
+--no_limit n [Default 0] : Flag to remove the limit on the number of cases of infection that are simulated.  By default no more than 1000 cases of infection may be initiated in a single day of a simulation.  This makes the code faster to run e.g. in a case where R0 is high, but places a limit on what can be done with the reported numbers of cases (i.e. high numbers become unreliable).
+
+--output_prefix [Default ""] : Flag to add string to start of all output filenames
+
+--input_prefix [Default ""] : Flag to add string to start of all input filenames
 
 Outputs:
 

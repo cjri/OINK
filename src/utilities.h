@@ -55,11 +55,11 @@ void SetupOutbreak(outbreak& o);
  * @param last_evaluation_time The last timepoint
  * @param n_detections The total number of detections in the data.
  * @param t_detects_relative Detection times (relative) to the first detected case 
- * @param number_new_symptomatic The number of new infections at each integer time t, time measured relative to the start of the simulation. 
+ * @param number_new_infected The number of new infections at each integer time t, time measured relative to the start of the simulation. 
  * @param o An `outbreak` object
  * @param rgen A pointer to a GSL random number generator
  **/
-void RunSimulationTime (const run_params& p, const double r0, const int first_evaluation_time, const int last_evaluation_time, const unsigned long n_detections, const int extreme_infection_time, std::vector<int>& t_detects_relative, std::vector<int>& number_new_symptomatic, outbreak& o, gsl_rng *rgen);
+void RunSimulationTime (const run_params& p, const double r0, const int first_evaluation_time, const int last_evaluation_time, const unsigned long n_detections, const int extreme_infection_time, std::vector<int>& t_detects_relative, std::vector<int>& number_new_infected, outbreak& o, gsl_rng *rgen);
 
 /**
  * Transforms absolute detection times into relative times with respect to the earliest detection.

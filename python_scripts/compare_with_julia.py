@@ -95,8 +95,9 @@ prob_julia = dict((k, accept[k]/np.sum(accept[k])) for k in accept)
 path = "output_julia/"
 times = {}
 for fn in Path(path).glob('*_time.dat'):
-    i = int(fn.name[:-9])
-    times[i] = np.array(read_data(path + f"{i}_time.dat", type_first=float))[:,1]
+    if 'julia' not in fn.name:
+        i = int(fn.name[:-9])
+        times[i] = np.array(read_data(path + f"{i}_time.dat", type_first=float))[:,1]
 
 times_julia = dict((k,times[k]) for k in sorted(times))
 print(list(times_julia))

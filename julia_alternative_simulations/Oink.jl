@@ -135,12 +135,15 @@ function simulate()
     
     write_file(args["o"] * "/julia_R0_acceptance_rates.dat", R0_vals, acc)
 
+    
     results_flat = reduce(vcat, results)
-
+    
+    #=
     p_cases = [r[4] for r in results_flat if !r[1] && r[5] == 1]
     if !isempty(p_cases)
         p2 = histogram(p_cases, bins=0:50, title="Case Distribution")
     end
+    =#
 
     p_days = [r[2] for r in results_flat if !r[1] && r[5] == 1]
     c = counts(p_days, 0:50)
@@ -148,7 +151,7 @@ function simulate()
 
     write_file(args["o"] * "/julia_output_time.dat", 0:50, c)
 
-
+#=
     @show(c)
     if !isempty(p_days)
         p3 = histogram(p_days, bins=0:50, title="Day Distribution")
@@ -156,6 +159,8 @@ function simulate()
 
     plot(p1, p2, p3, layout=(1, 3), size=(1200,400))
     savefig(args["o"] * "/output.png")
+
+=#
 
 end
 
