@@ -20,19 +20,26 @@ Compiling the code:
 
 make
 
-Note that the code requires the GSL library.  The location of library files may need to be specified by altering the Makefile.
+Install a modern C++ compiler (tested with gcc 11.4.0).
+
+Note that the code requires the GSL library (tested with 2.7.0).  The location of library files may need to be specified by altering the Makefile.
 
 If multiple cores and the OpenMP library are available, then
-
+```
 make PARALLEL=1
+```
 
 will generate a parallelized version of the code, with threads processing different R0 values simulataneously. Control the number of threads with the OMP_NUM_THREADS environment variable
 
 Running the code:
-
+```
 ./oink <Options>
+```
 
-(or to run in parallel: OMP_NUM_THREADS=1 ./oink <Options> )
+(or to run in parallel:
+```OMP_NUM_THREADS=4 ./oink <Options>
+```
+)
 
 Options:
 
@@ -57,7 +64,6 @@ Options:
 --detect_min [Default 18] : Minimum length of time between symptom onset and reporting of a detected case. Randomly generated for each case on [detect_min, detect_max]
 --detect_max [Default 18] : Maximum length of time between symptom onset and reporting of a detected case
 
-
 --more_stats m [Default 0] : Flag to produce output files with more detailed statistics (see below).
 
 --no_limit n [Default 0] : Flag to remove the limit on the number of cases of infection that are simulated.  By default no more than 1000 cases of infection may be initiated in a single day of a simulation.  This makes the code faster to run e.g. in a case where R0 is high, but places a limit on what can be done with the reported numbers of cases (i.e. high numbers become unreliable).
@@ -70,22 +76,28 @@ Outputs:
 
 A variety of files are produced by the code:
 
-P_Outbreak_End.dat describes the estimated probability that the outbreak has died out by each day in Time_points.dat after the last detection of a case.
+`P_Outbreak_End.dat` describes the estimated probability that the outbreak has died out by each day in Time_points.dat after the last detection of a case.
 
-Origin_statsY.dat gives the probability distribution for the day on which the first case (as opposed to detected case) was infected, in days prior to the first detection, conditional on the day Y in Time_point
+`Origin_stats_Y.dat` gives the probability distribution for the day on which the first case (as opposed to detected case) was infected, in days prior to the first detection, conditional on the day Y in Time_point
 s.dat.  That is, statistics are calculated for simulations that fit the data up to day Y after the detection of the last case.
 
-Sizes_timeY.dat gives the probability distribution for the number of infected people Y days after the detection of the last case.
+`Sizes_time_Y.dat` gives the probability distribution for the number of infected people Y days after the detection of the last case.
+
+`Acceptance_rateX.dat` gives the proportion of simulations which matched the data for each day in Time_points.dat, given an R0 of X/10.
 
 If --more_stats 1 is specified, other outputs are generated:
 
-Acceptance_rateX.dat gives the proportion of simulations which matched the data for each day in Time_points.dat, given an R0 of X/10.
+`End_probX.dat` gives the estimated probability that the outbreak has died out for each day in Time_points.dat, given an R0 of X/10.
 
-End_probX.dat gives the estimated probability that the outbreak has died out for each day in Time_points.dat, given an R0 of X/10.
+`Origin_timesX.dat` gives the raw values for the time (relative to that of the first detection) on which the first case was infected, for each day in Time_points.day, given an R0 of X/10.
 
-Origin_timesX.dat gives the raw values for the time (relative to that of the first detection) on which the first case was infected, for each day in Time_points.day, given an R0 of X/10.
+`Current_sizeX.dat` gives the raw values for the size of the outbreak (number of infected people), for each day in Time_points.dat, given an R0 of X/10.
 
-Current_sizeX.dat gives the raw values for the size of the outbreak (number of infected people), for each day in Time_points.dat, given an R0 of X/10.
+Reproducing the results in the paper:
 
+SLURM submission scripts are provided (submit_slurm.sh for results in main figure, submit_slurm_extra_1.sh, submit_slurm_extra_2.sh, submit_slurm_extra_3.sh for results in the supplementary data). Alternatively, the bash scripts run_simulations_slurm.sh, run_simulations_extra_1.sh, run_simulations_extra_2.sh, run_simulations_extra_3.sh) can be run directly.
+For a smaller-scale test, the script run_simulations.sh will only generate 10000 replicas for each R0 value.
+
+To plot the graphs, if necessary (i.e if run on a cluster) copy the output directories (output, output2, output_enhanced_detection, output_detection_delay, output_variable_infection_length) to the root directory of the repository and use the Mathematica notebook Analysis/OutputAnalysis.nb
 
 
