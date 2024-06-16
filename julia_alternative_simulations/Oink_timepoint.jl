@@ -5,10 +5,8 @@ using Plots
 using Statistics
 using StatsBase
 using Random
-
-#=
-This is intended to be an equivalent (but simpler) version of the basic version of the simulations of the main figure of the manuscript
-=#
+using ProfileView
+using DataStructures
 
 function write_file(filename, A, B)
     open(filename, "w") do file
@@ -41,28 +39,36 @@ function simulate()
     rng_symptom() = floor(Int64, rand(Weibull(a1, b1))+0.5)
     rng_infect() = floor(Int64,rand(Weibull(a2, b2))+0.5)
     
-    
+    min_delay = time_to_detection 
+
     function sample(R0=3.0, N=1000, t_measure=1)
         result = []
         for i in 1:N
+	    Random.seed!(i)
             n_detected = 0
             n_cases = 0
             first_detection_time = nothing
             
             detections = []
-            population = [(0, rng_symptom(), false)]
+	    population = BinaryHeap{Tuple{Int64,Int64,Bool}}(Base.By(x->x[2]), [])
+            push!(population, (0, rng_symptom(), false))
             old_population = []
-            p = popfirst!(population)
+            p = pop!(population)
             time = p[2]
             push!(old_population, p)
             n_cases += 1
             
             fail = false
-            bad_detection = false # Note that this isn't used
+            bad_detection = false
             while time <= T_sim 
                 if (!isnothing(first_detection_time))
-                    if (time > (first_detection_time - time_to_detection + t_measure)) 
-                       break
+                    if (time > (first_detection_time - min_delay - t_measure)) && bad_detection # probably could weaken this (see below)		   
+                        fail = bad_detection
+                        break
+                    end
+                    if (time > (first_detection_time - min_delay + t_measure)) && !bad_detection
+                        fail = bad_detection
+                        break
                     end
                 end
                 
@@ -83,7 +89,6 @@ function simulate()
                         else
                             if (t_detect <= first_detection_time)
                                 if first_detection_time - t_detect <= t_measure
-                                    #@show("Bad at creation")
                                     bad_detection = true
                                 else                              
                                     bad_detection = false
@@ -91,7 +96,6 @@ function simulate()
                                 first_detection_time = t_detect
                             else
                                 if t_detect - first_detection_time  <= t_measure
-                                    #@show("Bad after")
                                     bad_detection=true
                                 end
                             end
@@ -99,21 +103,33 @@ function simulate()
                     end
                 end	
                 if isempty(population)
+                    if isnothing(first_detection_time) || bad_detection
+                        fail=true
+                        #@show("Empty", fail, n_detected)
+                    end
+                    #@show("B3")
                     
                     break
                 end
-                sort!(population, by=x->x[2])
-                p = popfirst!(population)
+#                sort!(population, by=x->x[2])
+                p = pop!(population)
                 push!(old_population, p)
                 time = p[2]
             end
+	    #=
 	    sort!(detections)
-		       if isnothing(first_detection_time) ||(n_detected>1 && (detections[2]-detections[1])<=t_measure)
-		       
-		       fail = true
-		       else
-		       fail= false
-		       end
+            if !fail
+                @assert((length(detections)==1) || (detections[2]-detections[1]>t_measure)) ## Check detections are correct
+                @assert(time>(first_detection_time+t_measure-time_to_detection) || isempty(population)) ## Check we have gone past correct time, or empty pop
+            end
+            if fail
+                #@show(first_detection_time, detections, time)
+                #if !isnothing(first_detection_time)
+                #		    @show(first_detection_time-time_to_detection-t_measure)
+                #end
+                @assert(isnothing(first_detection_time) || ((length(detections)>1) && (detections[2] - detections[1] <= t_measure) && (isempty(population) || (time >=first_detection_time-time_to_detection-t_measure )))) # doublecheck this time. Either terminate or go beyond the critical time where not possible to recover a matching simulation
+            end
+	    =#
             push!(result, (fail, first_detection_time, time, n_cases, n_detected))
         end
         result
@@ -126,7 +142,8 @@ function simulate()
         R0 = R0_vals[i]
         results[i] = sample(R0, Int64(args["n"]), Int64(args["e"]))
     end
-    
+
+
     acc = [sum([!s[1] for s in r]) for r in results]
     
     write_file(args["o"] * "_R0.dat", R0_vals, acc)
@@ -135,7 +152,7 @@ function simulate()
     results_flat = reduce(vcat, results)
 
     p_days = [r[2] for r in results_flat if (!r[1])]
-    
+
     if !isempty(p_days)
         c = counts(p_days, 0:50)
         c = c/length(p_days)
@@ -162,10 +179,11 @@ function parse_commandline()
     help="end time"
     "-n"
     arg_type=Int64
-    default=100000
+    default=10000
     help="number of samples per R0"
 end
 return parse_args(s)
 end
+
 
 simulate()
