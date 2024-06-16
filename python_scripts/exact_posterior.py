@@ -22,7 +22,7 @@ prob_no_end = np.array(read_data("output_julia/julia_R0_acceptance_rates.dat", t
 prob_no_end = prob_no_end/np.sum(prob_no_end)
 
 
-d = 0.1
+d = 0.04
 
 R0_vals = np.linspace(0.1, 4, 40)
 accept = []

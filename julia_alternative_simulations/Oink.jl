@@ -58,7 +58,7 @@ function simulate()
     b2 = 1.0025194828961315
     time_to_detection = 18
 
-    p_detect = 0.1
+    p_detect = 0.04
     max_detected = 1
     max_cases = 2000
 

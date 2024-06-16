@@ -49,15 +49,16 @@ def load_all_data(path):
         data[subdir.name] = load_dir_data(subdir)
     return data
 
-data = load_all_data(Path('output/'))
+data = load_all_data(Path('output_submit/'))
+
+print(list(data))
 
 ### Figure 1d
 
 sim_probs = {}
 
 for tp in [1, 2, 28, 90]:
-
-    for k in ['0.1']:
+    for k in ['0.04']:
         a = data[k]['accept']
         o = []
 
@@ -73,7 +74,7 @@ for tp in [1, 2, 28, 90]:
 sim_times = {}
 for tp in [1, 2, 28, 90]:
 
-    for k in ['0.1']:
+    for k in ['0.04']:
         o = data[k]['origin'][tp]
           
         #print(o)
@@ -100,32 +101,31 @@ for fn in Path(path).glob('*_time.dat'):
         times[i] = np.array(read_data(path + f"{i}_time.dat", type_first=float))[:,1]
 
 times_julia = dict((k,times[k]) for k in sorted(times))
-print(list(times_julia))
 
 prob_no_end = np.array(read_data(path + "julia_R0_acceptance_rates.dat", type_first=float))[:,1]
 prob_no_end = prob_no_end/np.sum(prob_no_end)
 
-print(prob_no_end)
-
-print(list(prob_julia))
 
 plt.figure()
 plt.plot(sim_probs[90])
-plt.plot(prob_julia[28])
+plt.plot(prob_julia[90])
 plt.plot(prob_no_end)
+plt.title('R0 probs')
 
 for tp in [1, 2, 28]:
     plt.figure()
     plt.plot(sim_times[tp])
     plt.plot(times_julia[tp])
-
+    plt.title(f'Times {tp}')
+    
 times_no_end = np.array(read_data(path + "julia_output_time.dat", type_first=float))[:,1]
 times_no_end = times_no_end/np.sum(times_no_end)
 
 plt.figure()
 plt.plot(sim_times[90])
-plt.plot(times_julia[28])
+plt.plot(times_julia[90])
 plt.plot(times_no_end)
+plt.title('Time end')
 
 
 plt.show()
