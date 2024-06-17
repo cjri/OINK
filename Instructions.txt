@@ -12,7 +12,7 @@ Inputs:
 
 The code needs to run in a directory containing the Data subdirectory, which must contain two files.
 
-Detections.dat contains two tab-separated columns containing respectively dates, and a number of detections on each date.  Dates are scaled so that the first day on which a case was detected is day 0.  Note that the code is designed only for use with outbreaks with very small numbers of cases detected; putting in too many cases will not produce successful results.  The example data provided includes a single case, detected on day 0.
+Detections.dat contains two tab-separated columns containing respectively dates, and a number of detections on each date.  Dates are scaled so that the first day on which a case was detected is day 0.  Note that the code is designed only for use with outbreaks with very small numbers of cases detected; putting in too many cases will not produce successful results.  The example data provided includes a single case, detected on day 0. The code has only been tested with this example data, and may be incorrect or be inefficient with multiple detected cases.
 
 Time_points.dat contains a list of times at which the user wants to evaluate the situation following an outbreak.  This file contains a single column of integers.  A single number indicates the number of days since the last detection of a case.  Outputs are prodced for each time point specified.
 

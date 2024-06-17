@@ -6,6 +6,10 @@ John A. Fozard Emma C. Thomson Christopher J. R. Illingworth
 
 https://www.biorxiv.org/content/10.1101/2024.03.11.584378v1
 
+## Dataset
+
+A single detected case: see Data/Detections.dat. Note that the code has only been tested for a single detected case, and has not been optimized for multiple detected cases.
+
 ## Using the code
 
 Requires a c++ compiler (e.g. gcc9 onwards), the GSL library, and Mathematica for plotting outputs.
