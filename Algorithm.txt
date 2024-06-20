@@ -70,4 +70,52 @@ This uncertainty in order makes simply increasing the detection probability afte
 
 ### Postprocessing of simulation results.
 
+As mentioned above, EvaluateOutbreak does some preliminary processing; after it
+results[i][r0val] contains information about the i-th timepoint and R0 r0val/10.
+results[i][r0val].tested is the number of simulations (for this timepoint and R0 value)
+results[i][r0val].accepted is the number of accepted simulations, matching the data
+results[i][r0val].origin_time is a list of outbreak origin times for the accepted simulatins
+results[i][r0val].current_size is a list the number of active infected individuals at this timepoint
+results[i][r0val].dead is the number of simulatoons for which the outbreak has died out, with no infected individuals at this point
+Note that the last two of these are based on the Number of infected individuals (see above).
+
 These simulation results are the then processed to generate the results shown in the paper.
+
+OutputAcceptanceRates
+This acceptance rate P(accepted at t0 | R0), for a single R0, at specified timepoints.
+This is results[i][r0val].accepted/results[i][r0val].tested
+
+OutputOriginTimes (more_stats==1)
+This is just the results[i][r0val].origin_time
+- unnormalized origin times
+
+OutputPopulationSizes (more_stats==1)
+Output results[i][r0val].current_size
+- unnormalized population sizes at the observation times
+
+OutputProbabilityEnded (more_stats==1)
+results[i][r0val].dead / results[i][r0val].accepted (as a fp division)
+- so this is the probability that the outbreak is over (at the observation time)
+
+OutputOutbreakDeathStatistics
+Probability that the outbreak has died out on the observation day
+sum_r0val (results[i][r0val].dead) / sum_r0val (results[i][r0val].accepted)
+at each timepoint i
+
+OutputOutbreakTimeStatistics
+Distribution of time of initial infection
+Just the sum over i and r0val of all the results[i][r0val].origin_time vectors
+- unnormalized time of the first case relative to the first detection
+
+OutputOutbreakPopulationStatistics
+Distribution of number of actively infected individuals on the observation day
+(per R0), normalized.
+
+
+
+### Postprocessing before plotting
+
+a - plot P_Outbreak_End.dat
+b - Origin_stats_*.dat - plotted at last timepoint
+c - Origin_stats_*.dat - plotted at 14 day timepoint. Median calculated
+d - Acceptance rates - 95 percent confidence interval calculated at last timepoint.
