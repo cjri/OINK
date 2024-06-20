@@ -14,9 +14,12 @@ A single detected case: see Data/Detections.dat. Note that the code has only bee
 
 Requires a c++ compiler (e.g. gcc9 onwards), the GSL library, and Mathematica for plotting outputs.
 
-On ubuntu
+On ubuntu (e.g. on a GCP E2 instance)
 ```
-sudo apt-get install g++ libgsl-dev
+sudo apt-get install git
+git clone https://github.com/cjri/OINK
+sudo apt-get install g++ libgsl-dev make
+cd OINK
 make PARALLEL=1
 bash scripts/run_simulations_slurm.sh
 bash scripts/run_simulations_extra_1.sh
@@ -26,6 +29,6 @@ bash scripts/run_simulations_extra_3.sh
 (Note that OMP_NUM_THREADS in these scripts may need to be changed.)
 
 Full instructions can be found in `Instructions.txt`
-
+Further description of the simulation algorithm can be found in `Algorithm.txt`
 
 
