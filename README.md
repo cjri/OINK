@@ -28,7 +28,28 @@ bash scripts/run_simulations_extra_3.sh
 ```
 (Note that OMP_NUM_THREADS in these scripts may need to be changed.)
 
+Plots shown in the manuscript are generated using the Mathematica notebooks in `Analysis/`.
+Without Mathematica, similar plots may be generated using the code found in `python_scripts/'
+
+Python environment requires Python 3 (tested on 3.10.9) `numpy`, `scipy`, `matplotlib` and `weightedstats`; install these via pip or conda.
+
+For Figure 1, after running the simulations (`run_simulations_slurm.sh`)
+```
+python python_scripts/plot_data_single.py output/
+```
+For the supplementary figures (with slightly different formatting)
+
+```
+python python_scripts/plot_S1.py
+python python_scripts/plot_S2.py
+python python_scripts/plot_S3.py
+```
+for the remaining supplementary figures
+```
+python python_scripts/plot_data_single.py output_variable_detection_delay/
+python python_scripts/plot_data_single.py output_enhanced_detection/
+python python_scripts/plot_data_single.py output_variable_infection_length/
+```
+
 Full instructions can be found in `Instructions.txt`
 Further description of the simulation algorithm can be found in `Algorithm.txt`
-
-
