@@ -4,7 +4,7 @@ Basic idea:
 
 The code takes as input a set of data, which describe the number of cases of an outbreak detected, and the days on which they were detected, beginning with day 0 for the first detected case.  The code then runs a large number of simulations of outbreaks at different R0 values.  Each simulation involves the simulated detection of cases.  
 
-Simultations are evaluated k days after the last detected case.  Multiple values of k may be tested in a single run: The values to be tested are specified in a separate file.  Simulations which match the data in terms of the numbers of detected cases are retained.  Note that simulations which are accepted for small k may not be accepted for larger k: If a simulation matches the data, but then has an additional case detected 5 days after the last time of the input data, this simulation will be accepted at k=4, but not at k=6.
+Simultations are evaluated t_o days after the first detected case.  Multiple values of t_o may be tested in a single run, which are specified in a separate file (Data/Time_points.dat), each line of which is a time-point to test. Simulations which match the data in terms of the numbers of detected cases are retained. Note that simulations which are accepted for small k may not be accepted for larger t_o: If a simulation matches the data, but then has an additional case detected 5 days after the last time of the input data, this simulation will be accepted at t_o=4, but not at t_o=6.
 
 For retained simulations a variety of evaluations are made.  How many individuals are infected at time k, and what is the probability the outbreak has died out by this point?  What is the distributions for the time of the initial case of infection given k and the data?  The acceptance rate for different values R0 may be used to construct a basic estimate of this statistic.
 
@@ -14,7 +14,7 @@ The code needs to run in a directory containing the Data subdirectory, which mus
 
 Detections.dat contains two tab-separated columns containing respectively dates, and a number of detections on each date.  Dates are scaled so that the first day on which a case was detected is day 0.  Note that the code is designed only for use with outbreaks with very small numbers of cases detected; putting in too many cases will not produce successful results.  The example data provided includes a single case, detected on day 0. The code has only been tested with this example data, and may be incorrect or be inefficient with multiple detected cases.
 
-Time_points.dat contains a list of times at which the user wants to evaluate the situation following an outbreak.  This file contains a single column of integers.  A single number indicates the number of days since the last detection of a case.  Outputs are prodced for each time point specified.
+Time_points.dat contains a list of times at which the user wants to evaluate the situation following an outbreak.  This file contains a single column of non-negative integers, in increasing order.  A single number indicates the number of days since the last detection of a case.  Outputs are prodced for each time point specified.
 
 Compiling the code:
 
@@ -52,7 +52,6 @@ Options:
 --first_detect f [Default same as detect] : Probability of detecting the first case of infection.  For example, it may be known that the first detected case was not the index case, in which case this statistic can be set to zero.
 
 --time_before_enhanced [Default 18] : Number of days after which cases are detected with probability detect_enhanced as a result of enhanced surveillance
-
 
 --verb v [Default 0] : Produces verbose output.  Mostly used for debugging the code.
 
@@ -96,15 +95,38 @@ If --more_stats 1 is specified, other outputs are generated:
 Reproducing the results in the paper:
 
 SLURM submission scripts are provided (submit_slurm.sh for results in main figure, submit_slurm_extra_1.sh, submit_slurm_extra_2.sh, submit_slurm_extra_3.sh for results in the supplementary data). Alternatively, the bash scripts run_simulations_slurm.sh, run_simulations_extra_1.sh, run_simulations_extra_2.sh, run_simulations_extra_3.sh) can be run directly.
-For a smaller-scale test, the script run_simulations.sh will only generate 10000 replicas for each R0 value.
+For a smaller-scale test, the script run_simulations.sh will only generate 10000 replicas for each R0 value. The environment variable OMP_NUM_THREADS may need to be changed according to the number of cores availale on the machine.
 
 To plot the graphs, if necessary (i.e if run on a cluster) copy the output directories (output, output2, output_enhanced_detection, output_detection_delay, output_variable_infection_length) to the root directory of the repository and use the Mathematica notebook Analysis/OutputAnalysis.nb
+
+Alternatively, the Python scripts in `python_scripts/` may be used
+
+
+Python environment requires Python 3 (tested on 3.10.9) `numpy`, `scipy`, `matplotlib` and `weightedstats`; install these via pip or conda.
+
+For Figure 1, after running the simulations (`run_simulations_slurm.sh`)
+```
+python python_scripts/plot_data_single.py output/
+```
+For the supplementary figures (with slightly different formatting)
+
+```
+python python_scripts/plot_S1.py
+python python_scripts/plot_S2.py
+python python_scripts/plot_S3.py
+```
+for the remaining supplementary figures
+```
+python python_scripts/plot_data_single.py output_variable_detection_delay/
+python python_scripts/plot_data_single.py output_enhanced_detection/
+pyth
 
 Extra scripts:
 
 julia_alternative_simulations contains simulations in Julia `Oink.jl` and `Oink_timepoint.jl`, which perform simplified simulations.
 These do not consider the simulation up to the final accepted time, but only until the simulation definitely matches / does not match the data.
-They are suitable for estimating R0 and the spillover date
+They are suitable for estimating R0 and the spillover date. As the do not need to simulate each outbreak for as long, they can terminating the simulation earlier, and Oink_timepoint.jl uses a heap rather than a list for computational efficiency
+
 ```
 bash scripts/run_julia_simulation.sh
 python python_scripts/compare_with_julia.py
