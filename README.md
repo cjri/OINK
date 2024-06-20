@@ -14,7 +14,7 @@ A single detected case: see Data/Detections.dat. Note that the code has only bee
 
 Requires a c++ compiler (e.g. gcc9 onwards), the GSL library, and Mathematica for plotting outputs.
 
-On ubuntu (e.g. on a GCP E2 instance)
+On Debian/Ubuntu (e.g. on a GCP E2 instance)
 ```
 sudo apt-get install git
 git clone https://github.com/cjri/OINK
