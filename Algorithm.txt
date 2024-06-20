@@ -1,0 +1,73 @@
+
+# Description of simulation algorithm
+
+The statistical model is decribed in the main text. Here we describe its implementation in the code.
+
+## Outer loop of simulation 
+
+The outer loop of the simulation is in basicmodel.cpp. This loops over the values of R0 stored in p.R0_vals; by default this is 0.1:0.1:4.0. This loop can be performed in parallel, as its results are independent, with no global variables. The (per-thread) rng seed is set at the start of each loop to base_seed + loop_iteration_number for improved reproducibility, as with multi-threading the order in which the loop is traversed and by which thread is not deterministic.
+
+### Per R0-value loop
+
+For each R0 value, p.replicas simulations are performed, in the inner loop of basicmodel.cpp
+
+The simulation code itself is in utilities.cpp, with base function RunSimulationTime.
+
+#### Per-outbreak simulation loop
+
+RunSimulationTime contains the main simulation loop. To start with, it generates a case with infection time zero. Case generation is handled in MakeNewCase; this determines the time of infection (zero for the first case), how long the individual is "infected" for (Weibull distribution), time of symptom onset (another Weibull distribution), whether it is detected (by default, the index/first case is not detected), and if so how long after symptom onset the case is reported (random on [p.symptom_onset_to_detect_min, p_symptom_onset_to_detect_max], by default this is [18,18]).
+
+We maintain a list of all of the infected individuals.
+We loop over each day of the simulation, terminating either at a fixed number of days after the first case is infected, or if an early termination criteria is satisfied
+At each day, we:
+1. Loop over the list of individuals, and count the number that were infected on that day.
+2. Loop over all individuals who became symptomatic on that day. Provided we have not generated too many cases on this day (this is a quick check to ensure that the outbreak has not grown extremely large - in that case the simulation is very likely to be rejected):
+a) We randomly generate the number of individuals infected by this case.
+b) We then generate that many new cases, calculating their times of infection, symptom onset, and whether they are detected (and on which day).
+3. We maintain a list of times at which cases are detected (t_detects), sort this and test whether the simulation should be terminated early.
+
+At the end of each simulation, we generate a sorted list of detection, subtracting the day of the first detection from all detection times.
+
+#### Number of infected individuals
+
+We also calculate the numbers of "infected" individuals at each day during the simulation. Individuals are assumed to be infected for some random period on [infection_length_min, infection_length_max], this number being generated in MakeNewCase; by default this is [7,7].
+
+#### Matching with the data
+
+This outbreak data, with the relative detection times, is then compared to the observed data, in EvaluateOutbreak from utilities.cpp.
+
+1. The data is compared to the observed data at a number of different times - practically, for the single case in the paper, we require that there is one detected case at day 0, and no further detected cases up until t_o days after that (inclusive).
+2. The detection times are converted to a list of (detection time, number of cases), in the same format as the input data, in ConstructSummaryData.
+3. These two lists are then compared at all timepoints, in CompareWithData. The simulation is accepted for that timepoint if all datapoints with time up to and including that timepoint match, and rejected if there is any mismatch before that timepoint. Note that if a timepoint is rejected, all later timepoints must also be rejected, so we can simply count the number of accepted timepoints.
+4. There is then some further processing of the simulation, recording for accepted simulations the number, the relative time of outbreak origin, and the number of actively infected individuals at the observation time.
+
+#### Early termination criteria
+
+Each simulation proceeded up until either:
+a) the outbreak had certainly died out or
+b) it was clear that the simulation would either be accepted or rejected at all
+ observation times. Note that rejection at one observation time implies rejection at all later observation times. We also need to have completely simulated up to the last observation time that might be accepted (for statistics such as population size).
+
+For a) we terminated simulations if there have been more than extreme_infection_time day
+s with no individuals developing symptoms on that day (zeros is the number of days +1 
+since an individual last developed symptoms). Extreme_infection_time is chosen larger than the extreme (99.9th percentile) values of time to infection and time to symptom onset. 
+For b) we terminated simulations when either:
+i) The time t has reached or gone beyond the end of the day t_detect[0]+last_observation_time. (Everything is known.) Then the first detected case must be before t, and there is no possibility of any additional detections before t.
+ii) There are more detected cases than in the dataset, and that t has reached the end of the day in which the first extra case was detected. (Know any observation timepoint after t will be rejected, and any before is completely simulated)
+iii) There too many detected cases before the earliest time that the first observation timepoint could occur. In this case, we know that all the matching comparisons with the data will fail
+. The simulation could generate a new detected case at t_new_detect in (t, t_detect[0
+]] which might be match the data for [t_new_detect, t_new_detect+first_evaluation_
+time] Know that the first detection occurs after t'=min(t, t_detect[0])
+so count detections in range [min(t, t_detect[0]), min(t, t_detect[0])+first_evaluation_time]
+If there are too many, then all timepoints will be rejected 
+
+#### Enhanced surveillance after first detection
+
+In these simulations, we consider individuals in order of symptom onset. There are random delays between symptom onset of the parent case, and infection, symptom onset and detection of the infected case, and all of these delays are determined on the day of symptom onset of the parent case. Because of all these factors, at a particular time in the simulation, only a subset of the events after that time are known. If a case is detected, it is possible that another case may be detected before it, with parent case that became symptomatic later on in the simulation.
+
+This uncertainty in order makes simply increasing the detection probability after the first case less straightforward. Instead, we consider two lists of cases - t_detects, and t_detects_after. When we generate a new case, we draw one random number uniformly from [0,1). If this is less that p.detect, we consider the case to be detected, and insert it into t_detects.  If this is bigger than p.detects, but less than our enhanced surveillence probability p.probability_detect_enhanced, then we put the detection time into t_detects if it is at least p.time_before_enhanced_detection after the detection time of the first reported case, and into t_detects_after if it is earlier than that (or if there is no detected case). If a new case is detected earlier, or the first detected case is generated, then all those cases in t_detects_after at detected p.time_before_enhanced_detection or later are moved into t_detects.
+
+
+### Postprocessing of simulation results.
+
+These simulation results are the then processed to generate the results shown in the paper.
