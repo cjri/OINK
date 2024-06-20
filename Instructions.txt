@@ -1,12 +1,12 @@
-The OINK code carries out bootstrapping calculations, simulating epidemics under a variety of model parameters.
+The OINK code carries out likelihood-free rejection sampling, simulating epidemics under a variety of model parameters.
 
 Basic idea:
 
 The code takes as input a set of data, which describe the number of cases of an outbreak detected, and the days on which they were detected, beginning with day 0 for the first detected case.  The code then runs a large number of simulations of outbreaks at different R0 values.  Each simulation involves the simulated detection of cases.  
 
-Simultations are evaluated t_o days after the first detected case.  Multiple values of t_o may be tested in a single run, which are specified in a separate file (Data/Time_points.dat), each line of which is a time-point to test. Simulations which match the data in terms of the numbers of detected cases are retained. Note that simulations which are accepted for small k may not be accepted for larger t_o: If a simulation matches the data, but then has an additional case detected 5 days after the last time of the input data, this simulation will be accepted at t_o=4, but not at t_o=6.
+Simultations are evaluated t_o days after the first detected case.  Multiple values of t_o may be tested in a single run, which are specified in a separate file (Data/Time_points.dat), each line of which is a time-point to test. Simulations which match the data in terms of the numbers of detected cases are retained. Note that simulations which are accepted for small t_o may not be accepted for larger t_o: If a simulation matches the data, but then has an additional case detected 5 days after the last time of the input data, this simulation will be accepted at t_o=4, but not at t_o=6.
 
-For retained simulations a variety of evaluations are made.  How many individuals are infected at time k, and what is the probability the outbreak has died out by this point?  What is the distributions for the time of the initial case of infection given k and the data?  The acceptance rate for different values R0 may be used to construct a basic estimate of this statistic.
+For retained simulations a variety of evaluations are made.  How many individuals are infected at time t_o, and what is the probability the outbreak has died out by this point?  What is the distributions for the time of the initial case of infection given t_o and the data?  The acceptance rate for different values R0 may be used to construct a basic estimate of this statistic.
 
 Inputs:
 
@@ -14,13 +14,16 @@ The code needs to run in a directory containing the Data subdirectory, which mus
 
 Detections.dat contains two tab-separated columns containing respectively dates, and a number of detections on each date.  Dates are scaled so that the first day on which a case was detected is day 0.  Note that the code is designed only for use with outbreaks with very small numbers of cases detected; putting in too many cases will not produce successful results.  The example data provided includes a single case, detected on day 0. The code has only been tested with this example data, and may be incorrect or be inefficient with multiple detected cases.
 
-Time_points.dat contains a list of times at which the user wants to evaluate the situation following an outbreak.  This file contains a single column of non-negative integers, in increasing order.  A single number indicates the number of days since the last detection of a case.  Outputs are prodced for each time point specified.
+Time_points.dat contains a list of times t_o at which the user wants to evaluate the situation following an outbreak.  This file contains a single column of non-negative integers, in increasing order.  A single number indicates the number of days since the last detection of a case.  Outputs are prodced for each time point specified.
 
 Compiling the code:
 
-make
 
 Install a modern C++ compiler (tested with gcc 11.4.0).
+
+```
+make
+```
 
 Note that the code requires the GSL library (tested with 2.7.0).  The location of library files may need to be specified by altering the Makefile.
 
@@ -125,14 +128,14 @@ Extra scripts:
 
 julia_alternative_simulations contains simulations in Julia `Oink.jl` and `Oink_timepoint.jl`, which perform simplified simulations.
 These do not consider the simulation up to the final accepted time, but only until the simulation definitely matches / does not match the data.
-They are suitable for estimating R0 and the spillover date. As the do not need to simulate each outbreak for as long, they can terminating the simulation earlier, and Oink_timepoint.jl uses a heap rather than a list for computational efficiency
+They are suitable for estimating R0 and the spillover date. As the do not need to simulate each outbreak for as long, they can terminating the simulation earlier, and Oink_timepoint.jl uses a heap rather than a list to store the list of individuals for computational efficiency
 
 ```
 bash scripts/run_julia_simulation.sh
 python python_scripts/compare_with_julia.py
 ```
 
-If Mathematica is unavailable alternative plotting scripts are available
+If Mathematica is unavailable alternative plotting scripts are provided
 ```
 python plot_data_single.py output/
 ```
